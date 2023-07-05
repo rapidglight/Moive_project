@@ -1,98 +1,4 @@
-.container {
-	position: relative; /* 設定相對定位，以便使用z-index屬性 */
-	z-index: 1; /* 設定較高的z-index值，使容器位於其他元素之上 */
-	display: flex; /* 使用彈性盒模型進行排列 */
-	justify-content: center; /* 水平居中對齊子元素 */
-	align-items: center; /* 垂直居中對齊子元素 */
-	flex-wrap: wrap; /* 當子元素超出容器時換行 */
-	margin: 40px 0; /* 上下邊距為40px，左右邊距為0 */
-}
 
-.container .card {
-	position: relative; /* 設定相對定位，以便與容器內的元素進行定位 */
-	width: 200px; /* 設定卡片寬度為200px */
-	height: 200px; /* 設定卡片高度為200px */
-	background: rgba(255, 255, 255, 0.05); /* 設定卡片背景顏色為帶有透明度的白色 */
-	margin: 10px; /* 設定卡片之間的間距為10px */
-	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); /* 添加卡片的陰影效果 */
-	border-radius: 15px; /* 設定卡片的邊框圓角為15px */
-	display: flex; /* 使用彈性盒模型進行排列 */
-	justify-content: center; /* 水平居中對齊子元素 */
-	align-items: center; /* 垂直居中對齊子元素 */
-	backdrop-filter: blur(10px); /* 添加背景模糊效果，使用10px的模糊程度 */
-}
-
-
-.container .card .content {
-	position: relative; /* 設定相對定位，以便進行定位 */
-	display: flex; /* 使用彈性盒模型進行排列 */
-	justify-content: center; /* 水平居中對齊子元素 */
-	align-items: center; /* 垂直居中對齊子元素 */
-	flex-direction: column; /* 垂直排列子元素 */
-	transition: 0.5s; /* 添加過渡效果，持續時間為0.5秒 */
-}
-
-.container .card:hover .content {
-	transform: translateY(-10px); /* 鼠標懸停時向上移動10px */
-}
-
-.container .card .content .imgBx {
-	position: relative; /* 設定相對定位，以便進行定位 */
-	width: 150px; /* 設定圖片容器寬度為150px */
-	height: 150px; /* 設定圖片容器高度為150px */
-	overflow: hidden; /* 隱藏超出容器範圍的內容 */
-}
-
-.container .card .content .imgBx img {
-	position: absolute; /* 設定絕對定位，以便進行定位 */
-	top: 0; /* 將圖片定位於容器頂部 */
-	left: 0; /* 將圖片定位於容器左側 */
-	width: 100%; /* 設定圖片寬度為100% */
-	height: 100%; /* 設定圖片高度為100% */
-	object-fit: cover; /* 將圖片等比例填充容器，保持圖片比例不變 */
-}
-
-
-.container .card .content .contentBx h3 {
-	color: #fff; /* 文字顏色為白色 */
-	text-transform: uppercase; /* 文字轉換為大寫 */
-	letter-spacing: 2px; /* 字母間距為2px */
-	font-weight: 500; /* 字體粗細為500 */
-	font-size: 18px; /* 字體大小為18px */
-	text-align: center; /* 文字居中對齊 */
-	margin: 20px 0 10px; /* 上、下、左、右邊距分別為20px、0、10px */
-	line-height: 1.1em; /* 行高為1.1倍字體大小 */
-}
-
-.container .card .content .contentBx h3 span {
-	font-size: 12px; /* 字體大小為12px */
-	font-weight: 300; /* 字體粗細為300 */
-	text-transform: initial; /* 文字轉換為初始值 */
-}
-
-.container .card .sci {
-	position: absolute; /* 設定絕對定位，以便進行定位 */
-	bottom: 50px; /* 與父元素底部距離為50px */
-	display: flex; /* 使用彈性盒模型進行排列 */
-}
-
-.container .card .sci li {
-	list-style: none; /* 移除列表樣式 */
-	margin: 0 10px; /* 左、右邊距分別為0、10px */
-	transform: translateY(40px); /* 在Y軸方向上向下平移40px */
-	transition: 0.5s; /* 添加過渡效果，持續時間為0.5秒 */
-	opacity: 0; /* 初始時設定透明度為0 */
-}
-
-.container .card:hover .sci li {
-	transform: translateY(0px); /* 鼠標懸停時取消平移效果 */
-	opacity: 1; /* 鼠標懸停時顯示元素 */
-}
-
-.container .card .sci li a {
-	color: #fff; /* 鏈接文字顏色為白色 */
-	font-size: 20px; /* 字體大小為20px */
-}
 
 body {
     background: #000; /* 背景顏色為黑色 */
@@ -146,9 +52,9 @@ body {
 #content article {
     margin: 10px; /* 外邊距為10px */
     padding: 5px; /* 內邊距為5px */
-    border: 1px solid #ffffff; /* 邊框線寬度為1px，顏色為#ffffff */
+    border: 0px solid #ffffff; /* 邊框線寬度為1px，顏色為#ffffff */
     border-radius: 10px; /* 邊框圓角為10px */
-    background: #000; /* 背景顏色為黑色 */
+    background: #211f1f; /* 背景顏色為黑色 */
     flex-basis: 60%; /* 彈性基準值為60% */
     order: 2; /* 彈性順序為2 */
 }
@@ -185,4 +91,100 @@ body {
     margin: 4px 2px; /* 外邊距為4px 2px */
     cursor: pointer; /* 鼠標懸停時顯示手型游標 */
     border-radius: 4px; /* 邊框圓角為4px */
+}
+.container {
+	position: relative; /* 設定相對定位，以便使用z-index屬性 */
+	z-index: 1; /* 設定較高的z-index值，使容器位於其他元素之上 */
+	display: flex; /* 使用彈性盒模型進行排列 */
+	justify-content: center; /* 水平居中對齊子元素 */
+	align-items: center; /* 垂直居中對齊子元素 */
+	flex-wrap: wrap; /* 當子元素超出容器時換行 */
+	margin: 40px 0; /* 上下邊距為40px，左右邊距為0 */
+}
+
+.container .card {
+	position: relative; /* 設定相對定位，以便與容器內的元素進行定位 */
+	width: 300px; /* 設定卡片寬度為200px */
+	height: 300px; /* 設定卡片高度為200px */
+	background: rgba(255, 255, 255, 0.05); /* 設定卡片背景顏色為帶有透明度的白色 */
+	margin: 10px; /* 設定卡片之間的間距為10px */
+	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); /* 添加卡片的陰影效果 */
+	border-radius: 15px; /* 設定卡片的邊框圓角為15px */
+	display: flex; /* 使用彈性盒模型進行排列 */
+	justify-content: center; /* 水平居中對齊子元素 */
+	align-items: center; /* 垂直居中對齊子元素 */
+	backdrop-filter: blur(10px); /* 添加背景模糊效果，使用10px的模糊程度 */
+}
+
+
+.container .card .content {
+	position: relative; /* 設定相對定位，以便進行定位 */
+	display: flex; /* 使用彈性盒模型進行排列 */
+	justify-content: center; /* 水平居中對齊子元素 */
+	align-items: center; /* 垂直居中對齊子元素 */
+	flex-direction: column; /* 垂直排列子元素 */
+	transition: 0.5s; /* 添加過渡效果，持續時間為0.5秒 */
+}
+/*
+.container .card:hover .content {
+	transform: translateY(-3000px);  鼠標懸停時向上移動10px */
+
+
+.container .card .content .imgBx {
+	position: relative; /* 設定相對定位，以便進行定位 */
+	width: 250px; /* 設定圖片容器寬度為150px */
+	height: 250px; /* 設定圖片容器高度為150px */
+	overflow: hidden; /* 隱藏超出容器範圍的內容 */
+}
+
+.container .card .content .imgBx img {
+	position: absolute; /* 設定絕對定位，以便進行定位 */
+	top: 0; /* 將圖片定位於容器頂部 */
+	left: 0; /* 將圖片定位於容器左側 */
+	width: 100%; /* 設定圖片寬度為100% */
+	height: 100%; /* 設定圖片高度為100% */
+	object-fit: cover; /* 將圖片等比例填充容器，保持圖片比例不變 */
+}
+
+
+.container .card .content .contentBx h3 {
+	color: #fff; /* 文字顏色為白色 */
+	text-transform: uppercase; /* 文字轉換為大寫 */
+	letter-spacing: 2px; /* 字母間距為2px */
+	font-weight: 500; /* 字體粗細為500 */
+	font-size: 18px; /* 字體大小為18px */
+	text-align: center; /* 文字居中對齊 */
+	margin: 20px 0 10px; /* 上、下、左、右邊距分別為20px、0、10px */
+	line-height: 1.1em; /* 行高為1.1倍字體大小 */
+}
+
+.container .card .content .contentBx h3 span {
+	font-size: 12px; /* 字體大小為12px */
+	font-weight: 300; /* 字體粗細為300 */
+	text-transform: initial; /* 文字轉換為初始值 */
+}
+
+.container .card .sci {
+	position: absolute; /* 設定絕對定位，以便進行定位 */
+	bottom: 50px; /* 與父元素底部距離為50px */
+	display: flex; /* 使用彈性盒模型進行排列 */
+}
+
+.container .card .sci li {
+	list-style: none; /* 移除列表樣式 */
+	margin: 0px 10px; /* 左、右邊距分別為0、10px */
+	transform: translateY(30px); /* 在Y軸方向上向下平移40px */
+	transform: translateX(-30px); /* 在Y軸方向上向下平移40px */
+	transition: 0.5s; /* 添加過渡效果，持續時間為0.5秒 */
+	opacity: 0; /* 初始時設定透明度為0 */
+}
+
+.container .card:hover .sci li {
+	transform: translateY(0px); /* 鼠標懸停時取消平移效果 */
+	opacity: 1; /* 鼠標懸停時顯示元素 */
+}
+
+.container .card .sci li a {
+	color: #fff; /* 鏈接文字顏色為白色 */
+	font-size: 30px; /* 字體大小為20px */
 }
