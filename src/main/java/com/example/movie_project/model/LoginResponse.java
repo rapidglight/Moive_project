@@ -1,4 +1,4 @@
-package project.finalproject.model;
+package com.example.movie_project.model;
 
 import lombok.Data;
 
