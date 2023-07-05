@@ -1,4 +1,4 @@
-package project.finalproject.controller;
+package com.example.movie_project.controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import project.finalproject.model.LoginResponse;
+import com.example.movie_project.model.LoginResponse;
 
 @RestController
-
 public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public LoginResponse Login(String username, String password) {
