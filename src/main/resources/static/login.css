@@ -47,6 +47,11 @@ input{
 	outline: none;
 	border-radius: 5px;
 }
+.warning{
+	color : #ff0000;
+	font-size: 1.0em;
+	margin-right: 40px;
+}
 button{
 	width: 60%;
 	height: 40px;

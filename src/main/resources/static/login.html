@@ -12,14 +12,15 @@
 
 
 </head>
-<body>
+<body id="app">
+	<!-- 設定id給vue框架使用 -->
 	<div class="main">
 		<input type="checkbox" id="chk" aria-hidden="true">
 
 			<div class="signup">
 				<form>
 					<label for="chk" aria-hidden="true">Sign up</label>
-					<input type="text" name="txt" placeholder="User name" required="">
+					<input type="text" name="usnm" placeholder="account" required="">
 					<input type="email" name="email" placeholder="Email" required="">
 					<input type="password" name="pswd" placeholder="Password" required="">
 					<button>Sign up</button>
@@ -27,11 +28,15 @@
 			</div>
 
 			<div class="login">
-				<form>
+				<form class="from" method="post" action:="\login\login" ref="form">
+					
 					<label for="chk" aria-hidden="true">Login</label>
-					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Password" required="">
-					<button>Login</button>
+
+					<input type="text" name="username" v-model="username" placeholder="account" required="">
+                    <div v-if="showWarning" class="warning">     不能包含空白及特殊字串</div> 
+
+					<input type="password" name="password" v-model="password" placeholder="Password" required="">
+					<input type="button" value="登入" @click="checkAccount"> 
 				</form>
 			</div>
 	</div>
