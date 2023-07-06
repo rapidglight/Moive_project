@@ -28,19 +28,22 @@
 			</div>
 
 			<div class="login">
-				<form class="from" method="post" action:="\login\login" ref="form">
+				<div class="form" method="post" action="/login" ref="form">
 					
 					<label for="chk" aria-hidden="true">Login</label>
 
 					<input type="text" name="username" v-model="username" placeholder="account" required="">
-                    <div v-if="showWarning" class="warning">     不能包含空白及特殊字串</div> 
+                    <div v-if="showWarning" class="warning">不能包含空白及特殊字串
+						
+					</div> 
 
 					<input type="password" name="password" v-model="password" placeholder="Password" required="">
-
-					<div class="inputBox">  
-					<input type="button" value="login" @click="checkAccount"> 
-					</div>
-				</form>
+				    <button @click="checkAccount">Login</button>
+				    
+					
+					
+					
+				</div>
 			</div>
 	</div>
 </body>
@@ -58,6 +61,7 @@
 		   showWarning: false, // 開關警告訊息用
 		   username:'', //存放使用者帳號
 		   password:'', //存放使用者密碼
+		   
 		 }
 	   },
 	   
@@ -67,9 +71,9 @@
 		   username(newVal,oldVal){
 			   //當帳號名稱已不再有特殊字元時，停止顯示警告訊息
 			   
-			   var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
-			   if(!pattern.test(newVal))
-				  this.showWarning = false;
+			   
+			   if(!newVal.includes('\'')) 
+                    this.showWarning = false;
 		   }
 	   },
 
@@ -86,8 +90,9 @@
 
 		   // 如果帳號名稱出現特殊字元，顯示警告訊息
 		   
-		   var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
-		   if(pattern.test(this.username))
+		   
+		   if(this.username.includes('\'') || 
+                   this.username.includes(' '))
 			  this.showWarning = true;
 		   else{    
 			  //取代 document.getElementById
@@ -95,13 +100,13 @@
 			  //this.$refs.form.submit();
 
 			  //打API
-			  axios.get("/login?username=" + this.username + "&password=" + this.password)
+			  axios.post("/login?username=" + this.username + "&password=" + this.password)
 			  .then( (response) => {
 			   //get完成後收到的資料在這裡處理
 			   console.log(response);
 
 			   if(response.data.code == 0) //登入成功
-				  location.href = '/card.html';
+				  location.href = '/index.html';
 			   else //登入失敗
 				  location.href = "loginResult.html?message=" +response.data.message;   
 			  })

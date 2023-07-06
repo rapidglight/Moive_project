@@ -15,7 +15,7 @@ import com.example.movie_project.model.LoginResponse;
 
 @RestController
 public class LoginController {
-    @RequestMapping(value = "/login", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public LoginResponse Login(String username, String password) {
 
         return checkAccount(username, password);
