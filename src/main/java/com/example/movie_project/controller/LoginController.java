@@ -38,7 +38,7 @@ public class LoginController {
 
             // 查詢該帳號是否存在
 
-            rs = stmt.executeQuery("SELECT count(*) as c FROM userdata where 帳號='" + username + "'");
+            rs = stmt.executeQuery("SELECT count(*) as c FROM userdata where user_account='" + username + "'");
 
             // 判斷帳號是否存在
             rs.next();// 跳到查詢結果的第一筆資料
@@ -55,7 +55,8 @@ public class LoginController {
 
             // 帳號存在，繼續判斷密碼
             rs = stmt.executeQuery(
-                    "SELECT count(*) as c FROM userdata where 帳號='" + username + "'  and 密碼 ='" + password + "';");
+                    "SELECT count(*) as c FROM userdata where user_account='" + username + "'  and user_password ='"
+                            + password + "';");
             // 移動第一筆資料
             rs.next();
             c = rs.getInt("c"); // 查詢到的資料筆數
