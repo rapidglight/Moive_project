@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
 	<title>Slide Navbar</title>
 	<link rel="stylesheet" type="text/css" href="login.css">
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
@@ -52,7 +53,12 @@
 
 <script lang="javascript">
 
-	const {createApp} = Vue
+	
+
+
+
+
+    const {createApp} = Vue
 	//建立vue物件
 	createApp({
 	   data() {
@@ -75,6 +81,8 @@
 			   if(!newVal.includes('\'')) 
                     this.showWarning = false;
 		   }
+
+
 	   },
 
 	   //vue 的方法放這裡
@@ -105,8 +113,10 @@
 			   //get完成後收到的資料在這裡處理
 			   console.log(response);
 
-			   if(response.data.code == 0) //登入成功
-				  location.href = '/index.html';
+			   if(response.data.code == 0){ //登入成功
+			      
+				  location.href = "/index.html?username=" + this.username + "&islogin=true" ; 
+			    }
 			   else //登入失敗
 				  location.href = "loginResult.html?message=" +response.data.message;   
 			  })
