@@ -62,7 +62,7 @@ body {
 #content aside {
     margin: 10px; /* 外邊距為10px */
     padding: 5px; /* 內邊距為5px */
-    border: 1px solid #ffffff; /* 邊框線寬度為1px，顏色為#ffffff */
+    /* border: 1px solid #ffffff; 邊框線寬度為1px，顏色為#ffffff */
     border-radius: 10px; /* 邊框圓角為10px */
     background: #000; /* 背景顏色為黑色 */
     flex-basis: 20%; /* 彈性基準值為20% */
