@@ -106,9 +106,9 @@ body {
 	position: relative; /* 設定相對定位，以便與容器內的元素進行定位 */
 	width: 300px; /* 設定卡片寬度為200px */
 	height: 300px; /* 設定卡片高度為200px */
-	background: rgba(255, 255, 255, 0.05); /* 設定卡片背景顏色為帶有透明度的白色 */
+	background: rgba(255, 255, 255, 0); /* 設定卡片背景顏色為帶有透明度的白色 */
 	margin: 10px; /* 設定卡片之間的間距為10px */
-	box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5); /* 添加卡片的陰影效果 */
+	box-shadow: 0 15px 35px rgba(0, 0, 0, 0); /* 添加卡片的陰影效果 */
 	border-radius: 15px; /* 設定卡片的邊框圓角為15px */
 	display: flex; /* 使用彈性盒模型進行排列 */
 	justify-content: center; /* 水平居中對齊子元素 */
