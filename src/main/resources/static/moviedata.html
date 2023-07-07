@@ -88,12 +88,39 @@
         return {
         islogin : true,
         username : "",
-        moviedata: {},
+        id :  "",
         
         }
     },
     mounted() {
-        axios.get("/moviedata")
+        const queryString = window.location.search
+        console.log(queryString);
+        console.log('Hello Javascript');
+    
+           //建立參數解析物件
+        const urlParams = new URLSearchParams(queryString);
+           this.username = urlParams.get('username');
+           this.islogin = urlParams.get('islogin');
+           console.log(username);
+           console.log("islogin=" + this.islogin);
+           //取得username，islogin變數
+            
+            axios.post('/moivedata', this.moviedata)
+					.then((response) => {
+						console.log(response);
+						if (response.data.code == 0) {
+							this.$message.success('新增成功');
+							this.showAddGameModal = false;
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+						// 新增失敗
+						
+						this.$message.error('新增失敗');
+					});
+
+            axios.get("/moviedata")
         .then(   (response) =>  {
             // get完成後收到的資料可以在這裡處理
             console.log(response);
@@ -104,39 +131,11 @@
         .catch( (error) => {
         console.log(error);
         });
-        
-           
-        
-        
-           const queryString = window.location.search
-           console.log(queryString);
-           console.log('Hello Javascript');
-    
-           //建立參數解析物件
-           const urlParams = new URLSearchParams(queryString);
-           this.username = urlParams.get('username');
-           this.islogin = urlParams.get('islogin');
-           console.log(username);
-           console.log("islogin=" + this.islogin);
-           //取得username，islogin變數 
-            
-            //傳ＩＤ給moivedataControllerID
-            axios.get("/moviedata?id=" + id)
-					.then((response) => {
-						console.log(response);
-						if (response.data.code == 0) {
-							this.moviedata = response.data.data;
-						}
-					})
-					.catch((error) => {
-						console.log(error);
-					});
-           
     
         
-       }
+    }
     
-    }).mount('#app') 
+    }).mount('#app')
     
     
     
