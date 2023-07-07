@@ -85,10 +85,10 @@ button:hover{
 }
 #comeback{
 	position:absolute;
-	top: 90px;
-	left: 730px;
+	top: 85px;
+	left: 720px;
 }
-btn1{
+#btn1{
 	width: 100%;
 	height: 50px;
 }
