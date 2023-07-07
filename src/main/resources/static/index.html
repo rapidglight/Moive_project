@@ -77,23 +77,22 @@
     <section>
 		<div class="container">
           <!--vue使用-->
-			<div class="card" v-for="item in movieimg">
-                <!-- v-for : for迴圈 把每一個電影圖片拿出來-->
-				<div class="content">
-					<div class="imgBx">
-						<img :src="image_url">
-					</div>
-					<div class="contentBx">
-						<h3>{{movieimg.movie_name}}<br><span></span></h3>
-					</div>
-				</div>
-				<ul class="sci">
-					<li>
-						<a href="">Ｗatch movie</a>
-					</li>
-				</ul>
-                <div>{{movieimg.movie_name}}</div>
-			</div>
+			<<div class="card" v-for="item in movieimg" :key="item.id">
+                <div class="content">
+                  <div class="imgBx">
+                    <img :src="item.image_url">
+                  </div>
+                  <div class="contentBx">
+                    <h3>{{ item.movie_name }}<br><span></span></h3>
+                  </div>
+                </div>
+                <ul class="sci">
+                  <li>
+                    <a href="">Watch movie</a>
+                  </li>
+                </ul>
+              </div>
+              
 
            
           <!--vue結束-->
