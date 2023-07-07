@@ -13,8 +13,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- 引入Vue.js -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+
+
 </head>
-<body>
+<body id="app">
+    <!-- 設定id給vue框架使用 -->
 <div class="all">
     <header id="header1">
         
@@ -32,11 +41,25 @@
     <div class="wrapper">
     <ul>
 
-<li><a href="watching_movie.html">已看過清單</a></li>
-<li><a href="rating_movie.html">已評分過清單</a></li>
-<li><a href="#">尋找影片</a></li>
-<li><a href="moviedata.html">電影頁面</a></li>
-<li><a href="login.html">登入</a></li>
+<li><a href="watching_movie.html">
+    <div v-if="islogin=='true'" class="warning">看過清單</div>
+</a></li>
+<li><a href="rating_movie.html">
+    <div v-if="islogin=='true'" class="warning">評分清單</div>
+</a></li>
+<li><a href="#">
+    <div v-if="islogin=='true'" class="warning">尋找影片</div>
+</a></li>
+<!--vue 傳參數-->
+<li><a :href="'moviedata.html + ?username=username + &islogin=islogin'">
+    <div v-if="islogin=='true'" class="warning">電影頁面</div>
+</a></li>
+<li><a href="login.html">
+    <div v-if=" islogin != 'true'" class="warning">登入</div>
+</a></li>
+<li><a href="login.html">
+    <div v-if="islogin=='true'" class="warning">登出</div>
+</a></li>
 </ul>
 </div>
 </div>
@@ -101,4 +124,59 @@
     </footer>
 </div>
     </body>
+
+
+
+ <script lang="javascript">
+//初始化 vue
+const { createApp } = Vue
+
+createApp({
+  data() {
+    return {
+      islogin : true,
+      username : ""
+      
+    }
+  },
+  mounted() {
+       const queryString = window.location.search
+       console.log(queryString);
+       console.log('Hello Javascript');
+
+       //建立參數解析物件
+       const urlParams = new URLSearchParams(queryString);
+       const username = urlParams.get('username');
+       this.islogin = urlParams.get('islogin');
+       console.log(username);
+       console.log("islogin=" + this.islogin);
+
+       //將message參數值顯示到網頁的h2標籤上
+       // const h2 = document.getElementById("message");
+
+       //將h2標籤原本的文字替換成message參數拿到的文字
+       // h2.innerText = message;
+    
+   }
+
+}).mount('#app') 
+
+
+
+    
+    
+     
+   
+    
+    
+    
+    
+    </script>
+
+
+
+
+
+
+    
 </html>
