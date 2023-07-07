@@ -54,6 +54,10 @@
         <img :src="item.imageUrl">
     </div> 
     <div id="div1">
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 36fca2689e0133be3f4e5968d2b308e19f5a363b
         <iframe src="https://player.vimeo.com/video/165197924?color=ffffff&title=0&byline=0&portrait=0"></iframe>
     
         <div id="divrating">
@@ -67,7 +71,7 @@
     </div>
     </div> 
   
-    <div id="div4">動作片 行動 冒險</div>
+    <div id="div4">動作片 行動 冒險 {{movieName}}</div>
     <div id="div5">
         <div id="description">{{item.movieDescription}}</div>
         <div id="director">導演：{{item.movieDirector}}</div>
@@ -92,9 +96,14 @@
         return {
         islogin : true,
         username : "",
+<<<<<<< HEAD
         id : "",
         moviedata :[], 
         
+=======
+        id :  "",
+        movieName : ''
+>>>>>>> 36fca2689e0133be3f4e5968d2b308e19f5a363b
         }
     },
     mounted() {
@@ -119,8 +128,12 @@
             // get完成後收到的資料可以在這裡處理
             console.log(response);
             if(response.data.code==0){
+<<<<<<< HEAD
                 this.moviedata = response.data.data
                 
+=======
+                this.gameDetail=response.data.data
+>>>>>>> 36fca2689e0133be3f4e5968d2b308e19f5a363b
             }
         })
         .catch( (error) => {
