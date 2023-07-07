@@ -45,7 +45,7 @@ public class MoviedataController {
             stmt = conn.createStatement();
 
             rs = stmt.executeQuery(
-                    "select * from movie where id" + id);
+                    "select * from movie where movie_id=" + id);
 
             ArrayList<MoviedataEntity> movies = new ArrayList<>();
 

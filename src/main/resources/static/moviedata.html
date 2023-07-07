@@ -90,7 +90,6 @@
         islogin : true,
         username : "",
         id :  "",
-        moviedata : [],
         
         }
     },
@@ -103,11 +102,13 @@
         const urlParams = new URLSearchParams(queryString);
            this.username = urlParams.get('username');
            this.islogin = urlParams.get('islogin');
-           console.log(username);
+           this.id = urlParams.get('id');
+           console.log(this.username);
            console.log("islogin=" + this.islogin);
+           console.log(this.id);
            //取得username，islogin變數
             
-            axios.post('/moivedata',{ id: this.id })
+            axios.post('/moivedata', this.moviedata)
 					.then((response) => {
 						console.log(response);
 						if (response.data.code == 0) {
@@ -122,13 +123,13 @@
 						this.$message.error('新增失敗');
 					});
 
-            axios.get("/moviedata")
+        axios.get("/moviedata?id=" + this.id + "&username=" + this.username + "&islogin=" + this.islogin)
         .then(   (response) =>  {
             // get完成後收到的資料可以在這裡處理
             console.log(response);
-    
-            // 將api的電影圖片存到Vue建立的movieimg變數
-            this.moviedata = response.data.data;
+            /*if(response.data.code==0){
+                this.gameDetail=response.data.data
+            }*/
         })
         .catch( (error) => {
         console.log(error);
