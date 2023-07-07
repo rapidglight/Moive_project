@@ -15,7 +15,10 @@
 </head>
 <body id="app">
 	<!-- 設定id給vue框架使用 -->
+	
+	
 	<div class="main">
+		
 		<input type="checkbox" id="chk" aria-hidden="true">
 
 			<div class="signup">
@@ -116,6 +119,7 @@
 			   if(response.data.code == 0){ //登入成功
 			      
 				  location.href = "/index.html?username=" + this.username + "&islogin=true" ; 
+				  
 			    }
 			   else //登入失敗
 				  location.href = "loginResult.html?message=" +response.data.message;   
