@@ -88,8 +88,7 @@
                 </div>
                 <ul class="sci">
                   <li>
-                    <!--"'moviedata.html?id=' + item.id"-->
-                    <!--"'moviedata.html?username=' + username + '&islogin=' + islogin + '&id=' + item.id"-->
+                    <!--"'moviedata.html?username=' + username + '&islogin=' + islogin"-->
                     <a :href="'moviedata.html?username=' + username + '&islogin=' + islogin + '&id=' + item.id">詳細資料</a>
                   </li>
                 </ul>
@@ -148,7 +147,7 @@ createApp({
       console.log(error);
       });
     
-      
+       
     
     
        const queryString = window.location.search
