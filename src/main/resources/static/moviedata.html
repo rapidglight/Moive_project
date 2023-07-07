@@ -54,8 +54,6 @@
         <img :src="item.imageUrl">
     </div>
     <div id="div1">
-        
-    
         <div id="divrating">
             <div id="logorating"><img src="img/star.png" />網站評分</div>
             <div id="rating">評分9/10</div>
@@ -67,10 +65,9 @@
     </div>
     </div> 
     <div id ="moviename">
-          {{item.movieName}}，{{item.age}} ， {{item.year}}
-        
+        <div id ="name" >{{item.movieName}} </div>  {{item.age}} 丶 {{item.year}}
     </div>
-    <div id="div4">動作片 行動 冒險 {{movieName}}</div>
+    <div id="div4">動作片 行動 冒險</div>
     <div id="div5">
         <div id="description">{{item.movieDescription}}</div>
         <div id="director">導演：{{item.movieDirector}}</div>
@@ -96,7 +93,7 @@
         islogin : true,
         username : "",
         id : "",
-        moviedata :[], 
+        moviedata :[],
         
         }
     },
@@ -122,7 +119,13 @@
             // get完成後收到的資料可以在這裡處理
             console.log(response);
             if(response.data.code==0){
-                this.moviedata = response.data.data
+                this.moviedata = response.data.data;
+                this.movieimg = data.filter(item => 
+                item.movieCategoryRomance === 1 ||
+                item.movieCategoryComedy === 1 ||
+                item.movieCategoryDrama === 1 ||
+        item.movieCategoryAction === 1
+                );
                 
             }
         })
