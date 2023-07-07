@@ -47,14 +47,18 @@
 </div>
     </header>
     <!--vue使用-->
-     <div id="moviedata" v-for="item in moviedata" :key="item.id">
+    <div id="moviedata" v-for="item in moviedata" :key="item.id">
     <div id="content">
-       
+    
     <div id="div3">
         <img :src="item.imageUrl">
-    </div> 
+    </div>
     <div id="div1">
-        <iframe src="https://player.vimeo.com/video/165197924?color=ffffff&title=0&byline=0&portrait=0"></iframe>
+        <div>
+            電影名稱 <br>
+            分級制度 <br>
+            年份
+        </div>
     
         <div id="divrating">
             <div id="logorating"><img src="img/star.png" />網站評分</div>
@@ -103,7 +107,7 @@
         console.log('Hello Javascript');
     
            //建立參數解析物件
-           const urlParams = new URLSearchParams(queryString);
+        const urlParams = new URLSearchParams(queryString);
            this.username = urlParams.get('username');
            this.islogin = urlParams.get('islogin');
            this.id = urlParams.get('id');
