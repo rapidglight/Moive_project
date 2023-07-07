@@ -38,7 +38,7 @@ public class MovieimgController {
 
             stmt = conn.createStatement();
 
-            rs = stmt.executeQuery("select movie_id,movie_name,image_url from movie order by rand() limit 4");
+            rs = stmt.executeQuery("select movie_id,movie_name,image_url from movie order by rand() limit 6");
 
             ArrayList<MovieimgEntity> movies = new ArrayList<>();
 
