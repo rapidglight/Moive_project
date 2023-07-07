@@ -19,6 +19,7 @@
         <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
 <body id ="app">
+     <!-- 設定id給vue框架使用 -->
 <div class="all">
     <header id="header1">
         
@@ -45,8 +46,10 @@
 </div>
 </div>
     </header>
-     <div id="moviedata">
+    <!--vue使用-->
+     <div id="moviedata" v-for="item in moviedata" :key="item.id">
     <div id="content">
+       
     <div id="div3">
         <img src="img/aa.png">
     </div> 
@@ -66,11 +69,12 @@
   
     <div id="div4">動作片 行動 冒險</div>
     <div id="div5">
-        <div id="description">簡介：《美國隊長》（英語：Captain America: The First Avenger）是一部於2011年上映的美國超級英雄電影，改編自漫威漫畫旗下的超級英雄美國隊長的故事，由漫威影業製作，並由派拉蒙影業負責出品及發行[a]。該片為漫威電影宇宙系列中的第5部作品，亦為最後一部由派拉蒙影業製作及發行的漫威電影宇宙的作品。喬·約翰斯頓執導，克里斯多佛·馬庫斯與史蒂芬·麥費利共同編劇，由克里斯·伊凡、湯米·李·瓊斯、雨果·威明、海莉·艾特沃、賽巴斯汀·史坦、多米尼克·庫珀、尼爾·麥克唐納、德瑞克·路克及史丹利·圖奇主演。背景主要設定於二次世界大戰期間，講述了史蒂芬·羅傑斯，一位來自布魯克林的體弱男孩的故事，史蒂芬被注入血清後，被改造成了超級戰士「美國隊長」，而且他必須奮力阻止紅骷髏憑藉「宇宙魔方」來統治世界的陰謀。</div>
+        <div id="description">{{item.movieDescription}}</div>
         <div id="director">導演：菲爾·洛德克里斯托弗·米勒戴夫·卡拉漢姆</div>
         <div id="cast">巨星：克里斯伊凡</div>
     </div>
 </div>
+<!--vue結束-->
     <footer id="footer1">
         <div id="user_name">會員帳號</div>
         <div id="user_comment">顯示評論</div>
@@ -88,7 +92,8 @@
         return {
         islogin : true,
         username : "",
-        id : "" 
+        id : "",
+        moviedata :[], 
         
         }
     },
@@ -98,7 +103,7 @@
         console.log('Hello Javascript');
     
            //建立參數解析物件
-        const urlParams = new URLSearchParams(queryString);
+           const urlParams = new URLSearchParams(queryString);
            this.username = urlParams.get('username');
            this.islogin = urlParams.get('islogin');
            this.id = urlParams.get('id');
@@ -113,13 +118,17 @@
         .then(   (response) =>  {
             // get完成後收到的資料可以在這裡處理
             console.log(response);
-            /*if(response.data.code==0){
-                this.gameDetail=response.data.data
-            }*/
+            if(response.data.code==0){
+                this.moviedata = response.data.data
+                
+            }
         })
         .catch( (error) => {
         console.log(error);
         });
+        
+        
+                
     
         
     }
