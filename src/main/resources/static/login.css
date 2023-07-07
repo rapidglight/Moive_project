@@ -83,12 +83,28 @@ button:hover{
 	color: #573b8a;
 	transform: scale(.6);
 }
-
+#comeback{
+	position: relative;
+	top: -220px;
+	left: 215px;
+}
+#btn1{
+	width: 100%;
+	height: 50px;
+}
+#cb1{
+	text-decoration: none;
+	color: #fff;
+}
+#cb1:hover{
+	text-decoration: none;
+ 	color: #fff;
+}
 #chk:checked ~ .login{
 	transform: translateY(-500px);
 }
 #chk:checked ~ .login label{
-	transform: scale(1);	
+	transform: scale(1);
 }
 #chk:checked ~ .signup label{
 	transform: scale(.6);

@@ -44,17 +44,17 @@
     <div class="wrapper">
     <ul>
 
-<li><a href="watching_movie.html">
+<li><a href="'watching_movie.html?username=' + username + '&islogin=' + islogin">
     <div v-if="islogin=='true'" class="warning">看過清單</div>
 </a></li>
-<li><a href="rating_movie.html">
+<li><a href="'rating_movie.html?username=' + username + '&islogin=' + islogin">
     <div v-if="islogin=='true'" class="warning">評分清單</div>
 </a></li>
 <li><a href="#">
     <div v-if="islogin=='true'" class="warning">尋找影片</div>
 </a></li>
 <!--vue 傳參數-->
-<li><a :href="'moviedata.html + ?username=username + &islogin=islogin'">
+<li><a :href="'moviedata.html?username=' + username + '&islogin=' + islogin">
     <div v-if="islogin=='true'" class="warning">電影頁面</div>
 </a></li>
 <li><a href="login.html">
@@ -149,7 +149,7 @@ createApp({
 
        //建立參數解析物件
        const urlParams = new URLSearchParams(queryString);
-       const username = urlParams.get('username');
+       this.username = urlParams.get('username');
        this.islogin = urlParams.get('islogin');
        console.log(username);
        console.log("islogin=" + this.islogin);
