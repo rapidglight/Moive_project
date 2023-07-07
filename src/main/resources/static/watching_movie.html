@@ -6,15 +6,21 @@
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css'>
   <link rel="stylesheet" href="watching_movie.css">
   <link rel="stylesheet" href="muen.css">
+   
+   <!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
+   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   <!-- 引入Vue.js -->
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
 </head>
-<body>
+<body id="app">
 <input type="checkbox" id="active"/>
     <label for="active" class="menu-btn"><span></span></label>
     <label for="active" class="close"></label>
     <div class="wrapper" style="z-index: 10;">
     <ul>
 <li><a href="index.html">回到首頁</a></li>
-<li><a href="rating_movie.html">已評分過清單</a></li>
+<li><a :href="'rating_movie.html?username=' + username + '&islogin=' + islogin">已評分過清單</a></li>
 <li><a href="#">尋找影片</a></li>
 <li><a href="moviedata.html">電影頁面</a></li>
 <li><a href="login.html">登出</a></li>
@@ -62,4 +68,57 @@
 <!-- partial -->
   
 </body>
+
+<script lang="javascript">
+	//初始化 vue
+	const { createApp } = Vue
+	
+	createApp({
+	  data() {
+		return {
+		  islogin : true,
+		  username : ""
+		  
+		}
+	  },
+	  mounted() {
+		       
+			   
+				
+		   const queryString = window.location.search
+		   console.log(queryString);
+		   console.log('Hello Javascript');
+	
+		   //建立參數解析物件
+		   const urlParams = new URLSearchParams(queryString);
+		   this.username = urlParams.get('username');
+		   this.islogin = urlParams.get('islogin');
+		   
+		   console.log(this.username);
+		   console.log(this.islogin);
+		   //取得username，islogin變數 
+		   
+	
+		   
+	
+		
+	   }
+	
+	}).mount('#app') 
+	
+	
+	
+		
+		
+		 
+	   
+		
+		
+		
+		
+		</script>
+	
+
+
+
 </html>

@@ -44,10 +44,10 @@
     <div class="wrapper">
     <ul>
 
-<li><a href="'watching_movie.html?username=' + username + '&islogin=' + islogin">
+<li><a :href="'watching_movie.html?username=' + username + '&islogin=' + islogin">
     <div v-if="islogin=='true'" class="warning">看過清單</div>
 </a></li>
-<li><a href="'rating_movie.html?username=' + username + '&islogin=' + islogin">
+<li><a :href="'rating_movie.html?username=' + username + '&islogin=' + islogin">
     <div v-if="islogin=='true'" class="warning">評分清單</div>
 </a></li>
 <li><a href="#">
@@ -88,7 +88,8 @@
                 </div>
                 <ul class="sci">
                   <li>
-                    <a href="">Watch movie</a>
+                    <!--"'moviedata.html?username=' + username + '&islogin=' + islogin"-->
+                    <a :href="'moviedata.html?username=' + username + '&islogin=' + islogin + '&id=' + item.id">詳細資料</a>
                   </li>
                 </ul>
               </div>
@@ -139,17 +140,12 @@ createApp({
         // get完成後收到的資料可以在這裡處理
         console.log(response);
 
-        // 將api的商品資料存到Vue建立的products變數
+        // 將api的電影圖片存到Vue建立的movieimg變數
         this.movieimg = response.data.data;
       })
       .catch( (error) => {
       console.log(error);
-      });
-    
-    
-    
-       
-    
+      });             
     
        
     
