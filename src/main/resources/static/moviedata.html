@@ -51,7 +51,7 @@
     <div id="content">
        
     <div id="div3">
-        <img src="img/aa.png">
+        <img :src="item.imageUrl">
     </div> 
     <div id="div1">
         <iframe src="https://player.vimeo.com/video/165197924?color=ffffff&title=0&byline=0&portrait=0"></iframe>
@@ -70,8 +70,8 @@
     <div id="div4">動作片 行動 冒險</div>
     <div id="div5">
         <div id="description">{{item.movieDescription}}</div>
-        <div id="director">導演：菲爾·洛德克里斯托弗·米勒戴夫·卡拉漢姆</div>
-        <div id="cast">巨星：克里斯伊凡</div>
+        <div id="director">導演：{{item.movieDirector}}</div>
+        <div id="cast">巨星：{{item.movieCast}}</div>
     </div>
 </div>
 <!--vue結束-->
