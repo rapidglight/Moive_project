@@ -54,11 +54,7 @@
         <img :src="item.imageUrl">
     </div>
     <div id="div1">
-        <div>
-            電影名稱 <br>
-            分級制度 <br>
-            年份
-        </div>
+        
     
         <div id="divrating">
             <div id="logorating"><img src="img/star.png" />網站評分</div>
@@ -70,7 +66,10 @@
         </div>
     </div>
     </div> 
-  
+    <div id ="moviename">
+          {{item.movieName}}，{{item.age}} ， {{item.year}}
+        
+    </div>
     <div id="div4">動作片 行動 冒險 {{movieName}}</div>
     <div id="div5">
         <div id="description">{{item.movieDescription}}</div>
