@@ -109,7 +109,7 @@
             
           
 
-        axios.get("/moviedata?id=" + this.id)
+        axios.get("/moviedata?id=" + this.id + "&username=" + this.username + "&islogin=" + this.islogin)
         .then(   (response) =>  {
             // get完成後收到的資料可以在這裡處理
             console.log(response);
