@@ -20,14 +20,14 @@ import com.example.movie_project.model.MovieratingResponse;
 
 @RestController
 public class MovieratingController {
-    @RequestMapping(value = "/games", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public MovieratingResponse games() {
-        return getGameList();
+    @RequestMapping(value = "/movies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public MovieratingResponse movies() {
+        return getMovieratingList();
     }
 
-    @RequestMapping(value = "/game", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, // 傳入的資料格式
+    @RequestMapping(value = "/movierating", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, // 傳入的資料格式
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse addGame(@RequestBody MovieratingEntity data) {
+    public BaseResponse addmovierating(@RequestBody MovieratingEntity data) {
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -35,7 +35,7 @@ public class MovieratingController {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/projectdata?user=root&password=0000");
 
-            stmt = conn.prepareStatement("INSERT INTO storesystem VALUES(null, ?, ?, ?, ?, ?, ?, ?)");
+            stmt = conn.prepareStatement("INSERT INTO storesystem VALUES(null, ?, ?, ?, ?, )");
             stmt.setString(1, data.getUserAccount());
             stmt.setString(2, data.getUserRatingMovieComments());
             stmt.setString(3, data.getUserRatingMovieName());
@@ -53,9 +53,9 @@ public class MovieratingController {
         }
     }
 
-    @RequestMapping(value = "/game", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, // 傳入的資料格式
+    @RequestMapping(value = "/movierating", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, // 傳入的資料格式
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public BaseResponse updateGame(@RequestBody MovieratingEntity data) {
+    public BaseResponse updateMovierating(@RequestBody MovieratingEntity data) {
         Connection conn = null;
         PreparedStatement stmt = null;
 
@@ -79,7 +79,7 @@ public class MovieratingController {
         }
     }
 
-    private MovieratingResponse getGameList() {
+    private MovieratingResponse getMovieratingList() {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -90,17 +90,17 @@ public class MovieratingController {
             stmt = conn.createStatement();
             rs = stmt.executeQuery("select * from user_rating_list");// 這裡後續要修改資料庫路徑以及要修改的項目
 
-            ArrayList<MovieratingEntity> games = new ArrayList<>();
+            ArrayList<MovieratingEntity> movies = new ArrayList<>();
             while (rs.next()) {
                 MovieratingEntity MovieratingEntity = new MovieratingEntity();
                 MovieratingEntity.setRatinglistId(rs.getInt("id"));
                 MovieratingEntity.setUserAccount(rs.getString("user_account"));
                 MovieratingEntity.setUserRatingMovieComments(rs.getString("user_rating_movie_comments"));
                 MovieratingEntity.setUserRatingMovieName(rs.getString("user_rating_movie_name"));
-                MovieratingEntity.setUserRatingMovieStars(rs.getInt("user_rating_movie_stars"));
-                games.add(MovieratingEntity);
+                MovieratingEntity.setUserRatingMovieStars(rs.getInt("user_rating_movie_name"));
+                movies.add(MovieratingEntity);
             }
-            return new MovieratingResponse(0, "成功", games);
+            return new MovieratingResponse(0, "成功", movies);
         } catch (SQLException e) {
             return new MovieratingResponse(e.getErrorCode(), e.getMessage(), null);
         } catch (ClassNotFoundException e) {

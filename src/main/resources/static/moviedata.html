@@ -66,42 +66,51 @@
 							<div id="logorating"><img src="img/good.png" />你的評分</div>
 							<div id="rating">評分9/10</div>
 							<div class="rating1 rating2">
-								<input
+								<!-- <input
 									type="radio"
 									name="rating"
 									value="5"
-									v-model="selectedRating"
-								/>
-								<a href="#1" title="Give 5 stars"
-                                @click="selectedRating = 5">★</a>
+									v-model="selectedRating" @click="onTest"
+								/> -->
+								<a href="#1" title="Give 5 stars" @click="selectedRating = 5, onTest()"
+									>★</a
+								>
 								<input
 									type="radio"
 									name="rating"
 									value="4"
 									v-model="selectedRating"
 								/>
-								<a href="#2" title="Give 4 stars" @click="selectedRating = 4">★</a>
+								<a href="#2" title="Give 4 stars" @click="selectedRating = 4"
+									>★</a
+								>
 								<input
 									type="radio"
 									name="rating"
 									value="3"
 									v-model="selectedRating"
 								/>
-								<a href="#3" title="Give 3 stars" @click="selectedRating = 3">★</a>
+								<a href="#3" title="Give 3 stars" @click="selectedRating = 3"
+									>★</a
+								>
 								<input
 									type="radio"
 									name="rating"
 									value="2"
 									v-model="selectedRating"
 								/>
-								<a href="#4" title="Give 2 stars" @click="selectedRating = 2">★</a>
+								<a href="#4" title="Give 2 stars" @click="selectedRating = 2"
+									>★</a
+								>
 								<input
 									type="radio"
 									name="rating"
 									value="1"
 									v-model="selectedRating"
 								/>
-								<a href="#5" title="Give 1 star" @click="selectedRating = 1">★</a>
+								<a href="#5" title="Give 1 star" @click="selectedRating = 1"
+									>★</a
+								>
 							</div>
 						</div>
 					</div>
@@ -158,6 +167,7 @@
 		            console.log(this.username);
 		            console.log("islogin=" + this.islogin);
 		            console.log(this.id);
+		                  console.log(this.selectedRating)
 		        //取得username，islogin變數
 		        axios.get("/moviedata?id=" + this.id + "&username=" + this.username + "&islogin=" + this.islogin)
 		        .then(   (response) =>  {
@@ -179,14 +189,13 @@
 		    },
 		    methods:{
 		        selectRating(rating) {
-                    this.selectedRating = rating;
-                    console.log(this.selectedRating);
-                },
-                onTest() {
-                    alert(this.selectedRating);
-                    console.log(this.selectedRating);
-                    },
-                },
+		                  this.selectedRating = rating;
+		                  console.log(this.selectedRating);
+		              },
+		              onTest() {
+		                  console.log(this.selectedRating);
+		                  },
+		              },
 		    watch: {
 		        selectedRating(newValue) {
 		            console.log("選中的評分值:", newValue);
