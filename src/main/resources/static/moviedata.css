@@ -28,6 +28,13 @@ body {
     align-items: center; /* 将内容垂直居中 */
     text-align: center; /* 对齐文本水平居中 */
 }
+#name{
+    font-size: 30px;
+}
+#moviename{
+    font-size: 20px;
+    margin: 30px;
+}
 #moviedata{
     border: 0px solid #ffffff;
 }
