@@ -34,7 +34,7 @@
             <input id="search" type="search" placeholder="Search..." autofocus required />
             <button type="submit">Go</button>
             
-            <img src="img/user.png" /><h7>使用者登入</h7>
+            <img src="img/user.png" /><div v-if="islogin=='true'">Hello {{username}}</div><div v-else>訪客模式</div>
         </form>
         
 
