@@ -156,97 +156,6 @@
 		    },
 		    mounted() {
 
-<<<<<<< HEAD
-    </div>
-    <div id="div5">
-        <div id="description">{{item.movieDescription}}</div>
-        <div id="director">導演：{{item.movieDirector}}</div>
-        <div id="cast">巨星：{{item.movieCast}}</div>
-    </div>
-</div>
-<!--vue結束-->
-    <footer id="footer1">
-        <div id="user_name">hello,{{username}}</div>
-        <div id="user_comment">顯示評論</div>
-    </footer>
-</div>
-
-<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
-</body>
-<script lang="javascript">
-    //初始化 vue
-    const { createApp } = Vue
-    
-    createApp({
-    data() {
-        return {
-        islogin : true,
-        username : "",
-        id : "",
-        moviedata :[],
-        //moviename:""
-        
-        }
-    },
-    mounted() {
-        const queryString = window.location.search
-        console.log(queryString);
-        console.log('Hello Javascript');
-    
-           //建立參數解析物件
-        const urlParams = new URLSearchParams(queryString);
-           this.username = urlParams.get('username');
-           this.islogin = urlParams.get('islogin');
-           this.id = urlParams.get('id');
-           //this.moviename = urlParams.get('moviename');
-           console.log(this.username);
-           console.log("islogin=" + this.islogin);
-           console.log(this.id);
-           //console.log(this.moviename)
-           //取得username，islogin變數
-            
-          
-
-        axios.get("/moviedata?id=" + this.id + "&username=" + this.username + "&islogin=" + this.islogin)
-        .then(   (response) =>  {
-            // get完成後收到的資料可以在這裡處理
-            console.log(response);
-            if(response.data.code==0){
-                this.moviedata = response.data.data;
-                this.movieimg = data.filter(item => 
-                item.movieCategoryRomance === 1 ||
-                item.movieCategoryComedy === 1 ||
-                item.movieCategoryDrama === 1 ||
-        item.movieCategoryAction === 1
-                );
-                
-            }
-        })
-        .catch( (error) => {
-        console.log(error);
-        });
-        
-        
-                
-    
-        
-    }
-    
-    }).mount('#app')
-    
-    
-    
-        
-        
-         
-       
-        
-        
-        
-        
-        </script>
-</html> 
-=======
 		        const queryString = window.location.search
 		        console.log(queryString);
 		        console.log('Hello Javascript');
@@ -282,7 +191,25 @@
 		        selectRating(rating) {
 		                  this.selectedRating = rating;
 		                  console.log(this.selectedRating);
+						  this.sendRatingToBackend();
 		              },
+					  sendRatingToBackend() {
+						// 假設你的後端API路徑是'/movieratings'
+						const url = 'http://127.0.0.1:8080/movieratings';
+						// 使用axios發送POST請求
+						axios.post(url, {
+							user_rating_movie_stars: this.selectedRating, // 使用者評分值
+							user_account: item.userAccount, // 使用者帳號
+							user_rating_movie_name: item.movieName // 電影名稱
+						})
+						.then(response => {
+						  console.log('評分已成功送到後端');
+						  console.log('回傳的資料:', response.data);
+						})
+						.catch(error => {
+						  console.error('發送評分時發生錯誤:', error);
+						});
+					  },
 		              onTest() {
 		                  console.log(this.selectedRating);
 		                  },
@@ -296,4 +223,3 @@
 		}).mount('#app')
 	</script>
 </html>
->>>>>>> 006de2c452e82136c040401b1683e2c21b7c0d05
