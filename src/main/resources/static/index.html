@@ -29,10 +29,12 @@
         
         
         <form onsubmit="event.preventDefault();" role="search">
-            <label for="search">
-                <img src="img/2logo.png" align="left" > Movies</label>
+           
+                 <img src="img/2logo.png" align="left" >Movies
+                  
+                  
             <input id="search" type="search" placeholder="Search..." autofocus required />
-            <button type="submit">Go</button>
+            <button type="submit">Go</button> <span></span>
             
             <img src="img/user.png" /><div v-if="islogin=='true'">Hello {{username}}</div><div v-else>訪客模式</div>
         </form>
