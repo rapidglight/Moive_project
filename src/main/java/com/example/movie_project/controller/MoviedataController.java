@@ -1,5 +1,3 @@
-//這個API傳入的ID ，比對是哪個電影 
-
 package com.example.movie_project.controller;
 
 import java.sql.Connection;
