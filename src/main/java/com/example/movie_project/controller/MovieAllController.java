@@ -1,3 +1,5 @@
+// 這個API 有所有的電影資料
+
 package com.example.movie_project.controller;
 
 import java.sql.Connection;

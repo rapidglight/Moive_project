@@ -1,3 +1,5 @@
+//搜尋API
+
 package com.example.movie_project.controller;
 
 import java.sql.Connection;
@@ -17,7 +19,7 @@ import com.example.movie_project.model.MovieStringArrayResponse;
 @RestController
 @RequestMapping("/moviealldata")
 // 設定前面的路徑(moviealldata/searchmovie)
-public class SearchMovie {
+public class SearchMovieController {
     @RequestMapping(value = "/searchmovie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public MovieStringArrayResponse getMovieName(String keyword) {
 

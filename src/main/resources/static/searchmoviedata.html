@@ -99,9 +99,8 @@
         return {
         islogin : true,
         username : "",
-        id : "",
         moviedata :[],
-        //moviename:""
+        moviename: "",
         
         }
     },
@@ -114,17 +113,17 @@
         const urlParams = new URLSearchParams(queryString);
            this.username = urlParams.get('username');
            this.islogin = urlParams.get('islogin');
-           this.id = urlParams.get('id');
+           this.moviename = urlParams.get('moviename');
            //this.moviename = urlParams.get('moviename');
            console.log(this.username);
-           console.log("islogin=" + this.islogin);
-           console.log(this.id);
+           console.log("islogin = " + this.islogin);
+           console.log("moviename = " + this.moviename);
            //console.log(this.moviename)
            //取得username，islogin變數
             
           
 
-        axios.get("/moviedata?id=" + this.id + "&username=" + this.username + "&islogin=" + this.islogin)
+        axios.get("/searchmoviedata?moviename=" + this.moviename)
         .then(   (response) =>  {
             // get完成後收到的資料可以在這裡處理
             console.log(response);
@@ -134,7 +133,7 @@
                 item.movieCategoryRomance === 1 ||
                 item.movieCategoryComedy === 1 ||
                 item.movieCategoryDrama === 1 ||
-        item.movieCategoryAction === 1
+                item.movieCategoryAction === 1
                 );
                 
             }
