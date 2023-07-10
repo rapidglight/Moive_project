@@ -47,7 +47,7 @@
 </div>
     </header>
     <!--vue使用-->
-    <div id="moviedata" v-for="item in moviedata" :key="item.id">
+    <div id="moviedata" v-for="(item,index) in moviedata" :key="item.id">
     <div id="content">
     
     <div id="div3">
@@ -84,6 +84,7 @@
 <!--vue結束-->
     <footer id="footer1">
         <div id="user_name">hello,{{username}}</div>
+        <div id="user_account">會員帳號</div>
         <div id="user_comment">顯示評論</div>
     </footer>
 </div>
@@ -101,7 +102,7 @@
         username : "",
         id : "",
         moviedata :[],
-        //moviename:""
+        
         
         }
     },
@@ -109,6 +110,7 @@
         const queryString = window.location.search
         console.log(queryString);
         console.log('Hello Javascript');
+        
     
            //建立參數解析物件
         const urlParams = new URLSearchParams(queryString);
@@ -119,30 +121,31 @@
            console.log(this.username);
            console.log("islogin=" + this.islogin);
            console.log(this.id);
+
+           
            //console.log(this.moviename)
            //取得username，islogin變數
             
           
-
+        //把ID丟給API 未完成
         axios.get("/moviedata?id=" + this.id + "&username=" + this.username + "&islogin=" + this.islogin)
         .then(   (response) =>  {
             // get完成後收到的資料可以在這裡處理
             console.log(response);
             if(response.data.code==0){
                 this.moviedata = response.data.data;
-                this.movieimg = data.filter(item => 
-                item.movieCategoryRomance === 1 ||
-                item.movieCategoryComedy === 1 ||
-                item.movieCategoryDrama === 1 ||
-        item.movieCategoryAction === 1
-                );
+               
                 
             }
         })
         .catch( (error) => {
         console.log(error);
         });
-        
+        //把moviename丟給api
+        axios.get("/usercomment?moviename=" + this.moviedata[0].movieName)
+        .then( (response) => {
+            console.log(response);
+        })
         
                 
     
