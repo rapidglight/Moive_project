@@ -70,7 +70,14 @@
           {{item.movieName}}，{{item.age}} ， {{item.year}}
         
     </div>
-    <div id="div4">動作片 行動 冒險 {{movieName}}</div>
+    <div id="div4">
+        類型:
+        <div v-if="item.movieCategoryDrama == 1">Drama &#20;</div>
+        <div v-if="item.movieCategoryAction == 1">Action &#20;</div>
+        <div v-if="item.movieCategoryRomance == 1">Romance &#20;</div>
+        <div v-if="item.movieCategoryComedy == 1">Comedy</div>
+
+    </div>
     <div id="div5">
         <div id="description">{{item.movieDescription}}</div>
         <div id="director">導演：{{item.movieDirector}}</div>
@@ -79,7 +86,7 @@
 </div>
 <!--vue結束-->
     <footer id="footer1">
-        <div id="user_name">會員帳號</div>
+        <div id="user_name">hello,{{username}}</div>
         <div id="user_comment">顯示評論</div>
     </footer>
 </div>
