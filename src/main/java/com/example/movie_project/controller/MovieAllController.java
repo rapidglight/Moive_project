@@ -1,5 +1,3 @@
-//這個API傳入的ID ，比對是哪個電影 
-
 package com.example.movie_project.controller;
 
 import java.sql.Connection;
@@ -18,16 +16,24 @@ import com.example.movie_project.model.MoviedataEntity;
 import com.example.movie_project.model.MoviedataResponse;
 
 @RestController
-public class MoviedataController {
 
-    @RequestMapping(value = "/moviedata", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+public class MovieAllController {
+    @RequestMapping(value = "/moviealldata", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 
-    public MoviedataResponse movies(int id) {
-        return getMoviedataList(id);
+    public MoviedataResponse movies() {
+        return getMoviedataList();
 
     }
 
-    private MoviedataResponse getMoviedataList(int id) {
+    /**
+     * @RequestMapping(value = "/gameDetail", method = RequestMethod.GET, produces =
+     *                       MediaType.APPLICATION_JSON_VALUE)
+     *                       public GameDetailResponse gameDetail(int id) { //
+     *                       這個API需要傳入id參數來找到指定的遊戲資訊
+     *                       return getGameDetail(id);
+     *                       }
+     */
+    private MoviedataResponse getMoviedataList() {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -39,7 +45,7 @@ public class MoviedataController {
             stmt = conn.createStatement();
 
             rs = stmt.executeQuery(
-                    "select * from movie where movie_id=" + id);
+                    "select * from movie ");
 
             ArrayList<MoviedataEntity> movies = new ArrayList<>();
 

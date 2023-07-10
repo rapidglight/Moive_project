@@ -1,3 +1,5 @@
+//這個API 負責帳號登入/登出
+
 package com.example.movie_project.controller;
 
 import java.sql.Connection;
