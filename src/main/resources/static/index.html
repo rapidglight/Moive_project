@@ -145,24 +145,26 @@
           <!--vue結束-->
 			
 	</section>
-    
-    
+     
     </p>
     </article>
-    <aside id="aside1"><img src="img/ch.png">本周排行榜
-    
-		<ul style="list-style-image:url('img/medal.png');">
-			<li><img src="img/hali.jpg" alt=" " width="130" height="100">
-			<li><img src="img/xman.jpg" alt=" "width="130" height="100">
-			<li><img src="img/ci.jpg" alt=" "width="130" height="100">
+   
+    <aside id="aside1"><img src="img/ch.png">網站排行榜
+    <!--vue使用-->
+		<ul v-for="item in websiterating"  :key="item.id"   style="list-style-image:url('img/medal.png');">
+			<li><img :src="item.imageUrl" alt=" " width="130" height="100">
+          <div>{{item.userRatingMovieName}} {{item.userRatingMovieStars}}<img src="\img\star.png"></div>
+			
 		</ul>   	
+    <!--vue結束-->
     
     </aside>
-    </div>
+    
+   
     <footer id="footer1">
 
     </footer>
-</div>
+    
     </body>
 
 
@@ -177,7 +179,7 @@ createApp({
       islogin : true,
       username : "",
       movieimg : [],
-      
+      websiterating : [],
       value: '',
       options: [],
       loading: false,
@@ -198,7 +200,17 @@ createApp({
       .catch( (error) => {
       console.log(error);
       });
-
+    
+    
+      axios.get("/websiterating")
+    .then((response) => {
+      console.log(response);  
+     //把資料庫評分最高的電影丟給前端
+      this.websiterating = response.data.data; 
+    })
+    .catch( (error) => {
+      console.log(error);
+      });
       
       
        
