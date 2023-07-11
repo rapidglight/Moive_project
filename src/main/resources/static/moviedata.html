@@ -146,10 +146,17 @@
 				</div>
 			</div>
 			<!--vue結束-->
+<<<<<<< Updated upstream
 			<footer id="footer1" v-for="item in usercomments" :key="item.id">
 				
 				<div id="user_comment" v-if="islogin=='true'"><div>user :{{item.userAccount}}</div>comments :{{item.userRatingMovieComments}}</div>
 				<div id="user_comment" v-else>您必須先登入才能觀看其他使用者評論</div>
+=======
+			<footer id="footer1">
+				<div id="user_name" v-if=" islogin != 'true'">如想看別的會員評論，請登入</div>
+                <div id="user_name" v-else>hello,{{username}}</div>
+				<div id="user_comment" v-if=" islogin == 'true'"><div>user</div>usercommemt</div>
+>>>>>>> Stashed changes
 			</footer>
 		</div>
 
@@ -166,15 +173,25 @@
 		            id : "",
 		            moviedata :[],
 		            selectedRating: null, // 選中的評分值，可根據需要進行修改
+<<<<<<< Updated upstream
 					moviename:"",
 					usercomments:[]
 		        };
 		    },
+=======
+                    moviecommentdata:[],
+					movieName:""
+		        };
+		    },
+			// 當網頁載入完成後會被Vue框架呼叫
+		    mounted() {
+>>>>>>> Stashed changes
 
 			//
 		    mounted() {
 				const queryString = window.location.search
 		        //建立參數解析物件
+				 //取得username，islogin，id變數
 		        const urlParams = new URLSearchParams(queryString);
 		            this.username = urlParams.get('username');
 		            this.islogin = urlParams.get('islogin');
@@ -183,10 +200,16 @@
 		            console.log("islogin=" + this.islogin);
 		            console.log(this.id);
 		            console.log(this.selectedRating)
+<<<<<<< Updated upstream
 		        //取得username，islogin變數
 
 				//把ID丟給 /moviedata API 
 		        axios.get("/moviedata?id=" + this.id)
+=======
+		       
+		       //丟給後端API ID資料
+				axios.get("/moviedata?id=" + this.id)
+>>>>>>> Stashed changes
 		        .then(   (response) =>  {
 		            // get完成後收到的資料可以在這裡處理
 										 
@@ -194,7 +217,11 @@
 					//印出整個回傳物件
 		            if(response.data.code==0){
 		                this.moviedata = response.data.data;
+<<<<<<< Updated upstream
 						
+=======
+		                
+>>>>>>> Stashed changes
 		            }
 
 					console.log(this.moviedata[0].movieName);
@@ -220,10 +247,30 @@
 		        });
                 
 				
+<<<<<<< Updated upstream
 				
 				
 				
+=======
+                
+
+				/*axios.get("/usercomment?moviename=" + )
+		        .then(   (response) =>  {
+		            // get完成後收到的資料可以在這裡處理
+		            console.log(response);
+		            if(response.data.code==0){
+		                this.moviedata = response.data.data;
+		                
+		            }
+		        })
+		        .catch( (error) => {
+		        console.log(error);
+		        });
+               
+              */
+>>>>>>> Stashed changes
 		    },
+			//網頁要用的方法寫在這裡
 		    methods:{
 					  onTest(item) {
 						// 使用axios發送POST請求
