@@ -46,8 +46,8 @@
             <div v-if="islogin=='true'" class="warning">尋找影片</div>
         </a></li>
         <!--vue 傳參數-->
-        <li><a :href="'moviedata.html?username=' + username + '&islogin=' + islogin">
-            <div v-if="islogin=='true'" class="warning">電影頁面</div>
+        <li><a :href="'index.html?username=' + username + '&islogin=' + islogin">
+            <div  class="warning">回首頁</div>
         </a></li>
         <li><a href="login.html">
             <div v-if=" islogin != 'true'" class="warning">登入</div>
