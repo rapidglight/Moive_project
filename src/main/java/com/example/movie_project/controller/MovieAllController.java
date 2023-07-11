@@ -1,3 +1,5 @@
+// 這個API 有所有的電影資料
+
 package com.example.movie_project.controller;
 
 import java.sql.Connection;
@@ -25,14 +27,6 @@ public class MovieAllController {
 
     }
 
-    /**
-     * @RequestMapping(value = "/gameDetail", method = RequestMethod.GET, produces =
-     *                       MediaType.APPLICATION_JSON_VALUE)
-     *                       public GameDetailResponse gameDetail(int id) { //
-     *                       這個API需要傳入id參數來找到指定的遊戲資訊
-     *                       return getGameDetail(id);
-     *                       }
-     */
     private MoviedataResponse getMoviedataList() {
         Connection conn = null;
         Statement stmt = null;

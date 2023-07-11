@@ -26,7 +26,7 @@ body {
     background: black; /* 背景顏色為黑色 */
     font-size: 75px; /* 字體大小為60px */
 	font-family:fantasy;
-
+    
     /* justify-content: center; 水平居中對齊內容 */
     /* align-items: center; /* 垂直居中對齊內容 */
     /* text-align: center; 文本居中對齊 */ */

@@ -1,4 +1,4 @@
-//這個API只傳電影名稱 ID 跟URL
+//這個API只傳電影名稱 ID 跟URL(6筆)
 
 package com.example.movie_project.controller;
 
