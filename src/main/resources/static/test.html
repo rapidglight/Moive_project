@@ -43,24 +43,11 @@
 				<label for="active" class="close"></label>
 				<div class="wrapper">
 					<ul>
-						<li><a :href="'watching_movie.html?username=' + username + '&islogin=' + islogin">
-							<div v-if="islogin=='true'" class="warning">看過清單</div>
-						</a></li>
-						<li><a :href="'rating_movie.html?username=' + username + '&islogin=' + islogin">
-							<div v-if="islogin=='true'" class="warning">評分清單</div>
-						</a></li>
-						<li><a href="#">
-							<div v-if="islogin=='true'" class="warning">尋找影片</div>
-						</a></li>
-						<!--vue 傳參數-->
-						<li><a :href="'index.html?username=' + username + '&islogin=' + islogin">
-							<div  class="warning">回首頁</div>
-						</a></li>
-						<li><a href="login.html">
-							<div v-if=" islogin != 'true'" class="warning">登入</div>
-						</a></li>
-						<li><a href="login.html">
-							<div v-if="islogin=='true'" class="warning">登出</div></a>
+						<li><a href="watching_movie.html">已看過清單</a></li>
+						<li><a href="rating_movie.html">已評分過清單</a></li>
+						<li><a href="#">尋找影片</a></li>
+						<li><a href="index.html">回首頁</a></li>
+						<li><a href="login.html">登入</a></li>
 					</ul>
 				</div>
 			</header>
@@ -73,11 +60,13 @@
 					<div id="div1">
 						<div id="divrating">
 							<div id="logorating"><img src="img/star.png" />網站評分</div>
-							<div id="rating">評分9/10</div>
+							<div id="rating"><div>
+								<h2>Movie Average Rating</h2>
+								<p><strong>Average Rating:</strong> {{ averageRating }}</p>
+								</div></div>
 						</div>
 						<div id="div2rating">
 							<div id="logorating"><img src="img/good.png" />你的評分</div>
-							<div id="rating">評分9/10</div>
 							<div class="rating1 rating2">
 								<!-- <input
 									type="radio"
@@ -146,10 +135,9 @@
 				</div>
 			</div>
 			<!--vue結束-->
-			<footer id="footer1" v-for="item in usercomments" :key="item.id">
-				
-				<div id="user_comment" v-if="islogin=='true'"><div>user :{{item.userAccount}}</div>comments :{{item.userRatingMovieComments}}</div>
-				<div id="user_comment" v-else>您必須先登入才能觀看其他使用者評論</div>
+			<footer id="footer1">
+				<div id="user_name">hello,{{username}}</div>
+				<div id="user_comment">顯示評論</div>
 			</footer>
 		</div>
 
@@ -166,18 +154,12 @@
 		            id : "",
 		            moviedata :[],
 		            selectedRating: null, // 選中的評分值，可根據需要進行修改
-                    moviecommentdata:[],
-					movieName:""
+					averageRating: 0,
 		        };
 		    },
-			// 當網頁載入完成後會被Vue框架呼叫
 		    mounted() {
-
-			//
-		    
 				const queryString = window.location.search
 		        //建立參數解析物件
-				 //取得username，islogin，id變數
 		        const urlParams = new URLSearchParams(queryString);
 		            this.username = urlParams.get('username');
 		            this.islogin = urlParams.get('islogin');
@@ -186,69 +168,43 @@
 		            console.log("islogin=" + this.islogin);
 		            console.log(this.id);
 		            console.log(this.selectedRating)
-		       
-		       //丟給後端API ID資料
-				axios.get("/moviedata?id=" + this.id)
-		        .then((response) =>  {
+		        //取得username，islogin變數
+		        axios.get("/moviedata?id=" + this.id + "&username=" + this.username + "&islogin=" + this.islogin)
+		        .then(   (response) =>  {
 		            // get完成後收到的資料可以在這裡處理
+					this.moviedata = response.data; // 將後端返回的資料賦值給 moviedata
 		            console.log(response);
-					//印出整個回傳物件
 		            if(response.data.code==0){
 		                this.moviedata = response.data.data;
-		                
 		            }
-
-					console.log(this.moviedata[0].movieName);
-
-					axios.get("/usercomment?moviename="+this.moviedata[0].movieName)
-					.then((response) => {
-						console.log(response)
-
-						if(response.data.code==0){
-		                this.usercomments = response.data.data;
-						
-		            }
-					})
-					.catch((error) => {
-						console.log(error);
-					});
-					/*
-					console.log(this.moviedata[0].movieName); //movieName一定要在方法裡才找的到
-					this.moviename = this.moviedata[0].movieName*/
 		        })
 		        .catch( (error) => {
 		        console.log(error);
 		        });
-                
-				
-				
-				
-				
 		    },
-			//網頁要用的方法寫在這裡
 		    methods:{
-				onTest() {
-					// 使用axios發送POST請求
-					axios.post("/movieratings", {
-						userRatingMovieStars: this.selectedRating, // 使用者評分值
-						userAccount: this.username , // 使用者帳號
-						userRatingMovieName: this.moviedata[0].movieName, // 電影名稱
-					})
-					.then(response => {
-					console.log('評分已成功送到後端');
-					console.log('回傳的資料:', response.data);
-					})
-					.catch(error => {
-						console.error('發送評分時發生錯誤:', error);
-						
-					});
-				},
-					   //onTest(item) {
-					  //  console.log(this.selectedRating);
-					  //  console.log(this.username);
-						//  console.log(this.moviedata[0].movieName);
-					  // },
-				},
+					  	onTest() {
+						// 使用axios發送POST請求
+						axios.post("/movieratings", {
+							userRatingMovieStars: this.selectedRating, // 使用者評分值
+							userAccount: this.username , // 使用者帳號
+							userRatingMovieName: this.moviedata[0].movieName, // 電影名稱
+						})
+						.then(response => {
+						console.log('評分已成功送到後端');
+						console.log('回傳的資料:', response.data);
+						})
+						.catch(error => {
+							console.error('發送評分時發生錯誤:', error);
+							
+						});
+					},
+		             	  //onTest(item) {
+		            	  //  console.log(this.selectedRating);
+						  //  console.log(this.username);
+                      	  //  console.log(this.moviedata[0].movieName);
+		                  // },
+		            },
 		    watch: {
 		        selectedRating(newValue) {
 		            console.log("選中的評分值:", newValue);
