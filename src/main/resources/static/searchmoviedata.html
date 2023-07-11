@@ -95,19 +95,11 @@
     </div>
 </div>
 <!--vue結束-->
-<<<<<<< Updated upstream
 <footer id="footer1" v-for="item in usercomments" :key="item.id">
 				
     <div id="user_comment" v-if="islogin=='true'"><div>user :{{item.userAccount}}</div>comments :{{item.userRatingMovieComments}}</div>
     <div id="user_comment" v-else>您必須先登入才能觀看其他使用者評論</div>
 </footer>
-=======
-    <footer id="footer1">
-        <div id="user_name" v-if=" islogin != 'true'">如想看別的會員評論，請登入</div>
-        <div id="user_name" v-else>hello,{{username}}</div>
-        <div id="user_comment" v-if=" islogin == 'true'"><div>user</div>usercommemt</div>
-    </footer>
->>>>>>> Stashed changes
 </div>
 
 <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
@@ -153,7 +145,6 @@
             console.log(response);
             if(response.data.code==0){
                 this.moviedata = response.data.data;
-<<<<<<< Updated upstream
 
 
                 console.log(this.moviedata[0].movieName);
@@ -172,9 +163,6 @@
 					});
                 
                 
-=======
-                                
->>>>>>> Stashed changes
             }
         })
         .catch( (error) => {
