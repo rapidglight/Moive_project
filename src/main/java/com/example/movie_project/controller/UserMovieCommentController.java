@@ -39,12 +39,6 @@ public class UserMovieCommentController {
 
             ArrayList<UserMovieCommentEntity> movies = new ArrayList<>();
 
-            int id;
-            String userAccount;
-            String userRatingMovieName;
-            int userRatingMovieStars;
-            String userRatingMovieComments;
-
             while (rs.next()) {
                 UserMovieCommentEntity UserMovieCommentEntity = new UserMovieCommentEntity();
                 UserMovieCommentEntity.setId(rs.getInt("rating_list_id"));

@@ -228,27 +228,27 @@
 			//網頁要用的方法寫在這裡
 		    methods:{
 				onTest() {
-					// 使用axios發送POST請求
-					axios.post("/movieratings", {
-						userRatingMovieStars: this.selectedRating, // 使用者評分值
-						userAccount: this.username , // 使用者帳號
-						userRatingMovieName: this.moviedata[0].movieName, // 電影名稱
-					})
-					.then(response => {
-					console.log('評分已成功送到後端');
-					console.log('回傳的資料:', response.data);
-					})
-					.catch(error => {
-						console.error('發送評分時發生錯誤:', error);
-						
-					});
-				},
-					   //onTest(item) {
-					  //  console.log(this.selectedRating);
-					  //  console.log(this.username);
-						//  console.log(this.moviedata[0].movieName);
-					  // },
-				},
+						// 使用axios發送POST請求
+						axios.post("/movieratings", {
+							userRatingMovieStars: this.selectedRating, // 使用者評分值
+							userAccount: this.username , // 使用者帳號
+							userRatingMovieName: this.moviedata[0].movieName, // 電影名稱
+						})
+						.then(response => {
+						console.log('評分已成功送到後端');
+						console.log('回傳的資料:', response.data);
+						})
+						.catch(error => {
+							console.error('發送評分時發生錯誤:', error);
+							
+						});
+					},
+		             	  //onTest(item) {
+		            	  //  console.log(this.selectedRating);
+						  //  console.log(this.username);
+                      	  //  console.log(this.moviedata[0].movieName);
+		                  // },
+		            },
 		    watch: {
 		        selectedRating(newValue) {
 		            console.log("選中的評分值:", newValue);

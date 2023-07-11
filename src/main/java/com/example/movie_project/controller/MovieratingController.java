@@ -22,8 +22,8 @@ import com.example.movie_project.model.MovieratingResponse;
 @RestController
 public class MovieratingController {
     @RequestMapping(value = "/movies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public MovieratingResponse movies() {
-        return getMovieratingList();
+    public MovieratingResponse movies(String user_account, String user_rating_movie_name) {
+        return getMovieratingList(user_account, user_rating_movie_name);
     }
 
     @RequestMapping(value = "/movieratings", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, // 傳入的資料格式
@@ -55,7 +55,7 @@ public class MovieratingController {
         }
     }
 
-    private MovieratingResponse getMovieratingList() {
+    private MovieratingResponse getMovieratingList(String user_account, String user_rating_movie_name) {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
@@ -64,8 +64,9 @@ public class MovieratingController {
             Class.forName("com.mysql.cj.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?user=root&password=0000");
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from user_rating_list");// 這裡後續要修改資料庫路徑以及要修改的項目
-
+            rs = stmt.executeQuery("SELECT * FROM user_rating_list WHERE user_account = '" + user_account
+                    + "' AND user_rating_movie_name = '" + user_rating_movie_name + "'");// 這裡後續要修改資料庫路徑以及要修改的項目
+            stmt = conn.createStatement();
             ArrayList<MovieratingEntity> movies = new ArrayList<>();
             while (rs.next()) {
                 MovieratingEntity MovieratingEntity = new MovieratingEntity();

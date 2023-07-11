@@ -50,7 +50,6 @@ public class MoviedataController {
                 MoviedataEntity.setAge(rs.getString("age"));
                 MoviedataEntity.setMovieLong(rs.getInt("movie_long"));
                 MoviedataEntity.setMovieCategoryRomance(rs.getInt("movie_category_Romance"));
-
                 MoviedataEntity.setMovieCategoryComedy(rs.getInt("movie_category_Comedy"));
                 MoviedataEntity.setMovieCategoryDrama(rs.getInt("movie_category_Drama"));
                 MoviedataEntity.setMovieCategoryAction(rs.getInt("movie_category_Action"));
