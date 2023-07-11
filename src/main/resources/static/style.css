@@ -19,15 +19,17 @@ body {
 }
 
 #header1 {
-    display: block; /* 塊級元素 */
+    display: block;/* 塊級元素*/
     margin: 30px; /* 外邊距為30px */
     padding: 5px; /* 內邊距為5px */
     min-height: 100px; /* 最小高度為100px */
-    background: #000; /* 背景顏色為黑色 */
-    font-size: 60px; /* 字體大小為60px */
-    justify-content: center; /* 水平居中對齊內容 */
-    align-items: center; /* 垂直居中對齊內容 */
-    text-align: center; /* 文本居中對齊 */
+    background: black; /* 背景顏色為黑色 */
+    font-size: 75px; /* 字體大小為60px */
+	font-family:fantasy;
+    
+    /* justify-content: center; 水平居中對齊內容 */
+    /* align-items: center; /* 垂直居中對齊內容 */
+    /* text-align: center; 文本居中對齊 */ */
 }
 
 #content {
