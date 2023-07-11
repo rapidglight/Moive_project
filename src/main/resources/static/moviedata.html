@@ -146,9 +146,10 @@
 				</div>
 			</div>
 			<!--vue結束-->
-			<footer id="footer1">
-				<div id="user_name">hello,{{username}}</div>
-				<div id="user_comment">顯示評論</div>
+			<footer id="footer1" v-for="item in usercomments" :key="item.id">
+				
+				<div id="user_comment" v-if="islogin=='true'"><div>user :{{item.userAccount}}</div>comments :{{item.userRatingMovieComments}}</div>
+				<div id="user_comment" v-else>您必須先登入才能觀看其他使用者評論</div>
 			</footer>
 		</div>
 
@@ -165,8 +166,12 @@
 		            id : "",
 		            moviedata :[],
 		            selectedRating: null, // 選中的評分值，可根據需要進行修改
+					moviename:"",
+					usercomments:[]
 		        };
 		    },
+
+			//
 		    mounted() {
 				const queryString = window.location.search
 		        //建立參數解析物件
@@ -177,20 +182,47 @@
 		            console.log(this.username);
 		            console.log("islogin=" + this.islogin);
 		            console.log(this.id);
-		                  console.log(this.selectedRating)
+		            console.log(this.selectedRating)
 		        //取得username，islogin變數
-		        axios.get("/moviedata?id=" + this.id + "&username=" + this.username + "&islogin=" + this.islogin)
+
+				//把ID丟給 /moviedata API 
+		        axios.get("/moviedata?id=" + this.id)
 		        .then(   (response) =>  {
 		            // get完成後收到的資料可以在這裡處理
-					this.moviedata = response.data; // 將後端返回的資料賦值給 moviedata
+										 
 		            console.log(response);
+					//印出整個回傳物件
 		            if(response.data.code==0){
 		                this.moviedata = response.data.data;
+						
 		            }
+
+					console.log(this.moviedata[0].movieName);
+
+					axios.get("/usercomment?moviename="+this.moviedata[0].movieName)
+					.then((response) => {
+						console.log(response)
+
+						if(response.data.code==0){
+		                this.usercomments = response.data.data;
+						
+		            }
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+					/*
+					console.log(this.moviedata[0].movieName); //movieName一定要在方法裡才找的到
+					this.moviename = this.moviedata[0].movieName*/
 		        })
 		        .catch( (error) => {
 		        console.log(error);
 		        });
+                
+				
+				
+				
+				
 		    },
 		    methods:{
 					  onTest(item) {
@@ -209,11 +241,11 @@
 							
 						});
 					  },
-		             	  //onTest(item) {
-		            	  //  console.log(this.selectedRating);
-						  //  console.log(this.username);
-                      	  //  console.log(this.moviedata[0].movieName);
-		                  // },
+		              onTest(item) {
+		            	    console.log(this.selectedRating);
+						    console.log(this.username);
+                      	    console.log(this.moviedata[0].movieName);
+		                  },
 		              },
 		    watch: {
 		        selectedRating(newValue) {
