@@ -41,10 +41,9 @@ public class MovieratingController {
                             "ON DUPLICATE KEY UPDATE " +
                             "user_rating_movie_stars = VALUES(user_rating_movie_stars)");
 
-            stmt.setNull(1, Types.INTEGER); // 自動生成 rating_list_id
-            stmt.setString(2, data.getUserAccount()); // 使用者帳號
-            stmt.setInt(3, data.getUserRatingMovieStars()); // 使用者評分值
-            stmt.setString(4, data.getUserRatingMovieName()); // 電影名稱
+            stmt.setString(1, data.getUserAccount());
+            stmt.setInt(2, data.getUserRatingMovieStars());
+            stmt.setString(3, data.getUserRatingMovieName());
 
             int rowsAffected = stmt.executeUpdate();
 
