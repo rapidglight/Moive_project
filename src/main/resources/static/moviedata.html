@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+	<script src="https://kit.fontawesome.com/5b33223490.js" crossorigin="anonymous"></script>
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -31,7 +32,9 @@
 <body id="app">
 	<!-- 設定id給vue框架使用 -->
 	<div class="all">
-		<header id="header1">
+		<i id="btn" class="fa-solid fa-square-plus"></i>
+		<i id="btn1" class="fa-solid fa-square-check"></i>
+			<header id="header1">
 			<form onsubmit="event.preventDefault();" role="search">
 				<label for="search"><img src="img/2logo.png" />
 
@@ -48,8 +51,7 @@
 						<!--跳轉電影頁面-->
 						<!--<button @click="gomoviedata">{{value}}</button>-->
 
-						<a
-							:href="'searchmoviedata.html?username=' + username + '&islogin=' + islogin + '&moviename=' + value">{{value}}</a>
+						<a :href="'searchmoviedata.html?username=' + username + '&islogin=' + islogin + '&moviename=' + value">{{value}}</a>
 						<!--跳轉電影頁面-->
 						<template #footer>
 							<span class="dialog-footer">
