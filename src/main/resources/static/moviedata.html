@@ -24,6 +24,8 @@
 	<script src="//unpkg.com/vue@3"></script>
 	<!-- Import component library -->
 	<script src="//unpkg.com/element-plus"></script>
+	<!-- 引入Element UI介面庫-->
+
 </head>
 
 <body id="app">
@@ -229,7 +231,7 @@
 
 					}
 
-					console.log(this.moviedata[0].movieName);
+					//console.log(this.moviedata[0].movieName);
 
 					axios.get("/usercomment?moviename=" + this.moviedata[0].movieName)
 						.then((response) => {
@@ -299,7 +301,7 @@
 
 
 
-
+			//搜尋
 			onshow(message) {
 
 			},

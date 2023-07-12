@@ -1,4 +1,4 @@
-// 這個API 有所有的電影資料
+// 這個API 有所有網站的電影資料
 
 package com.example.movie_project.controller;
 

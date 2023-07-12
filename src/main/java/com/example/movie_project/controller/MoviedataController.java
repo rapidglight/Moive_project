@@ -1,3 +1,4 @@
+//給API movie id 回傳相應的資料
 package com.example.movie_project.controller;
 
 import java.sql.Connection;
