@@ -106,7 +106,35 @@ body {
     position: absolute;
     color: #79BBFF;
     border: none;
-    padding: 20px 5%;
+    padding: 20px 4%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#btn2{
+    position: absolute;
+    color: #fbff00;
+    border: none;
+    padding: 20px 8%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#btn3{
+    position: absolute;
+    color: #fbff00;
+    border: none;
+    padding: 20px 11%;
     text-align: center;
     text-decoration: none;
     display: inline-block;
