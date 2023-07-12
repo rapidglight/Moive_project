@@ -77,7 +77,7 @@
 						</div>
 						<div id="div2rating">
 							<div id="logorating"><img src="img/good.png" />你的評分</div>
-							<div id="rating">評分9/10</div>
+							<div id="rating" v-if="userRatingMovieStars !='0'">{{stars[0].userRatingMovieStars}}/5</div>
 							<div class="rating1 rating2">
 								<!-- <input
 									type="radio"
@@ -167,7 +167,8 @@
 		            moviedata :[],
 		            selectedRating: null, // 選中的評分值，可根據需要進行修改
                     moviecommentdata:[],
-					movieName:""
+					movieName:"",
+					stars:[]
 		        };
 		    },
 			// 當網頁載入完成後會被Vue框架呼叫
@@ -207,6 +208,20 @@
 						if(response.data.code==0){
 		                this.usercomments = response.data.data;
 						
+		            }
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+					axios.get("/movies?user_account="+this.username+"&user_rating_movie_name="+this.moviedata[0].movieName
+                )
+                
+					.then((response) => {
+                        
+						console.log(response)
+						if(response.data.code==0){
+		                this.stars = response.data.data;
+						console.log(this.username)
 		            }
 					})
 					.catch((error) => {
