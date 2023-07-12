@@ -7,13 +7,6 @@
 		<title>專題作業-電影網站</title>
 		<link rel="stylesheet" type="text/css" href="moviedata.css" />
 		<link rel="stylesheet" type="text/css" href="muen.css" />
-		<!-- Import style -->
-		<link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
-		<!-- Import Vue 3 -->
-		<script src="//unpkg.com/vue@3"></script>
-		<!-- Import component library -->
-		<script src="//unpkg.com/element-plus"></script>
-
 		<script src="jquery-1.11.3.js"></script>
 		<link
 			href="https://fonts.googleapis.com/css2?family=Oswald&display=swap"
@@ -166,7 +159,6 @@
 									>★</a
 								>
 							</div>
-							<el-button type="primary" icon="el-icon-edit">評論</el-button>
 						</div>
 					</div>
 				</div>
@@ -192,6 +184,7 @@
 				<div id="user_comment" v-if="islogin=='true'">
 					<div>user :{{item.userAccount}}</div>
 					comments :{{item.userRatingMovieComments}}
+                    
 				</div>
 				<div id="user_comment" v-else>您必須先登入才能觀看其他使用者評論</div>
 			</footer>
@@ -212,7 +205,7 @@
 		            selectedRating: null, // 選中的評分值，可根據需要進行修改
 		            moviecommentdata:[],
 					movieName:"",
-		                  stars:[]
+                    stars:[]
 		        };
 		    },
 			// 當網頁載入完成後會被Vue框架呼叫
@@ -249,28 +242,29 @@
 
 						if(response.data.code==0){
 		                this.usercomments = response.data.data;
-
+						
 		            }
 					})
 					.catch((error) => {
 						console.log(error);
 					});
-
-		                  axios.get("/movies?user_account="+this.username+"&user_rating_movie_name="+this.moviedata[0].movieName
-		              )
-
+                    
+                    axios.get("/movies?user_account="+this.username+"&user_rating_movie_name="+this.moviedata[0].movieName
+                )
+                
 					.then((response) => {
-
+                        
 						console.log(response)
 
 						if(response.data.code==0){
 		                this.stars = response.data.data;
+                        console.log(this.username)
 		            }
 					})
 					.catch((error) => {
 						console.log(error);
 					});
-
+                    
 					/*
 					console.log(this.moviedata[0].movieName); //movieName一定要在方法裡才找的到
 					this.moviename = this.moviedata[0].movieName*/
@@ -279,7 +273,7 @@
 		        console.log(error);
 		        });
 
-
+                
 
 
 
