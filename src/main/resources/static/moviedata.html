@@ -77,7 +77,8 @@
 						</div>
 						<div id="div2rating">
 							<div id="logorating"><img src="img/good.png" />你的評分</div>
-							<div id="rating" v-if="userRatingMovieStars !='0'">{{stars[0].userRatingMovieStars}}/5</div>
+							<!-- 可在v-if放stars && stars[0] 做顯示切換 -->
+							<div id="rating" v-if="userRatingMovieStars !='0'">{{ stars && stars[0] ? stars[0].userRatingMovieStars :'未評分'}}/5</div>
 							<div class="rating1 rating2">
 								<!-- <input
 									type="radio"
