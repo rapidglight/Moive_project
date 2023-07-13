@@ -318,14 +318,14 @@
 						  console.log("回傳的資料:", response.data);
 						})
 						.catch((error) => {
-						  console.error("發送評論時發生錯誤:", error);
+						console.error("發送評論時發生錯誤:", error);
 						});
 					})
 					.catch(() => {
 					  reject("取消修改"); // 取消操作時回傳
 					});
 				});
-			  },
+			},
 
 
 			watch: {
