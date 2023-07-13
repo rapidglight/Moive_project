@@ -148,7 +148,8 @@
     <aside id="aside1"><img src="img/ch.png">網站排行榜
       <!--vue使用-->
       <ul v-for="item in websiterating" :key="item.id" style="list-style-image:url('img/medal.png');">
-        <li><img :src="item.imageUrl" alt=" " width="130" height="100">
+        <li><a :href="'moviedata.html?id=' + item.movieId"><img :src="item.imageUrl" alt=" " width="130"
+              height="100"></a>
           <div>{{item.userRatingMovieName}} {{item.userRatingMovieStars}}<img src="\img\star.png"></div>
 
       </ul>
@@ -275,6 +276,7 @@
         localStorage.removeItem("username");
         localStorage.removeItem("islogin");
       },
+
 
 
 

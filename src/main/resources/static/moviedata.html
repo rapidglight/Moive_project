@@ -215,19 +215,17 @@
 			this.islogin = localStorage.getItem('islogin');
 
 
-			/*
+
 			const queryString = window.location.search
 			//建立參數解析物件
 			//取得username，islogin，id變數
 			const urlParams = new URLSearchParams(queryString);
-			this.username = urlParams.get('username');
-			this.islogin = urlParams.get('islogin');
+
 			this.id = urlParams.get('id');
-			console.log(this.username);
-			console.log("islogin=" + this.islogin);
+
 			console.log(this.id);
 			console.log(this.selectedRating)
-			*/
+
 			//丟給後端API ID資料
 			axios.get("/moviedata?id=" + this.id)
 				.then((response) => {
