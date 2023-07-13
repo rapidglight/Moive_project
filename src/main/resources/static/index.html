@@ -1,280 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>專題作業-電影網站</title>
-    <link rel="stylesheet" type="text/css" href="style.css"/>
-    <link rel="stylesheet" href="table.scss">
-    <link rel="stylesheet" href="muen.css">
-    <script src="jquery-1.11.3.js"></script>
-    <script src="index.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>專題作業-電影網站</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" href="table.scss">
+  <link rel="stylesheet" href="muen.css">
+  <script src="jquery-1.11.3.js"></script>
+  <script src="index.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
-    <!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- 引入Vue.js -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-   
-      
+  <!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- 引入Vue.js -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-     <!-- 引入Element UI介面庫-->
-    <!-- Import style -->
-    <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
-    <!-- Import Vue 3 -->
-    <script src="//unpkg.com/vue@3"></script>
-    <!-- Import component library -->
-    <script src="//unpkg.com/element-plus"></script>
-     
+
+
+  <!-- 引入Element UI介面庫-->
+  <!-- Import style -->
+  <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
+  <!-- Import Vue 3 -->
+  <script src="//unpkg.com/vue@3"></script>
+  <!-- Import component library -->
+  <script src="//unpkg.com/element-plus"></script>
+
 
 
 
 </head>
+
 <body id="app">
-    <!-- 設定id給vue框架使用 -->
-<div class="all">
+  <!-- 設定id給vue框架使用 -->
+  <div class="all">
     <header id="header1">
-        
-        
-        <form onsubmit="event.preventDefault();" role="search">
-            <label for="search">
-                <img src="img/2logo.png" /> 
-           <!--<input id="search" type="search" placeholder="Search..." autofocus required />--> 
-             <!--Element ui-->
-            
-            <el-select v-model="value" filterable remote reserve-value placeholder="Please enter a value" remote-show-suffix
-            :remote-method="remoteMethod" :loading="loading">
+
+
+      <form onsubmit="event.preventDefault();" role="search">
+        <label for="search">
+          <img src="img/2logo.png" />
+          <!--<input id="search" type="search" placeholder="Search..." autofocus required />-->
+          <!--Element ui-->
+
+          <el-select v-model="value" filterable remote reserve-value placeholder="Please enter a value"
+            remote-show-suffix :remote-method="remoteMethod" :loading="loading">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
-            </el-select>
-            
-            <el-button type="primary" @click="showResult = true">go</el-button>
-             
-            <el-dialog v-model="showResult" title="結果" width="30%" :before-close="handleClose">
-              <!--跳轉電影頁面-->
-              <!--<button @click="gomoviedata">{{value}}</button>-->
+          </el-select>
 
-              <a :href="'searchmoviedata.html?username=' + username + '&islogin=' + islogin + '&moviename=' + value">{{value}}</a>
-              <!--跳轉電影頁面-->
-              <template #footer>
-                  <span class="dialog-footer">
-                      <el-button type="primary" @click="showResult = false">
-                          關閉
-                      </el-button>
-                  </span>
-              </template>
-          </el-dialog> 
+          <el-button type="primary" @click="showResult = true">go</el-button>
 
-        <!--Element ui-->
-            
-          </label>
-            <div v-if="islogin=='true'">Hello {{username}}</div><div v-else><img src="img/user.png" />訪客模式</div>
-        </form>
-        
+          <el-dialog v-model="showResult" title="結果" width="30%" :before-close="handleClose">
+            <!--跳轉電影頁面-->
+            <!--<button @click="gomoviedata">{{value}}</button>-->
 
-        <input type="checkbox" id="active">
-    <label for="active" class="menu-btn"><span></span></label>
-    <label for="active" class="close"></label>
-    <div class="wrapper">
-  <ul>
+            <a
+              :href="'searchmoviedata.html?username=' + username + '&islogin=' + islogin + '&moviename=' + value">{{value}}</a>
+            <!--跳轉電影頁面-->
+            <template #footer>
+              <span class="dialog-footer">
+                <el-button type="primary" @click="showResult = false">
+                  關閉
+                </el-button>
+              </span>
+            </template>
+          </el-dialog>
 
-     <li><a :href="'watching_movie.html?username=' + username + '&islogin=' + islogin">
-     <div v-if="islogin=='true'" class="warning">看過清單</div>
-     </a></li>
-     <li><a :href="'rating_movie.html?username=' + username + '&islogin=' + islogin">
-     <div v-if="islogin=='true'" class="warning">評分清單</div>
-     </a></li>
-     <li><a href="#">
-     <div v-if="islogin=='true'" class="warning">尋找影片</div>
-     </a></li>
-     <!--vue 傳參數-->
-     <li><a :href="'moviedata.html?username=' + username + '&islogin=' + islogin">
-    <div v-if="islogin=='true'" class="warning">電影頁面</div>
-     </a></li>
-     <li><a href="login.html">
-     <div v-if=" islogin != 'true'" class="warning">登入</div>
-     </a></li>
-     <li><a href="login.html">
-     <div v-if="islogin=='true'" class="warning">登出</div></a>
-     </li>
+          <!--Element ui-->
 
-  </ul>
-</div>
-</div>
-    </header>
-    <div id="content">
-        <nav id="nav1">近期上映推薦
-            <img src="img/barbi.jpg" width="210" height="300">
-            
-            
-        </nav>
-        <article id="article1">
-    <section>
-		<div class="container">
+        </label>
+        <div v-if="islogin=='true'">Hello {{username}}</div>
+        <div v-else><img src="img/user.png" />訪客模式</div>
+      </form>
+
+
+      <input type="checkbox" id="active">
+      <label for="active" class="menu-btn"><span></span></label>
+      <label for="active" class="close"></label>
+      <div class="wrapper">
+        <ul>
+
+          <li><a :href="'watching_movie.html?username=' + username + '&islogin=' + islogin">
+              <div v-if="islogin=='true'" class="warning">看過清單</div>
+            </a></li>
+          <li><a :href="'rating_movie.html?username=' + username + '&islogin=' + islogin">
+              <div v-if="islogin=='true'" class="warning">評分清單</div>
+            </a></li>
+          <li><a href="#">
+              <div v-if="islogin=='true'" class="warning">尋找影片</div>
+            </a></li>
+          <!--vue 傳參數-->
+          <li><a :href="'moviedata.html?username=' + username + '&islogin=' + islogin">
+              <div v-if="islogin=='true'" class="warning">電影頁面</div>
+            </a></li>
+          <li><a href="login.html">
+              <div v-if=" islogin != 'true'" class="warning">登入</div>
+            </a></li>
+          <li><a href="login.html">
+              <div v-if="islogin=='true'" class="warning">登出</div>
+            </a>
+          </li>
+
+        </ul>
+      </div>
+  </div>
+  </header>
+  <div id="content">
+    <nav id="nav1">近期上映推薦
+      <img src="img/barbi.jpg" width="210" height="300">
+
+
+    </nav>
+    <article id="article1">
+      <section>
+        <div class="container">
           <!--vue使用-->
-			<div class="card" v-for="item in movieimg" :key="item.id">
-                <div class="content">
-                  <div class="imgBx">
-                    <img :src="item.image_url">
-                  </div>
-                  <div class="contentBx">
-                    <h3>{{ item.movie_name }}<br><span></span></h3>
-                  </div>
-                </div>
-                <ul class="sci">
-                  <li>
-                    <!--"'moviedata.html?username=' + username + '&islogin=' + islogin"-->
-                    <a :href="'moviedata.html?username=' + username + '&islogin=' + islogin + '&id=' + item.id">詳細資料</a>
-                  </li>
-                </ul>
+          <div class="card" v-for="item in movieimg" :key="item.id">
+            <div class="content">
+              <div class="imgBx">
+                <img :src="item.image_url">
               </div>
-              
+              <div class="contentBx">
+                <h3>{{ item.movie_name }}<br><span></span></h3>
+              </div>
+            </div>
+            <ul class="sci">
+              <li>
+                <!--"'moviedata.html?username=' + username + '&islogin=' + islogin"-->
+                <a :href="'moviedata.html?username=' + username + '&islogin=' + islogin + '&id=' + item.id">詳細資料</a>
+              </li>
+            </ul>
+          </div>
 
-           
+
+
           <!--vue結束-->
-			
-	</section>
-     
-    </p>
+
+      </section>
+
+      </p>
     </article>
-   
+
     <aside id="aside1"><img src="img/ch.png">網站排行榜
-    <!--vue使用-->
-		<ul v-for="item in websiterating"  :key="item.id"   style="list-style-image:url('img/medal.png');">
-			<li><img :src="item.imageUrl" alt=" " width="130" height="100">
+      <!--vue使用-->
+      <ul v-for="item in websiterating" :key="item.id" style="list-style-image:url('img/medal.png');">
+        <li><img :src="item.imageUrl" alt=" " width="130" height="100">
           <div>{{item.userRatingMovieName}} {{item.userRatingMovieStars}}<img src="\img\star.png"></div>
-			
-		</ul>   	
-    <!--vue結束-->
-    
+
+      </ul>
+      <!--vue結束-->
+
     </aside>
-    
-   
+
+
     <footer id="footer1">
 
     </footer>
-    
-    </body>
+
+</body>
 
 
 
- <script lang="javascript">
-//初始化 vue
-const { createApp } = Vue
+<script lang="javascript">
+  //初始化 vue
+  const { createApp } = Vue
 
-createApp({
-  data() {
-    return {
-      islogin : true,
-      username : "",
-      movieimg : [],
-      websiterating : [],
-      value: '',
-      options: [],
-      loading: false,
-      showResult: false 
-    }
-  },
-  // 當網頁載入完成後會被Vue框架呼叫
-  mounted() {
-    axios.get("/movieimg")
-      .then(   (response) =>  {
-        
-        // get完成後收到的資料可以在這裡處理
-        console.log(response);
-
-        // 將api的電影圖片存到Vue建立的movieimg變數
-        this.movieimg = response.data.data;
-      })
-      .catch( (error) => {
-      console.log(error);
-      });
-    
-    
-    axios.get("/websiterating")
-    .then((response) => {
-      console.log(response);  
-     //把資料庫評分最高的電影丟給前端
-      this.websiterating = response.data.data;
-    })
-    .catch( (error) => {
-      console.log(error);
-      });
-      
-      
-    
-    
-    const queryString = window.location.search
-    console.log(queryString);
-    console.log('Hello Javascript');
-
-    //建立參數解析物件
-    const urlParams = new URLSearchParams(queryString);
-    this.username = urlParams.get('username');
-    this.islogin = urlParams.get('islogin');
-    console.log(this.username);
-    console.log("islogin=" + this.islogin);
-    //取得username，islogin變數 
-    
-   
-    
-  },
-  //網頁要用的方法寫在這裡
-  methods: {
-    onshow(message){
-
+  createApp({
+    data() {
+      return {
+        islogin: true,
+        username: "",
+        movieimg: [],
+        websiterating: [],
+        value: '',
+        options: [],
+        loading: false,
+        showResult: false
+      }
     },
+    // 當網頁載入完成後會被Vue框架呼叫
+    mounted() {
 
-    remoteMethod(query){
-      console.log('call remoteMoethod:' + query);
+      //let myData = localStorage.getItem('myData');
 
-      if(query){
-        axios.get("/moviealldata/searchmovie?keyword=" + query)
-        .then((response) =>{
-          this.options = [];
-          console.log(response.data);
-          if(response.data.code == 0 ) {
-            for(let v of response.data.data){
-              this.options.push({
-                value: v,
-                label: v,
-              });
-            }
-              
 
-            console.log(this.options);
-          }
+      axios.get("/movieimg")
+        .then((response) => {
+
+          // get完成後收到的資料可以在這裡處理
+          console.log(response);
+
+          // 將api的電影圖片存到Vue建立的movieimg變數
+          this.movieimg = response.data.data;
         })
         .catch((error) => {
           console.log(error);
         });
 
-        
-      } else {
-        this.option = [];
-      }
+
+      axios.get("/websiterating")
+        .then((response) => {
+          console.log(response);
+          //把資料庫評分最高的電影丟給前端
+          this.websiterating = response.data.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+
+
+
+      const queryString = window.location.search
+      console.log(queryString);
+      console.log('Hello Javascript');
+
+      //建立參數解析物件
+      const urlParams = new URLSearchParams(queryString);
+      this.username = urlParams.get('username');
+      this.islogin = urlParams.get('islogin');
+      console.log(this.username);
+      console.log("islogin=" + this.islogin);
+      //取得username，islogin變數 
+
+
+
     },
+    //網頁要用的方法寫在這裡
+    methods: {
+      onshow(message) {
 
-    gomoviedata(value){
-      //conso.log(value);
+      },
 
+      remoteMethod(query) {
+        console.log('call remoteMoethod:' + query);
+
+        if (query) {
+          axios.get("/moviealldata/searchmovie?keyword=" + query)
+            .then((response) => {
+              this.options = [];
+              console.log(response.data);
+              if (response.data.code == 0) {
+                for (let v of response.data.data) {
+                  this.options.push({
+                    value: v,
+                    label: v,
+                  });
+                }
+
+
+                console.log(this.options);
+              }
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+
+
+        } else {
+          this.option = [];
+        }
+      },
+
+      gomoviedata(value) {
+        //conso.log(value);
+
+      }
     }
-  }
 
-}).use(ElementPlus).mount('#app') 
-
+  }).use(ElementPlus).mount('#app')
 
 
-    
-    
-     
-   
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
 </script>
 
 

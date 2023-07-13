@@ -21,7 +21,7 @@
 	<label for="active" class="close"></label>
 	<div class="wrapper" style="z-index: 10;">
 		<ul>
-			<li><a href="index.html">回到首頁</a></li>
+			<li><a :href="'index.html?username=' + username + '&islogin=' + islogin">回到首頁</a></li>
 			<li><a :href="'rating_movie.html?username=' + username + '&islogin=' + islogin">已評分過清單</a></li>
 			<li><a href="#">尋找影片</a></li>
 			<li><a href="moviedata.html">電影頁面</a></li>
@@ -37,7 +37,7 @@
 	<div class="container">
 		<div class="columns is-multiline p-0 pt-6 last">
 			<div class="column is-full">
-				<p class="has-text-white">{{username}}的看過清單</p>
+				<p class="has-text-white">{{username}} Watching-list Collection</p>
 			</div>
 			<div class="column is-one-quarter" v-for="item in userwatchlists" :key="item.id">
 				<a :href="'moviedata.html?username=' + username + '&islogin=' + islogin + '&id=' + item.movieId"><img
@@ -107,8 +107,9 @@
 							.catch((error) => {
 								console.log(error);
 							});
-					}
 
+					}
+					console.log(this.userwatchlists)
 
 				})
 				.catch((error) => {
