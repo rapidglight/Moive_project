@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="UTF-8">
 	<title>登陸＆註冊帳號</title>
 	<link rel="stylesheet" type="text/css" href="login.css">
-	<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
-		<!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
-		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-		<!-- 引入Vue.js -->
-		<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+	<!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
+	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+	<!-- 引入Vue.js -->
+	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 		<!-- 引入Element UI介面庫-->
 		<!-- Import style -->
@@ -22,42 +21,41 @@
 
 
 </head>
-
 <body id="app">
 	<!-- 設定id給vue框架使用 -->
 	<div id="comeback"><button id="btn1"><a href="index.html" id="cb1">回到首頁 </a></button></div>
 	<div class="main">
-
+		
 		<input type="checkbox" id="chk" aria-hidden="true">
 
-		<div class="signup" method="post" action="/signup" ref="form">
-			
+		<div class="signup">
+			<form>
 				<label for="chk" aria-hidden="true">Sign up</label>
-				<input type="text" name="usnm" v-model="username" placeholder="account" required="">
-				<input type="email" name="email" v-model="email" placeholder="Email" required="">
-				<input type="password" name="pswd" v-model="password" placeholder="Password" required="">
-				<button @click="signup">Sign up</button>
-			
+				<input type="text" name="usnm" placeholder="account" required="">
+				<input type="email" name="email" placeholder="Email" required="">
+				<input type="password" name="pswd" placeholder="Password" required="">
+				<button>Sign up</button>
+			</form>
 		</div>
 
-		<div class="login">
-			<div class="form" method="post" action="/login" ref="form">
+			<div class="login">
+				<div class="form" method="post" action="/login" ref="form">
+					
+					<label for="chk" aria-hidden="true">Login</label>
 
-				<label for="chk" aria-hidden="true">Login</label>
+					<input type="text" name="username" v-model="username" placeholder="account" required="">
+                    <div v-if="showWarning" class="warning">不能包含空白及特殊字串
+						
+					</div>
 
-				<input type="text" name="username" v-model="username" placeholder="account" required="">
-				<div v-if="showWarning" class="warning">不能包含空白及特殊字串
-
+					<input type="password" name="password" v-model="password" placeholder="Password" required="">
+				    <button @click="checkAccount">Login</button>
+				    
+					
+					
+					
 				</div>
-
-				<input type="password" name="password" v-model="password" placeholder="Password" required="">
-				<button @click="checkAccount">Login</button>
-
-
-
-
 			</div>
-		</div>
 	</div>
 </body>
 
@@ -65,12 +63,12 @@
 
 <script lang="javascript">
 
+	
 
 
 
 
-
-	const { createApp } = Vue
+    const {createApp} = Vue
 	//建立vue物件
 	createApp({
 		data() {
@@ -79,42 +77,38 @@
 				showWarning: false, // 開關警告訊息用
 				username: '', //存放使用者帳號
 				password: '', //存放使用者密碼
-				islogin: '',
-				email:'',
+				islogin: ''
 			}
 		},
+
 		//新增watch方法
 		watch: {
 			// 監看username變數
 			username(newVal, oldVal) {
 				//當帳號名稱已不再有特殊字元時，停止顯示警告訊息
+
+
 				if (!newVal.includes('\''))
 					this.showWarning = false;
 			}
+
+
 		},
+
 		//vue 的方法放這裡
 		methods: {
-			signup() {
-				// 使用axios發送POST請求
-				axios.post("/singup", {
-					userAccount: this.username, // 帳號
-					userPassword: this.password, // 密碼
-					userMail: this.email, // 回傳mail
-				})
-					.then(response => {
-						console.log('註冊成功');
-						console.log('回傳的資料:', response.data);
-					})
-					.catch(error => {
-						console.error('註冊錯誤:', error);
-				});
-		},
+
+
+
 			//檢查帳號有沒有包含不允許的字元
 			checkAccount() {
 				console.log('checkAccount');
 				/*if(this.username.includes('\'')==true)
-					this.showWarning = true;*/
+					 this.showWarning = true;*/
+
 				// 如果帳號名稱出現特殊字元，顯示警告訊息
+
+
 				if (this.username.includes('\'') ||
 					this.username.includes(' '))
 					this.showWarning = true;
@@ -122,15 +116,19 @@
 					//取代 document.getElementById
 					//送出表單
 					//this.$refs.form.submit();
+
 					//打API
 					axios.post("/login?username=" + this.username + "&password=" + this.password)
 						.then((response) => {
 							//get完成後收到的資料在這裡處理
 							console.log(response);
+
 							if (response.data.code == 0) { //登入成功
 								localStorage.setItem('username', this.username);
 								localStorage.setItem('islogin', 'true');
+
 								location.href = "/index.html";
+
 							}
 							else //登入失敗
 								location.href = "loginResult.html?message=" + response.data.message;
@@ -147,5 +145,4 @@
 
 
 </script>
-
 </html>

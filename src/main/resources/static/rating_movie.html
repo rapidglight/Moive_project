@@ -1,53 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en" >
 <head>
-	<meta charset="UTF-8">
-	<title>CodePen - Netflix Inspired Movie Gallery</title>
-	<link rel='stylesheet' href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-	<link rel="stylesheet" href="rating_movie.css">
-	<link rel="stylesheet" href="muen.css">
+<meta charset="UTF-8">
+<title>CodePen - Netflix Inspired Movie Gallery</title>
+<link rel='stylesheet' href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+<link rel="stylesheet" href="rating_movie.css">
+<link rel="stylesheet" href="muen.css">
 
-	<!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
-	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<!-- 引入Vue.js -->
-	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+   <!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
+   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   <!-- 引入Vue.js -->
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 </head>
-
 <body id="app">
-	<input type="checkbox" id="active" />
-	<label for="active" class="menu-btn"><span></span></label>
-	<label for="active" class="close"></label>
-	<div class="wrapper" style="z-index: 10;">
-		<ul>
-			<li><a href="index.html">回到首頁</a></li>
-			<li><a href="watching_movie.html">已看過清單</a></li>
-			<li><a href="#">尋找影片</a></li>
-			<li><a href="moviedata.html">電影頁面</a></li>
-			<li><a href="login.html" @click="remotedata">登出</a></li>
-		</ul>
-	</div>
-	<!-- partial:index.partial.html -->
-	<!-- #CodePenChallenge: Reflections -->
-	<div class="top">
-
-	</div>
-	<div class="container">
-		<div class="columns is-multiline p-0 pt-6 last">
-			<div class="column is-full">
-				<p class="has-text-white">{{username}} Rating-list Collection</p>
-			</div>
-			<div class="column is-one-quarter" v-for="item in userratinglists" :key="item.id">
-				<a :href="'moviedata.html?id=' + item.movieId"><img :src="item.imageUrl"></a>
-
-			</div>
-
+	<input type="checkbox" id="active"/>
+    <label for="active" class="menu-btn"><span></span></label>
+    <label for="active" class="close"></label>
+    <div class="wrapper" style="z-index: 10;">
+    <ul>
+<li><a href="index.html">回到首頁</a></li>
+<li><a href="watching_movie.html">已看過清單</a></li>
+<li><a href="#">尋找影片</a></li>
+<li><a href="moviedata.html">電影頁面</a></li>
+<li><a href="login.html">登入</a></li>
+</ul>
+</div>
+<!-- partial:index.partial.html -->
+<!-- #CodePenChallenge: Reflections -->
+<div class="top">
+	
+</div>
+<div class="container">
+	<div class="columns is-multiline p-0 pt-6 last">
+		<div class="column is-full">
+			<p class="has-text-white">User Rating-list Collection</p>
 		</div>
-
+		<div class="column is-one-quarter">
+			<img src="img/Spider-Man_Across_the_Spider-Verse_poster.jpg">
+		</div>
+		<div class="column is-one-quarter">
+			<img src="img/The_Flash_(film)_Poster.jpg">
+		</div>
+		<div class="column is-one-quarter">
+			<img src="https://raw.githubusercontent.com/brixiobodino/coffeholic/main/img3.PNG">
+		</div>
+		<div class="column is-one-quarter">
+			<img src="https://raw.githubusercontent.com/brixiobodino/coffeholic/main/img4.PNG">
+		</div>
 	</div>
-	<!-- partial -->
-
+	<div class="columns last">
+		<div class="column is-one-quarter">
+			<img src="https://raw.githubusercontent.com/brixiobodino/coffeholic/main/img5.PNG">
+		</div>
+		<div class="column is-one-quarter">
+			<img src="https://raw.githubusercontent.com/brixiobodino/coffeholic/main/img6.PNG">
+		</div>
+		<div class="column is-one-quarter">
+			<img src="https://raw.githubusercontent.com/brixiobodino/coffeholic/main/img7.PNG">
+		</div>
+		<div class="column is-one-quarter">
+			<img src="https://raw.githubusercontent.com/brixiobodino/coffeholic/main/img8.PNG">
+		</div>
+	</div>
+</div>
+<!-- partial -->
+  
 </body>
 
 
@@ -56,102 +74,49 @@
 <script lang="javascript">
 	//初始化 vue
 	const { createApp } = Vue
-
+	
 	createApp({
-		data() {
-			return {
-				islogin: true,
-				username: "",
-				ratinglistmoviename: [],
-				userratinglist: [],
-				userratinglists: []
-
-
-
-			}
-		},
-		mounted() {
-
-			//從local storage 拿出資料
-			this.username = localStorage.getItem('username');
-			this.islogin = localStorage.getItem('islogin');
-			/*const queryString = window.location.search
-			console.log(queryString);
-			console.log('Hello Javascript');
-
-			//建立參數解析物件
-			const urlParams = new URLSearchParams(queryString);
-			this.username = urlParams.get('username');
-			this.islogin = urlParams.get('islogin');
-
-			console.log(this.username);
-			console.log(this.islogin);
-			//取得username，islogin變數 
-			*/
-
-
-			axios.get("/userratinglist?username=" + this.username)
-				.then((response) => {
-					console.log(response);
-
-					if (response.data.code == 0) {
-						this.ratinglistmoviename = response.data.data;
-
-					}
-					//console.log(this.ratinglistmoviename)
-					for (let p in this.ratinglistmoviename) {
-						//印出watchlistmoviename
-						//console.log(this.watchlistmoviename[p]); //物件
-						//console.log(this.watchlistmoviename[p].userWatchMovieName); //字串
-						console.log(this.ratinglistmoviename[p]);
-
-						axios.get("/searchmoviedata?moviename=" + this.ratinglistmoviename[p].userRatingMovieName) //要丟字串
-							.then((response) => {
-								console.log(response);
-								console.log(this.ratinglistmoviename[p].userWatchMovieName);
-								if (response.data.code == 0) {
-									this.userratinglist = response.data.data;
-									this.userratinglists.push(response.data.data[0]);
-
-								}
-
-							})
-							.catch((error) => {
-								console.log(error);
-							});
-					}
-					console.log(this.userratinglists);
-
-				})
-				.catch((error) => {
-					console.log(error);
-				});
-
-
-
-
-
-
-		},
-		methods: {
-			remotedata() {
-				localStorage.removeItem("username");
-				localStorage.removeItem("islogin");
-			},
+	  data() {
+		return {
+		  islogin : true,
+		  username : ""
+		  
 		}
-
-	}).mount('#app')
-
-
-
-
-
-
-
-
-
-
-
-</script>
-
+	  },
+	  mounted() {
+		       
+			   
+				
+		   const queryString = window.location.search
+		   console.log(queryString);
+		   console.log('Hello Javascript');
+	
+		   //建立參數解析物件
+		   const urlParams = new URLSearchParams(queryString);
+		   this.username = urlParams.get('username');
+		   this.islogin = urlParams.get('islogin');
+		   
+		   console.log(this.username);
+		   console.log(this.islogin);
+		   //取得username，islogin變數 
+		   
+	
+		   
+	
+		
+	   }
+	
+	}).mount('#app') 
+	
+	
+	
+		
+		
+		 
+	   
+		
+		
+		
+		
+		</script>
 </html>

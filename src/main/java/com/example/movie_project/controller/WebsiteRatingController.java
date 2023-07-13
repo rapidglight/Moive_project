@@ -36,13 +36,12 @@ public class WebsiteRatingController {
             stmt = conn.createStatement();
 
             rs = stmt.executeQuery(
-                    "SELECT movie.movie_id, movie.image_url, movie.movie_name, user_rating_movie_name, AVG(user_rating_movie_stars) "
-                            +
-                            "FROM user_rating_list " +
-                            "JOIN javaconnect.movie ON user_rating_movie_name = movie_name " +
-                            "GROUP BY movie.movie_id, movie.image_url, movie.movie_name, user_rating_movie_name " +
-                            "ORDER BY AVG(user_rating_movie_stars) DESC " +
-                            "LIMIT 5");
+                    "select movie.movie_id,movie.image_url,movie.movie_name,user_rating_movie_name,avg(user_rating_movie_stars) \r\n"
+                            + //
+                            "from user_rating_list join javaconnect.movie  where user_rating_movie_name=movie_name \r\n"
+                            + //
+                            "group by user_rating_movie_name order by user_rating_movie_stars desc limit 5");
+
             ArrayList<WebsiteRatingEntity> movies = new ArrayList<>();
 
             while (rs.next()) {
