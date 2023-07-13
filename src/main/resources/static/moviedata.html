@@ -15,14 +15,11 @@
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<!-- 引入Vue.js -->
-	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
 	<!-- 引入Element UI介面庫-->
 	<!-- Import style -->
 	<link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
 	<!-- Import Vue 3 -->
-	<script src="//unpkg.com/vue@3"></script>
+	<script src="//unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 	<!-- Import component library -->
 	<script src="//unpkg.com/element-plus"></script>
 	<!-- 引入Element UI介面庫-->
@@ -109,7 +106,7 @@
 				<div id="div1">
 					<div id="divrating">
 						<div id="logorating"><img src="img/star.png" />網站評分</div>
-						<div id="rating">評分9/10</div>
+						<div id="rating">{{ userRatingMovieStar }}/5</div>
 					</div>
 					<div id="div2rating">
 						<div id="logorating"><img src="img/good.png" />你的評分</div>
@@ -231,15 +228,13 @@
 				value: '',
 				loading: false,
 				showResult: false,
-
-				stars: []
+				userRatingMovieStar: "",
+				stars: [],
 			};
 		},
 		// 當網頁載入完成後會被Vue框架呼叫
 		mounted() {
-
 			//
-
 			const queryString = window.location.search
 			//建立參數解析物件
 			//取得username，islogin，id變數
@@ -247,76 +242,71 @@
 			this.username = urlParams.get('username');
 			this.islogin = urlParams.get('islogin');
 			this.id = urlParams.get('id');
-			console.log(this.username);
-			console.log("islogin=" + this.islogin);
-			console.log(this.id);
-			console.log(this.selectedRating)
-
-			//丟給後端API ID資料
-			axios.get("/moviedata?id=" + this.id)
-				.then((response) => {
-					// get完成後收到的資料可以在這裡處理
-					console.log(response);
-					//印出整個回傳物件
-					if (response.data.code == 0) {
-						this.moviedata = response.data.data;
-
-					}
-
-					//console.log(this.moviedata[0].movieName);
-
-					axios.get("/usercomment?moviename=" + this.moviedata[0].movieName)
-						.then((response) => {
-							console.log(response)
-
-							if (response.data.code == 0) {
-								this.usercomments = response.data.data;
-
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-						});
-					axios.get("/movies?user_account=" + this.username + "&user_rating_movie_name=" + this.moviedata[0].movieName
-					)
-
-						.then((response) => {
-
-							console.log(response)
-							if (response.data.code == 0) {
-								this.stars = response.data.data;
-								console.log(this.username)
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-						});
-				})
+				//丟給後端API ID資料
+				axios.get("/moviedata?id=" + this.id)
+					.then((response) => {
+						// get完成後收到的資料可以在這裡處理
+						console.log(response);
+						//印出整個回傳物件
+						if (response.data.code == 0) {
+							this.moviedata = response.data.data;
+						}
+						//console.log(this.moviedata[0].movieName);
+						axios.get("/usercomment?moviename=" + this.moviedata[0].movieName)
+							.then((response) => {
+								console.log(response);
+								if (response.data.code == 0) {
+									this.usercomments = response.data.data;
+									this.movieName = this.moviedata[0].movieName
+									axios.get("/websiteratings?moviename=" + this.movieName)
+					.then((response) => {
+				console.log(response);
+				 //把資料庫評分最高的電影丟給前端
+				this.websiterating = response.data.data;
+				this.userRatingMovieStar = response.data.data[0].userRatingMovieStar;
+				console.log(this.userRatingMovieStar);
+				
+				
+			})
 				.catch((error) => {
-					console.log(error);
-				});
-
-
-
-
-
-		},
-		//網頁要用的方法寫在這裡
-		methods: {
-			onTest() {
-				// 使用axios發送POST請求
-				axios.post("/movieratings", {
-					userRatingMovieStars: this.selectedRating, // 使用者評分值
-					userAccount: this.username, // 使用者帳號
-					userRatingMovieName: this.moviedata[0].movieName, // 電影名稱
-				})
-					.then(response => {
-						console.log('評分已成功送到後端');
-						console.log('回傳的資料:', response.data);
+				console.log(error);
+			});
+								}
+							})
+							.catch((error) => {
+								console.log(error);
+							});
+						axios.get("/movies?user_account=" + this.username + "&user_rating_movie_name=" + this.moviedata[0].movieName
+						)
+							.then((response) => {
+								console.log(response)
+								if (response.data.code == 0) {
+									this.stars = response.data.data;
+								}
+							})
+							.catch((error) => {
+								console.log(error);
+							});
 					})
-					.catch(error => {
-						console.error('發送評分時發生錯誤:', error);
-
+					.catch((error) => {
+						console.log(error);
+					});
+			},
+			//網頁要用的方法寫在這裡
+			methods: {
+				onTest() {
+					// 使用axios發送POST請求
+					axios.post("/movieratings", {
+						userRatingMovieStars: this.selectedRating, // 使用者評分值
+						userAccount: this.username, // 使用者帳號
+						userRatingMovieName: this.moviedata[0].movieName, // 電影名稱
+					})
+						.then(response => {
+							console.log('評分已成功送到後端');
+							console.log('回傳的資料:', response.data);
+						})
+						.catch(error => {
+							console.error('發送評分時發生錯誤:', error);
 					});
 			},
 			open() {
@@ -343,66 +333,51 @@
 						  console.log("回傳的資料:", response.data);
 						})
 						.catch((error) => {
-						  console.error("發送評論時發生錯誤:", error);
+						console.error("發送評論時發生錯誤:", error);
 						});
 					})
 					.catch(() => {
 					  reject("取消修改"); // 取消操作時回傳
 					});
 				});
-			  },
-
-
-			watch: {
-				selectedRating(newValue) {
-					console.log("選中的評分值:", newValue);
-					// 在這裡執行您希望進行的操作，例如傳送到後端或更新資料庫等
-				}
 			},
-
-
-
-			//搜尋
-			onshow(message) {
-
-			},
-
-			remoteMethod(query) {
-				console.log('call remoteMoethod:' + query);
-
-				if (query) {
-					axios.get("/moviealldata/searchmovie?keyword=" + query)
-						.then((response) => {
-							this.options = [];
-							console.log(response.data);
-							if (response.data.code == 0) {
-								for (let v of response.data.data) {
-									this.options.push({
-										value: v,
-										label: v,
-									});
+				watch: {
+					selectedRating(newValue) {
+						console.log("選中的評分值:", newValue);
+						// 在這裡執行您希望進行的操作，例如傳送到後端或更新資料庫等
+					}
+				},
+				//搜尋
+				onshow(message) {
+				},
+				remoteMethod(query) {
+					console.log('call remoteMoethod:' + query);
+					if (query) {
+						axios.get("/moviealldata/searchmovie?keyword=" + query)
+							.then((response) => {
+								this.options = [];
+								console.log(response.data);
+								if (response.data.code == 0) {
+									for (let v of response.data.data) {
+										this.options.push({
+											value: v,
+											label: v,
+										});
+									}
+									console.log(this.options);
 								}
-
-
-								console.log(this.options);
-							}
-						})
-						.catch((error) => {
-							console.log(error);
-						});
-
-
-				} else {
-					this.option = [];
-				}
-			},
-
+							})
+							.catch((error) => {
+								console.log(error);
+							});
+					} else {
+						this.option = [];
+					}
+				},
 			gomoviedata(value) {
 				//conso.log(value);
 			}
-
 		}
 	}).use(ElementPlus).mount('#app')
 </script>
-
 </html>

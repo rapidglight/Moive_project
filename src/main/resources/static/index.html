@@ -6,26 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>專題作業-電影網站</title>
     <link rel="stylesheet" type="text/css" href="style.css"/>
-    <link rel="stylesheet" href="table.scss">
+  
     <link rel="stylesheet" href="muen.css">
-    <script src="jquery-1.11.3.js"></script>
-    <script src="index.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
     <!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <!-- 引入Vue.js -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-   
-      
 
-     <!-- 引入Element UI介面庫-->
+    <!-- 引入Element UI介面庫-->
     <!-- Import style -->
     <link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
     <!-- Import Vue 3 -->
-    <script src="//unpkg.com/vue@3"></script>
+    <script src=//unpkg.com/vue@3/dist/vue.global.prod.js></script>
     <!-- Import component library -->
     <script src="//unpkg.com/element-plus"></script>
      
@@ -167,18 +159,21 @@ const { createApp } = Vue
 createApp({
   data() {
     return {
-      islogin : true,
-      username : "",
-      movieimg : [],
-      websiterating : [],
-      value: '',
-      options: [],
-      loading: false,
-      showResult: false 
+      islogin: true,
+        username: "",
+        movieimg: [],
+        websiterating: [],
+        value: '',
+        options: [],
+        loading: false,
+        showResult: false
     }
   },
   // 當網頁載入完成後會被Vue框架呼叫
   mounted() {
+    //從local storage 拿出資料
+    this.username = localStorage.getItem('username');
+    this.islogin = localStorage.getItem('islogin');
     axios.get("/movieimg")
       .then(   (response) =>  {
         
@@ -243,6 +238,7 @@ createApp({
               });
             }
               
+            
 
             console.log(this.options);
           }
@@ -250,13 +246,17 @@ createApp({
         .catch((error) => {
           console.log(error);
         });
+        
 
         
       } else {
         this.option = [];
       }
     },
-
+    remotedata() {
+      localStorage.removeItem("username");
+      localStorage.removeItem("islogin");
+    },
     gomoviedata(value){
       //conso.log(value);
 

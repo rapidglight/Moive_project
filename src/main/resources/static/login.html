@@ -146,13 +146,10 @@
 						.then((response) => {
 							//get完成後收到的資料在這裡處理
 							console.log(response);
-
 							if (response.data.code == 0) { //登入成功
 								localStorage.setItem('username', this.username);
 								localStorage.setItem('islogin', 'true');
-
 								location.href = "/index.html";
-
 							}
 							else //登入失敗
 								location.href = "loginResult.html?message=" + response.data.message;
