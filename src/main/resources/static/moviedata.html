@@ -296,19 +296,36 @@
 			},
 			open() {
 				return new Promise((resolve, reject) => {
-				this.$prompt("請在下方對電影評論", "新增評論", {
+				  const initialValue = this.usercomments[0].userRatingMovieComments;
+				  this.$prompt("請在下方對電影評論", "新增評論", {
 					confirmButtonText: "OK",
 					cancelButtonText: "Cancel",
-					inputValue: (this.usercomments[0].userRatingMovieComments),
-				})
+					inputValue: initialValue,
+				  })
 					.then(({ value }) => {
-					  resolve(); // 回傳輸入值
+					  // 在這裡處理輸入值
+					  resolve(value); // 回傳輸入值
+						console.log()
+					  // 發送評論
+					  axios
+						.post("/movieratingcom", {
+						userRatingMovieName: this.moviedata[0].movieName,
+						userAccount: this.username,
+						userRatingMovieComments: value,
+						})
+						.then((response) => {
+						  console.log("評論已成功送到後端");
+						  console.log("回傳的資料:", response.data);
+						})
+						.catch((error) => {
+						  console.error("發送評論時發生錯誤:", error);
+						});
 					})
 					.catch(() => {
-					  reject(); // 取消操作時回傳
+					  reject("取消修改"); // 取消操作時回傳
 					});
 				});
-			},
+			  },
 
 
 			watch: {
