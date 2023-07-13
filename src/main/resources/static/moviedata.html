@@ -36,16 +36,17 @@
 		<!-- 引入Element UI介面庫-->
 	</head>
 
-<body id="app">
-	<!-- 設定id給vue框架使用 -->
-	<div class="all">
-		<i id="btn" class="fa-solid fa-square-plus"></i>
-		<i id="btn1" class="fa-solid fa-square-check"></i>
-		<i id="btn2" class="fa-solid fa-square-plus"></i>
-		<i id="btn3" class="fa-solid fa-square-check"></i>
+	<body id="app">
+		<!-- 設定id給vue框架使用 -->
+		<div class="all">
+			<i id="btn" class="fa-solid fa-square-plus"></i>
+			<i id="btn1" class="fa-solid fa-square-check"></i>
+			<i id="btn2" class="fa-solid fa-square-plus"></i>
+			<i id="btn3" class="fa-solid fa-square-check"></i>
 			<header id="header1">
-			<form onsubmit="event.preventDefault();" role="search">
-				<label for="search"><img src="img/2logo.png" />
+				<form onsubmit="event.preventDefault();" role="search">
+					<label for="search"
+						><img src="img/2logo.png" />
 
 						<!--Element ui-->
 
@@ -78,66 +79,89 @@
 							<!--跳轉電影頁面-->
 							<!--<button @click="gomoviedata">{{value}}</button>-->
 
-						<a :href="'searchmoviedata.html?username=' + username + '&islogin=' + islogin + '&moviename=' + value">{{value}}</a>
-						<!--跳轉電影頁面-->
-						<template #footer>
-							<span class="dialog-footer">
-								<el-button type="primary" @click="showResult = false">
-									關閉
-								</el-button>
-							</span>
-						</template>
-					</el-dialog>
+							<a
+								:href="'searchmoviedata.html?username=' + username + '&islogin=' + islogin + '&moviename=' + value"
+								>{{value}}</a
+							>
+							<!--跳轉電影頁面-->
+							<template #footer>
+								<span class="dialog-footer">
+									<el-button type="primary" @click="showResult = false">
+										關閉
+									</el-button>
+								</span>
+							</template>
+						</el-dialog>
 
 						<!--Element ui-->
 					</label>
 				</form>
 
-			<input type="checkbox" id="active" />
-			<label for="active" class="menu-btn"><span></span></label>
-			<label for="active" class="close"></label>
-			<div class="wrapper">
-				<ul>
-					<li><a :href="'watching_movie.html?username=' + username + '&islogin=' + islogin">
-							<div v-if="islogin=='true'" class="warning">看過清單</div>
-						</a></li>
-					<li><a :href="'rating_movie.html?username=' + username + '&islogin=' + islogin">
-							<div v-if="islogin=='true'" class="warning">評分清單</div>
-						</a></li>
-					<li><a href="#">
-							<div v-if="islogin=='true'" class="warning">尋找影片</div>
-						</a></li>
-					<!--vue 傳參數-->
-					<li><a :href="'index.html?username=' + username + '&islogin=' + islogin">
-							<div class="warning">回首頁</div>
-						</a></li>
-					<li><a href="login.html">
-							<div v-if=" islogin != 'true'" class="warning">登入</div>
-						</a></li>
-					<li><a href="login.html">
-							<div v-if="islogin=='true'" class="warning">登出</div>
-						</a>
-				</ul>
-			</div>
-		</header>
-		<!--vue使用-->
-		<div id="moviedata" v-for="item in moviedata" :key="item.id">
-			<div id="content">
-				<div id="div3">
-					<img :src="item.imageUrl" />
+				<input type="checkbox" id="active" />
+				<label for="active" class="menu-btn"><span></span></label>
+				<label for="active" class="close"></label>
+				<div class="wrapper">
+					<ul>
+						<li>
+							<a
+								:href="'watching_movie.html?username=' + username + '&islogin=' + islogin"
+							>
+								<div v-if="islogin=='true'" class="warning">看過清單</div>
+							</a>
+						</li>
+						<li>
+							<a
+								:href="'rating_movie.html?username=' + username + '&islogin=' + islogin"
+							>
+								<div v-if="islogin=='true'" class="warning">評分清單</div>
+							</a>
+						</li>
+						<li>
+							<a href="#">
+								<div v-if="islogin=='true'" class="warning">尋找影片</div>
+							</a>
+						</li>
+						<!--vue 傳參數-->
+						<li>
+							<a
+								:href="'index.html?username=' + username + '&islogin=' + islogin"
+							>
+								<div class="warning">回首頁</div>
+							</a>
+						</li>
+						<li>
+							<a href="login.html">
+								<div v-if=" islogin != 'true'" class="warning">登入</div>
+							</a>
+						</li>
+						<li>
+							<a href="login.html">
+								<div v-if="islogin=='true'" class="warning">登出</div>
+							</a>
+						</li>
+					</ul>
 				</div>
-				<div id="div1">
-					<div id="divrating">
-						<div id="logorating"><img src="img/star.png" />網站評分</div>
-						<div id="rating">評分9/10</div>
+			</header>
+			<!--vue使用-->
+			<div id="moviedata" v-for="item in moviedata" :key="item.id">
+				<div id="content">
+					<div id="div3">
+						<img :src="item.imageUrl" />
 					</div>
-					<div id="div2rating">
-						<div id="logorating"><img src="img/good.png" />你的評分</div>
-						<!-- 可在v-if放stars && stars[0] 做顯示切換 -->
-						<div id="rating" v-if="userRatingMovieStars !='0'">{{ stars && stars[0] ?
-							stars[0].userRatingMovieStars :'未評分'}}/5</div>
-						<div class="rating1 rating2">
-							<!-- <input
+					<div id="div1">
+						<div id="divrating">
+							<div id="logorating"><img src="img/star.png" />網站評分</div>
+							<div id="rating">{{ userRatingMovieStar }}/5</div>
+						</div>
+						<div id="div2rating">
+							<div id="logorating"><img src="img/good.png" />你的評分</div>
+							<!-- 可在v-if放stars && stars[0] 做顯示切換 -->
+							<div id="rating" v-if="userRatingMovieStars !='0'">
+								{{ stars && stars[0] ? stars[0].userRatingMovieStars
+								:'未評分'}}/5
+							</div>
+							<div class="rating1 rating2">
+								<!-- <input
 									type="radio"
 									name="rating"
 									value="5"
@@ -191,240 +215,252 @@
 									value="1"
 									v-model="selectedRating"
 								/> -->
-							<a href="#5" title="Give 1 star" @click="selectedRating = 1, onTest()">★</a>
-						</div>
-						<el-button text @click="open" @click="post"
+								<a
+									href="#5"
+									title="Give 1 star"
+									@click="selectedRating = 1, onTest()"
+									>★</a
+								>
+							</div>
+							<el-button text @click="open" @click="post"
 								>新增/修改評論</el-button
 							>
+						</div>
 					</div>
 				</div>
+				<div id="moviename">
+					<div id="name">{{item.movieName}}</div>
+					{{item.age}} 丶 {{item.year}}
+				</div>
+				<div id="div4">
+					類型:
+					<div v-if="item.movieCategoryDrama == 1">Drama &#20;</div>
+					<div v-if="item.movieCategoryAction == 1">Action &#20;</div>
+					<div v-if="item.movieCategoryRomance == 1">Romance &#20;</div>
+					<div v-if="item.movieCategoryComedy == 1">Comedy</div>
+				</div>
+				<div id="div5">
+					<div id="description">{{item.movieDescription}}</div>
+					<div id="director">導演：{{item.movieDirector}}</div>
+					<div id="cast">巨星：{{item.movieCast}}</div>
+				</div>
 			</div>
-			<div id="moviename">
-				<div id="name">{{item.movieName}}</div>
-				{{item.age}} 丶 {{item.year}}
-			</div>
-			<div id="div4">
-				類型:
-				<div v-if="item.movieCategoryDrama == 1">Drama &#20;</div>
-				<div v-if="item.movieCategoryAction == 1">Action &#20;</div>
-				<div v-if="item.movieCategoryRomance == 1">Romance &#20;</div>
-				<div v-if="item.movieCategoryComedy == 1">Comedy</div>
-			</div>
-			<div id="div5">
-				<div id="description">{{item.movieDescription}}</div>
-				<div id="director">導演：{{item.movieDirector}}</div>
-				<div id="cast">巨星：{{item.movieCast}}</div>
-			</div>
+			<!--vue結束-->
+			<footer id="footer1" v-for="item in usercomments" :key="item.id">
+				<div id="user_comment" v-if="islogin=='true'">
+					<div>user :{{item.userAccount}}</div>
+					comments :{{item.userRatingMovieComments}}
+				</div>
+				<div id="user_comment" v-else>您必須先登入才能觀看其他使用者評論</div>
+			</footer>
 		</div>
-		<!--vue結束-->
-		<footer id="footer1" v-for="item in usercomments" :key="item.id">
 
-			<div id="user_comment" v-if="islogin=='true'">
-				<div>user :{{item.userAccount}}</div>comments :{{item.userRatingMovieComments}}
-			</div>
-			<div id="user_comment" v-else>您必須先登入才能觀看其他使用者評論</div>
-		</footer>
-	</div>
+		<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+	</body>
+	<script lang="javascript">
+		//初始化 vue
+		const { createApp } = Vue
+		createApp({
+			data() {
+				return {
+					islogin: true,
+					username: "",
+					id: "",
+					moviedata: [],
+					selectedRating: null, // 選中的評分值，可根據需要進行修改
+					moviecommentdata: [],
+					movieName: "",
+					//搜尋功能用的
+					options: [],
+					value: '',
+					loading: false,
+					showResult: false,
+					userRatingMovieStar: '',
 
-	<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
-</body>
-<script lang="javascript">
-	//初始化 vue
-	const { createApp } = Vue
-	createApp({
-		data() {
-			return {
-				islogin: true,
-				username: "",
-				id: "",
-				moviedata: [],
-				selectedRating: null, // 選中的評分值，可根據需要進行修改
-				moviecommentdata: [],
-				movieName: "",
-				//搜尋功能用的
-				options: [],
-				value: '',
-				loading: false,
-				showResult: false,
-
-				stars: []
-			};
-		},
-		// 當網頁載入完成後會被Vue框架呼叫
-		mounted() {
-
-			//
-
-			const queryString = window.location.search
-			//建立參數解析物件
-			//取得username，islogin，id變數
-			const urlParams = new URLSearchParams(queryString);
-			this.username = urlParams.get('username');
-			this.islogin = urlParams.get('islogin');
-			this.id = urlParams.get('id');
-			console.log(this.username);
-			console.log("islogin=" + this.islogin);
-			console.log(this.id);
-			console.log(this.selectedRating)
-
-				//丟給後端API ID資料
-				axios.get("/moviedata?id=" + this.id)
-					.then((response) => {
-						// get完成後收到的資料可以在這裡處理
-						console.log(response);
-						//印出整個回傳物件
-						if (response.data.code == 0) {
-							this.moviedata = response.data.data;
-
-						}
-
-						//console.log(this.moviedata[0].movieName);
-
-						axios.get("/usercomment?moviename=" + this.moviedata[0].movieName)
-							.then((response) => {
-								console.log(response)
-
-								if (response.data.code == 0) {
-									this.usercomments = response.data.data;
-
-								}
-							})
-							.catch((error) => {
-								console.log(error);
-							});
-						axios.get("/movies?user_account=" + this.username + "&user_rating_movie_name=" + this.moviedata[0].movieName
-						)
-
-							.then((response) => {
-
-								console.log(response)
-								if (response.data.code == 0) {
-									this.stars = response.data.data;
-								}
-							})
-							.catch((error) => {
-								console.log(error);
-							});
-					})
-					.catch((error) => {
-						console.log(error);
-					});
-
-					axios.get("/websiteratings=" + this.moviedata[0].movieName)
-					.then((response) => {
-		        console.log(response);
-		         //把資料庫評分最高的電影丟給前端
-		        this.websiterating = response.data.data;
-		    })
-		    	.catch((error) => {
-		        console.log(error);
-		    });
-
-
-
+					stars: []
+				};
 			},
-			//網頁要用的方法寫在這裡
-			methods: {
-				onTest() {
-					// 使用axios發送POST請求
-					axios.post("/movieratings", {
-						userRatingMovieStars: this.selectedRating, // 使用者評分值
-						userAccount: this.username, // 使用者帳號
-						userRatingMovieName: this.moviedata[0].movieName, // 電影名稱
-					})
-						.then(response => {
-							console.log('評分已成功送到後端');
-							console.log('回傳的資料:', response.data);
-						})
-						.catch(error => {
-							console.error('發送評分時發生錯誤:', error);
+			// 當網頁載入完成後會被Vue框架呼叫
+			mounted() {
 
-					});
-			},
-			open() {
-				return new Promise((resolve, reject) => {
-				  const initialValue = this.usercomments[0].userRatingMovieComments;
-				  this.$prompt("請在下方對電影評論", "新增評論", {
-					confirmButtonText: "OK",
-					cancelButtonText: "Cancel",
-					inputValue: initialValue,
-				  })
-					.then(({ value }) => {
-					  // 在這裡處理輸入值
-					  resolve(value); // 回傳輸入值
-						console.log()
-					  // 發送評論
-					  axios
-						.post("/movieratingcom", {
-						userRatingMovieName: this.moviedata[0].movieName,
-						userAccount: this.username,
-						userRatingMovieComments: value,
-						})
+				//
+
+				const queryString = window.location.search
+				//建立參數解析物件
+				//取得username，islogin，id變數
+				const urlParams = new URLSearchParams(queryString);
+				this.username = urlParams.get('username');
+				this.islogin = urlParams.get('islogin');
+				this.id = urlParams.get('id');
+				console.log(this.username);
+				console.log("islogin=" + this.islogin);
+				console.log(this.id);
+				console.log(this.selectedRating)
+
+					//丟給後端API ID資料
+					axios.get("/moviedata?id=" + this.id)
 						.then((response) => {
-						  console.log("評論已成功送到後端");
-						  console.log("回傳的資料:", response.data);
+							// get完成後收到的資料可以在這裡處理
+							console.log(response);
+							//印出整個回傳物件
+							if (response.data.code == 0) {
+								this.moviedata = response.data.data;
+
+							}
+
+							//console.log(this.moviedata[0].movieName);
+
+							axios.get("/usercomment?moviename=" + this.moviedata[0].movieName)
+								.then((response) => {
+									console.log(response)
+
+									if (response.data.code == 0) {
+										this.usercomments = response.data.data;
+										this.movieName = this.moviedata[0].movieName
+										axios.get("/websiteratings?moviename=" + this.movieName)
+						.then((response) => {
+			        console.log(response);
+			         //把資料庫評分最高的電影丟給前端
+			        this.websiterating = response.data.data;
+					this.userRatingMovieStar = response.data.data[0].userRatingMovieStar;
+					console.log(this.userRatingMovieStar)
+					
+					
+			    })
+			    	.catch((error) => {
+			        console.log(error);
+			    });
+
+
+
+									}
+								})
+								.catch((error) => {
+									console.log(error);
+								});
+							axios.get("/movies?user_account=" + this.username + "&user_rating_movie_name=" + this.moviedata[0].movieName
+							)
+								.then((response) => {
+
+									console.log(response)
+									if (response.data.code == 0) {
+										this.stars = response.data.data;
+									}
+								})
+								.catch((error) => {
+									console.log(error);
+								});
 						})
 						.catch((error) => {
-						console.error("發送評論時發生錯誤:", error);
+							console.log(error);
 						});
-					})
-					.catch(() => {
-					  reject("取消修改"); // 取消操作時回傳
-					});
-				});
-			},
-
-
-				watch: {
-					selectedRating(newValue) {
-						console.log("選中的評分值:", newValue);
-						// 在這裡執行您希望進行的操作，例如傳送到後端或更新資料庫等
-					}
-				},
 
 
 
-				//搜尋
-				onshow(message) {
+
 
 				},
+				//網頁要用的方法寫在這裡
+				methods: {
+					onTest() {
+						// 使用axios發送POST請求
+						axios.post("/movieratings", {
+							userRatingMovieStars: this.selectedRating, // 使用者評分值
+							userAccount: this.username, // 使用者帳號
+							userRatingMovieName: this.moviedata[0].movieName, // 電影名稱
+						})
+							.then(response => {
+								console.log('評分已成功送到後端');
+								console.log('回傳的資料:', response.data);
+							})
+							.catch(error => {
+								console.error('發送評分時發生錯誤:', error);
 
-				remoteMethod(query) {
-					console.log('call remoteMoethod:' + query);
-
-					if (query) {
-						axios.get("/moviealldata/searchmovie?keyword=" + query)
+						});
+				},
+				open() {
+					return new Promise((resolve, reject) => {
+					  const initialValue = this.usercomments[0].userRatingMovieComments;
+					  this.$prompt("請在下方對電影評論", "新增評論", {
+						confirmButtonText: "OK",
+						cancelButtonText: "Cancel",
+						inputValue: initialValue,
+					  })
+						.then(({ value }) => {
+						  // 在這裡處理輸入值
+						  resolve(value); // 回傳輸入值
+							console.log()
+						  // 發送評論
+						  axios
+							.post("/movieratingcom", {
+							userRatingMovieName: this.moviedata[0].movieName,
+							userAccount: this.username,
+							userRatingMovieComments: value,
+							})
 							.then((response) => {
-								this.options = [];
-								console.log(response.data);
-								if (response.data.code == 0) {
-									for (let v of response.data.data) {
-										this.options.push({
-											value: v,
-											label: v,
-										});
-									}
-
-
-									console.log(this.options);
-								}
+							  console.log("評論已成功送到後端");
+							  console.log("回傳的資料:", response.data);
 							})
 							.catch((error) => {
-								console.log(error);
+							console.error("發送評論時發生錯誤:", error);
 							});
-
-
-					} else {
-						this.option = [];
-					}
+						})
+						.catch(() => {
+						  reject("取消修改"); // 取消操作時回傳
+						});
+					});
 				},
 
-			gomoviedata(value) {
-				//conso.log(value);
+
+					watch: {
+						selectedRating(newValue) {
+							console.log("選中的評分值:", newValue);
+							// 在這裡執行您希望進行的操作，例如傳送到後端或更新資料庫等
+						}
+					},
+
+
+
+					//搜尋
+					onshow(message) {
+
+					},
+
+					remoteMethod(query) {
+						console.log('call remoteMoethod:' + query);
+
+						if (query) {
+							axios.get("/moviealldata/searchmovie?keyword=" + query)
+								.then((response) => {
+									this.options = [];
+									console.log(response.data);
+									if (response.data.code == 0) {
+										for (let v of response.data.data) {
+											this.options.push({
+												value: v,
+												label: v,
+											});
+										}
+
+
+										console.log(this.options);
+									}
+								})
+								.catch((error) => {
+									console.log(error);
+								});
+
+
+						} else {
+							this.option = [];
+						}
+					},
+
+				gomoviedata(value) {
+					//conso.log(value);
+				}
+
 			}
-
-		}
-	}).use(ElementPlus).mount('#app')
-</script>
-
+		}).use(ElementPlus).mount('#app')
+	</script>
 </html>
