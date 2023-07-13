@@ -36,7 +36,7 @@
 		<i id="btn1" class="fa-solid fa-square-check"></i>
 		<i id="btn2" class="fa-solid fa-square-plus"></i>
 		<i id="btn3" class="fa-solid fa-square-check"></i>
-			<header id="header1">
+		<header id="header1">
 			<form onsubmit="event.preventDefault();" role="search">
 				<label for="search"><img src="img/2logo.png" />
 
@@ -53,7 +53,8 @@
 						<!--跳轉電影頁面-->
 						<!--<button @click="gomoviedata">{{value}}</button>-->
 
-						<a :href="'searchmoviedata.html?username=' + username + '&islogin=' + islogin + '&moviename=' + value">{{value}}</a>
+						<a
+							:href="'searchmoviedata.html?username=' + username + '&islogin=' + islogin + '&moviename=' + value">{{value}}</a>
 						<!--跳轉電影頁面-->
 						<template #footer>
 							<span class="dialog-footer">
@@ -95,13 +96,13 @@
 							<div v-if=" islogin != 'true'" class="warning">登入</div>
 						</a></li>
 					<li><a href="login.html">
-							<div v-if="islogin=='true'" class="warning">登出</div>
+							<div v-if="islogin=='true'" class="warning" @click="remotedata">登出</div>
 						</a>
 				</ul>
 			</div>
 		</header>
 		<!--vue使用-->
-		<div id="moviedata" v-for="item in moviedata" :key="item.id">
+		<div id=" moviedata" v-for="item in moviedata" :key="item.id">
 			<div id="content">
 				<div id="div3">
 					<img :src="item.imageUrl" />
@@ -153,9 +154,7 @@
 								/> -->
 							<a href="#5" title="Give 1 star" @click="selectedRating = 1, onTest()">★</a>
 						</div>
-						<el-button text @click="open" @click="post"
-								>新增/修改評論</el-button
-							>
+						<el-button text @click="open" @click="post">新增/修改評論</el-button>
 					</div>
 				</div>
 			</div>
@@ -212,9 +211,11 @@
 		},
 		// 當網頁載入完成後會被Vue框架呼叫
 		mounted() {
+			this.username = localStorage.getItem('username');
+			this.islogin = localStorage.getItem('islogin');
 
-			//
 
+			/*
 			const queryString = window.location.search
 			//建立參數解析物件
 			//取得username，islogin，id變數
@@ -226,7 +227,7 @@
 			console.log("islogin=" + this.islogin);
 			console.log(this.id);
 			console.log(this.selectedRating)
-
+			*/
 			//丟給後端API ID資料
 			axios.get("/moviedata?id=" + this.id)
 				.then((response) => {
@@ -296,34 +297,34 @@
 			},
 			open() {
 				return new Promise((resolve, reject) => {
-				  const initialValue = this.usercomments[0].userRatingMovieComments;
-				  this.$prompt("請在下方對電影評論", "新增評論", {
-					confirmButtonText: "OK",
-					cancelButtonText: "Cancel",
-					inputValue: initialValue,
-				  })
-					.then(({ value }) => {
-					  // 在這裡處理輸入值
-					  resolve(value); // 回傳輸入值
-						console.log()
-					  // 發送評論
-					  axios
-						.post("/movieratingcom", {
-						userRatingMovieName: this.moviedata[0].movieName,
-						userAccount: this.username,
-						userRatingMovieComments: value,
-						})
-						.then((response) => {
-						  console.log("評論已成功送到後端");
-						  console.log("回傳的資料:", response.data);
-						})
-						.catch((error) => {
-						console.error("發送評論時發生錯誤:", error);
-						});
+					const initialValue = this.usercomments[0].userRatingMovieComments;
+					this.$prompt("請在下方對電影評論", "新增評論", {
+						confirmButtonText: "OK",
+						cancelButtonText: "Cancel",
+						inputValue: initialValue,
 					})
-					.catch(() => {
-					  reject("取消修改"); // 取消操作時回傳
-					});
+						.then(({ value }) => {
+							// 在這裡處理輸入值
+							resolve(value); // 回傳輸入值
+							console.log()
+							// 發送評論
+							axios
+								.post("/movieratingcom", {
+									userRatingMovieName: this.moviedata[0].movieName,
+									userAccount: this.username,
+									userRatingMovieComments: value,
+								})
+								.then((response) => {
+									console.log("評論已成功送到後端");
+									console.log("回傳的資料:", response.data);
+								})
+								.catch((error) => {
+									console.error("發送評論時發生錯誤:", error);
+								});
+						})
+						.catch(() => {
+							reject("取消修改"); // 取消操作時回傳
+						});
 				});
 			},
 
@@ -374,7 +375,12 @@
 
 			gomoviedata(value) {
 				//conso.log(value);
-			}
+			},
+
+			remotedata() {
+				localStorage.removeItem("username");
+				localStorage.removeItem("islogin");
+			},
 
 		}
 	}).use(ElementPlus).mount('#app')

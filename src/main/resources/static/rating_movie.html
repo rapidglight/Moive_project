@@ -21,11 +21,11 @@
 	<label for="active" class="close"></label>
 	<div class="wrapper" style="z-index: 10;">
 		<ul>
-			<li><a :href="'index.html?username=' + username + '&islogin=' + islogin">回到首頁</a></li>
-			<li><a :href="'watching_movie.html?username=' + username + '&islogin=' + islogin">已看過清單</a></li>
+			<li><a href="index.html">回到首頁</a></li>
+			<li><a href="watching_movie.html">已看過清單</a></li>
 			<li><a href="#">尋找影片</a></li>
 			<li><a href="moviedata.html">電影頁面</a></li>
-			<li><a href="login.html">登入</a></li>
+			<li><a href="login.html" @click="remotedata">登出</a></li>
 		</ul>
 	</div>
 	<!-- partial:index.partial.html -->
@@ -39,8 +39,7 @@
 				<p class="has-text-white">{{username}} Rating-list Collection</p>
 			</div>
 			<div class="column is-one-quarter" v-for="item in userratinglists" :key="item.id">
-				<a :href="'moviedata.html?username=' + username + '&islogin=' + islogin + '&id=' + item.movieId"><img
-						:src="item.imageUrl"></a>
+				<a :href="'moviedata.html?id=' + item.movieId"><img :src="item.imageUrl"></a>
 
 			</div>
 
@@ -72,7 +71,11 @@
 			}
 		},
 		mounted() {
-			const queryString = window.location.search
+
+			//從local storage 拿出資料
+			this.username = localStorage.getItem('username');
+			this.islogin = localStorage.getItem('islogin');
+			/*const queryString = window.location.search
 			console.log(queryString);
 			console.log('Hello Javascript');
 
@@ -84,7 +87,7 @@
 			console.log(this.username);
 			console.log(this.islogin);
 			//取得username，islogin變數 
-
+			*/
 
 
 			axios.get("/userratinglist?username=" + this.username)
@@ -128,6 +131,13 @@
 
 
 
+
+		},
+		methods: {
+			remotedata() {
+				localStorage.removeItem("username");
+				localStorage.removeItem("islogin");
+			},
 		}
 
 	}).mount('#app')
