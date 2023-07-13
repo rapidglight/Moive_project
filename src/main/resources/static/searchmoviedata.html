@@ -89,7 +89,7 @@
                             <div v-if=" islogin != 'true'" class="warning">登入</div>
                         </a></li>
                     <li><a href="login.html">
-                            <div v-if="islogin=='true'" class="warning">登出</div>
+                            <div v-if="islogin=='true'" class="warning" @click="remotedata">登出</div>
                         </a></li>
                 </ul>
             </div>
@@ -168,14 +168,14 @@
             console.log(queryString);
             console.log('Hello Javascript');
 
+            this.username = localStorage.getItem('username');
+            this.islogin = localStorage.getItem('islogin');
+
             //建立參數解析物件
             const urlParams = new URLSearchParams(queryString);
-            this.username = urlParams.get('username');
-            this.islogin = urlParams.get('islogin');
+
             this.moviename = urlParams.get('moviename');
-            //this.moviename = urlParams.get('moviename');
-            console.log(this.username);
-            console.log("islogin = " + this.islogin);
+
             console.log("moviename = " + this.moviename);
             //console.log(this.moviename)
             //取得username，islogin變數
@@ -253,7 +253,11 @@
 
             gomoviedata(value) {
                 //conso.log(value);
-            }
+            },
+            remotedata() {
+                localStorage.removeItem("username");
+                localStorage.removeItem("islogin");
+            },
 
 
         }
