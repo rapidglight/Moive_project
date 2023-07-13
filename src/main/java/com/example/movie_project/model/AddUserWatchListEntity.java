@@ -3,8 +3,7 @@ package com.example.movie_project.model;
 import lombok.Data;
 
 @Data
-
-public class UserWatchingListEntity {
+public class AddUserWatchListEntity {
+    String userAccount;
     String userWatchMovieName;
-    String userName;
 }
