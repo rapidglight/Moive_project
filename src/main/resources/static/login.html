@@ -8,14 +8,13 @@
 
 	<!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-	<!-- 引入Vue.js -->
-	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
 
 		<!-- 引入Element UI介面庫-->
 		<!-- Import style -->
 		<link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
 		<!-- Import Vue 3 -->
-		<script src="//unpkg.com/vue@3"></script>
+		<script src="//unpkg.com/vue@3/dist/vue.global.prod.js"></script>
 		<!-- Import component library -->
 		<script src="//unpkg.com/element-plus"></script>
 		<!-- 引入Element UI介面庫-->
@@ -29,14 +28,14 @@
 		
 		<input type="checkbox" id="chk" aria-hidden="true">
 
-		<div class="signup">
-			<form>
+		<div class="signup" method="post" action="/signup" ref="form">
+			
 				<label for="chk" aria-hidden="true">Sign up</label>
-				<input type="text" name="usnm" placeholder="account" required="">
-				<input type="email" name="email" placeholder="Email" required="">
-				<input type="password" name="pswd" placeholder="Password" required="">
-				<button>Sign up</button>
-			</form>
+				<input type="text" name="usnm" placeholder="account" v-model="username" required="">
+				<input type="email" name="email" placeholder="Email" v-model="email" required="">
+				<input type="password" name="pswd" placeholder="Password" v-model="password" required="">
+				<button @click="signup">Sign up</button>
+			
 		</div>
 
 			<div class="login">
@@ -78,7 +77,8 @@
 				showWarning: false, // 開關警告訊息用
 				username: '', //存放使用者帳號
 				password: '', //存放使用者密碼
-				islogin: ''
+				islogin: '',
+				email:'',
 			}
 		},
 
@@ -99,13 +99,36 @@
 		//vue 的方法放這裡
 		methods: {
 
+			signup() {
+				// 使用axios發送POST請求
+				axios.post("/singup", {
+					userAccount: this.username, // 帳號
+					userPassword: this.password, // 密碼
+					userMail: this.email, // 回傳mail
+				})
+					.then(response => {
+						console.log('註冊成功');
+						console.log('回傳的資料:', response.data);
+						if (response.data.code == 0) { //登入成功
+							window.alert("註冊成功,請登入帳號")
+
+						}
+						else{
+							window.alert("註冊失敗,請再試一次")
+						}
+					})
+					.catch(error => {
+						console.error('註冊錯誤:', error);
+						alert.error('註冊失敗')
+				});
+		},
 
 
 			//檢查帳號有沒有包含不允許的字元
 			checkAccount() {
 				console.log('checkAccount');
 				/*if(this.username.includes('\'')==true)
-					 this.showWarning = true;*/
+					this.showWarning = true;*/
 
 				// 如果帳號名稱出現特殊字元，顯示警告訊息
 

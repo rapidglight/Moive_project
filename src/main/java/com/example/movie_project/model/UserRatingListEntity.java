@@ -3,10 +3,7 @@ package com.example.movie_project.model;
 import lombok.Data;
 
 @Data
-public class WebsiteRatingEntity {
-    int MovieId;
-    String imageUrl;
+public class UserRatingListEntity {
     String userRatingMovieName;
     int userRatingMovieStars;
-    Double userRatingMovieStar;
 }
