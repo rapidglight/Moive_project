@@ -8,4 +8,5 @@ public class WebsiteRatingEntity {
     String imageUrl;
     String userRatingMovieName;
     int userRatingMovieStars;
+    Double userRatingMovieStar;
 }
