@@ -232,7 +232,7 @@
 
 			this.username = localStorage.getItem('username');
 			this.islogin = localStorage.getItem('islogin');
-			const queryString = window.location.search
+			const queryString = window.location.search;
 			//建立參數解析物件
 			//取得username，islogin，id變數
 			const urlParams = new URLSearchParams(queryString);
@@ -291,7 +291,8 @@
 						if (response.data.code == 0) {
 							this.isuserwatchlist = response.data.data;
 							this.ifuserwatchlist = (this.isuserwatchlist.length === 0);
-							console.log(this.ifuserwatchlist)
+							console.log('ifuserwatchlist');
+							console.log(this.ifuserwatchlist);
 						}
 					})
 						.catch((error) => {
@@ -408,32 +409,33 @@
 						console.error('新增電影清單時發生錯誤:', error);
 					});
 				this.ifuserwatchlist = false;
-
+				console.log(this.ifuserwatchlist);
 			},
 			removefromlist() {
 				console.log(this.username);
 				console.log(this.moviedata[0].movieName);
 				console.log("刪除清單");
 				axios
-				  .delete("/deleteuserwatchlist", {
-					data: {
-					  userAccount: this.username,
-					  userWatchMovieName: this.moviedata[0].movieName
-					},
-					headers: {
-					  "Content-Type": "application/json"
-					}
-				  })
-				  .then(response => {
-					console.log("電影清單已成功刪除");
-					console.log("回傳的資料:", response.data);
-				  })
-				  .catch(error => {
-					console.error("刪除電影清單時發生錯誤:", error);
-				  });
+					.delete("/deleteuserwatchlist", {
+						data: {
+							userAccount: this.username,
+							userWatchMovieName: this.moviedata[0].movieName
+						},
+						headers: {
+							"Content-Type": "application/json"
+						}
+					})
+					.then(response => {
+						console.log("電影清單已成功刪除");
+						console.log("回傳的資料:", response.data);
+					})
+					.catch(error => {
+						console.error("刪除電影清單時發生錯誤:", error);
+					});
 				this.ifuserwatchlist = true;
-			  }
+				console.log(this.ifuserwatchlist);
 			}
+		}
 	}).use(ElementPlus).mount('#app')
 </script>
 

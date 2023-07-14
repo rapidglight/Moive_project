@@ -109,7 +109,7 @@ public class AddUserWatchListController {
 
             stmt.executeUpdate();
 
-            return new AddUserWatchListResponse(0, "更新成功", null);
+            return new AddUserWatchListResponse(0, "刪除成功", null);
         } catch (SQLException e) {
             return new AddUserWatchListResponse(e.getErrorCode(), e.getMessage(), null);
         } catch (ClassNotFoundException e) {
