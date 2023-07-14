@@ -29,10 +29,11 @@
 <body id="app">
 	<!-- 設定id給vue框架使用 -->
 	<div class="all">
+
 		<i id="btn" class="fa-solid fa-square-plus"></i>
-		<i id="btn1" class="fa-solid fa-square-check"></i>
+		<!--<i id="btn1" class="fa-solid fa-square-check"></i>-->
 		<i id="btn2" class="fa-solid fa-square-plus"></i>
-		<i id="btn3" class="fa-solid fa-square-check"></i>
+		<!--<i id="btn3" class="fa-solid fa-square-check"></i>-->
 		<header id="header1">
 			<form onsubmit="event.preventDefault();" role="search">
 				<label for="search"><img src="img/2logo.png" />
@@ -85,7 +86,7 @@
 							<div v-if="islogin=='true'" class="warning">尋找影片</div>
 						</a></li>
 					<!--vue 傳參數-->
-					<li><a href="'index.html">
+					<li><a href="index.html">
 							<div class="warning">回首頁</div>
 						</a></li>
 					<li><a href="login.html">
@@ -204,11 +205,12 @@
 				showResult: false,
 				userRatingMovieStar: "",
 				stars: [],
+
 			};
 		},
 		// 當網頁載入完成後會被Vue框架呼叫
 		mounted() {
-			//
+
 			this.username = localStorage.getItem('username');
 			this.islogin = localStorage.getItem('islogin');
 			const queryString = window.location.search
@@ -262,10 +264,14 @@
 						.catch((error) => {
 							console.log(error);
 						});
+					console.log(this.moviedata[0].movieName);
 				})
 				.catch((error) => {
 					console.log(error);
 				});
+
+
+
 		},
 		//網頁要用的方法寫在這裡
 		methods: {
