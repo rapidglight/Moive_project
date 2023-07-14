@@ -414,19 +414,26 @@
 				console.log(this.username);
 				console.log(this.moviedata[0].movieName);
 				console.log("刪除清單");
-				axios.delete("/deleteuserwatchlist", {
-					userAccount: this.username, // 使用者帳號
-					userWatchMovieName: this.moviedata[0].movieName //電影名稱 
-				}).then(response => {
-					console.log('電影清單已成功刪除');
-					console.log('回傳的資料:', response.data);
-				})
-					.catch(error => {
-						console.error('刪除電影清單時發生錯誤:', error);
-					});
+				axios
+				  .delete("/deleteuserwatchlist", {
+					data: {
+					  userAccount: this.username,
+					  userWatchMovieName: this.moviedata[0].movieName
+					},
+					headers: {
+					  "Content-Type": "application/json"
+					}
+				  })
+				  .then(response => {
+					console.log("電影清單已成功刪除");
+					console.log("回傳的資料:", response.data);
+				  })
+				  .catch(error => {
+					console.error("刪除電影清單時發生錯誤:", error);
+				  });
 				this.ifuserwatchlist = true;
-			},
-		}
+			  }
+			}
 	}).use(ElementPlus).mount('#app')
 </script>
 
