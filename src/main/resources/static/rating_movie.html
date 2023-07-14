@@ -23,7 +23,7 @@
 			<li><a href="watching_movie.html">已看過清單</a></li>
 			<li><a href="#">尋找影片</a></li>
 			<li><a href="moviedata.html">電影頁面</a></li>
-			<li><a href="login.html">登入</a></li>
+			<li><a href="login.html" @click="remotedata">登出</a></li>
 		</ul>
 	</div>
 	<!-- partial:index.partial.html -->
@@ -90,6 +90,12 @@
 				.catch((error) => {
 					console.log(error);
 				});
+		},
+		methods: {
+			remotedata() {
+				localStorage.removeItem("username");
+				localStorage.removeItem("islogin");
+			},
 		}
 	}).mount('#app')
 </script>

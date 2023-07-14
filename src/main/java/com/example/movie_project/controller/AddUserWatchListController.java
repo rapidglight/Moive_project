@@ -16,9 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.movie_project.model.AddUserWatchListEntity;
 import com.example.movie_project.model.AddUserWatchListResponse;
-import com.example.movie_project.model.BaseResponse;
-import com.example.movie_project.model.MovieratingEntity;
-import com.example.movie_project.model.MovieratingResponse;
 
 @RestController
 // AddUserWatchListEntity
