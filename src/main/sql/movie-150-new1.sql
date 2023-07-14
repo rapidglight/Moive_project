@@ -106,7 +106,7 @@ CREATE TABLE `user_watch_list` (
 
 LOCK TABLES `user_watch_list` WRITE;
 /*!40000 ALTER TABLE `user_watch_list` DISABLE KEYS */;
-INSERT INTO `user_watch_list` VALUES (9,'1234','Batman Returns'),(1,'1234','Memphis Belle'),(17,'1234','Men in Black'),(25,'1234','To Wong Foo Thanks for Everything, Julie Newmar'),(13,'2345','Teenage Mutant Ninja Turtles III'),(5,'2345','Terminator 2: Judgment Day'),(21,'2345','The Addams Family'),(29,'2345','The Shawshank Redemption'),(23,'32345t623','Encino Man'),(15,'32345t623','Spy Hard'),(7,'32345t623','Teenage Mutant Ninja Turtles'),(12,'4321','Dragon: The Bruce Lee Story'),(20,'4321','Green Card'),(4,'4321','Men at Work'),(28,'4321','The Man Without a Face'),(24,'432145','Dumb and Dumber'),(16,'432145','Starship Troopers'),(8,'432145','Teenage Mutant Ninja Turtles II: The Secret of the Ooze'),(22,'432556','Doc Hollywood'),(30,'432556','Forrest Gump'),(6,'432556','Point Break'),(14,'432556','The Mask'),(NULL,'aarron','Jurassic Park'),(2,'clark84322','Another 48 Hrs.'),(26,'clark84322','Jumanji'),(18,'clark84322','Pretty Woman'),(10,'clark84322','Under Siege'),(3,'qwe84322','Hard to Kill'),(19,'qwe84322','Home Alone'),(27,'qwe84322','Jerry Maguire'),(11,'qwe84322','Jurassic Park');
+INSERT INTO `user_watch_list` VALUES (9,'1234','Batman Returns'),(1,'1234','Memphis Belle'),(17,'1234','Men in Black'),(25,'1234','To Wong Foo Thanks for Everything, Julie Newmar'),(13,'2345','Teenage Mutant Ninja Turtles III'),(5,'2345','Terminator 2: Judgment Day'),(21,'2345','The Addams Family'),(29,'2345','The Shawshank Redemption'),(23,'32345t623','Encino Man'),(15,'32345t623','Spy Hard'),(7,'32345t623','Teenage Mutant Ninja Turtles'),(12,'4321','Dragon: The Bruce Lee Story'),(20,'4321','Green Card'),(4,'4321','Men at Work'),(28,'4321','The Man Without a Face'),(24,'432145','Dumb and Dumber'),(16,'432145','Starship Troopers'),(8,'432145','Teenage Mutant Ninja Turtles II: The Secret of the Ooze'),(22,'432556','Doc Hollywood'),(30,'432556','Forrest Gump'),(6,'432556','Point Break'),(14,'432556','The Mask'),(NULL,'aarron','Buffy the Vampire Slayer'),(NULL,'aarron','Jurassic Park'),(2,'clark84322','Another 48 Hrs.'),(26,'clark84322','Jumanji'),(18,'clark84322','Pretty Woman'),(10,'clark84322','Under Siege'),(3,'qwe84322','Hard to Kill'),(19,'qwe84322','Home Alone'),(27,'qwe84322','Jerry Maguire'),(11,'qwe84322','Jurassic Park');
 /*!40000 ALTER TABLE `user_watch_list` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,4 +144,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-14 16:14:59
+-- Dump completed on 2023-07-14 16:30:53
