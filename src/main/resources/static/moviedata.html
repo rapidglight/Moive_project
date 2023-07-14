@@ -152,7 +152,7 @@
 								/> -->
 							<a href="#5" title="Give 1 star" @click="selectedRating = 1, onTest()">★</a>
 						</div>
-						<el-button text @click="open" @click="post">新增/修改評論</el-button>
+						<el-button text @click="open" >新增/修改評論</el-button>
 					</div>
 				</div>
 			</div>
@@ -324,7 +324,7 @@
 			},
 			open() {
 				return new Promise((resolve, reject) => {
-					const initialValue = this.usercomments[0].userRatingMovieComments;
+					const initialValue = this.usercomments[0] ? this.usercomments[0].userRatingMovieComments : '';
 					this.$prompt("請在下方對電影評論", "新增評論", {
 						confirmButtonText: "OK",
 						cancelButtonText: "Cancel",
