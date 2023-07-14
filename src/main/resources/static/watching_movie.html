@@ -65,6 +65,7 @@
 			}
 		},
 		mounted() {
+
 			this.username = localStorage.getItem('username');
 			this.islogin = localStorage.getItem('islogin');
 
@@ -126,6 +127,7 @@
 				localStorage.removeItem("username");
 				localStorage.removeItem("islogin");
 			},
+
 		}
 
 	}).mount('#app')

@@ -31,11 +31,11 @@
 	<!-- 設定id給vue框架使用 -->
 	<div class="all">
 		<!--圖片-->
-		<button v-if="!ifuserwatchlist" @click="removefromlist"><i id="btn"
-				class="fa-solid fa-square-plus">remove</i></button>
+		<button v-if="!ifuserwatchlist" @click="removefromlist"><i id="btn" class="fa-solid fa-square-plus">remove</i>
+		</button>
 		<!--<i id="btn1" class="fa-solid fa-square-check"></i>-->
-		<button v-if="ifuserwatchlist" @click="addtolist"><i id="btn2"
-				class="fa-solid fa-square-plus">add</i></button><!--黃色-->
+		<button v-if="ifuserwatchlist" @click="addtolist"><i id="btn2" class="fa-solid fa-square-plus">add</i></button>
+		<!--黃色-->
 		<!--<i id="btn3" class="fa-solid fa-square-check"></i>-->
 		<header id="header1">
 			<form onsubmit="event.preventDefault();" role="search">
@@ -237,6 +237,7 @@
 		// 當網頁載入完成後會被Vue框架呼叫
 		mounted() {
 
+
 			this.username = localStorage.getItem('username');
 			this.islogin = localStorage.getItem('islogin');
 			const queryString = window.location.search;
@@ -315,6 +316,7 @@
 		},
 		//網頁要用的方法寫在這裡
 		methods: {
+
 			onTest() {
 				// 使用axios發送POST請求
 				axios.post("/movieratings", {

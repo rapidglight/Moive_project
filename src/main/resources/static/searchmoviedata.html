@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <script src="https://kit.fontawesome.com/5b33223490.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,16 +33,14 @@
     <!-- 設定id給vue框架使用 -->
     <div class="all">
         <!--圖片-->
-        <div v-if="!ifuserwatchlist" @click="removefromlist"><i id="btn" class="fa-solid fa-square-plus">remove</i>
-        </div>
+        <button v-if="!ifuserwatchlist" @click="removefromlist">
+            <i id="btn" class="fa-solid fa-square-plus">remove</i>
+        </button>
         <!--<i id="btn1" class="fa-solid fa-square-check"></i>-->
-        <div v-if="ifuserwatchlist" @click="addtolist"><i id="btn2" class="fa-solid fa-square-plus">add</i></div>
+        <button v-if="ifuserwatchlist" @click="addtolist">
+            <i id="btn2" class="fa-solid fa-square-plus">add</i></button>
         <!--黃色-->
         <!--<i id="btn3" class="fa-solid fa-square-check"></i>-->
-
-
-
-
         <header id="header1">
 
 
@@ -243,6 +242,7 @@
         },
         // 當網頁載入完成後會被Vue框架呼叫
         mounted() {
+
 
             this.username = localStorage.getItem('username');
             this.islogin = localStorage.getItem('islogin');
