@@ -15,6 +15,7 @@
 	<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 	<!-- 引入axios套件，用來透過HTTP協定在網頁內呼叫後端的API -->
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 	<!-- 引入Element UI介面庫-->
 	<!-- Import style -->
 	<link rel="stylesheet" href="//unpkg.com/element-plus/dist/index.css" />
@@ -106,6 +107,11 @@
 				<div id="div3">
 					<img :src="item.imageUrl" />
 				</div>
+				<!--trailer-->
+				<iframe width="560" height="315" :src="item.movieTrailer" title="YouTube video player" frameborder="0"
+					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+					allowfullscreen></iframe>
+				<!--評分系統-->
 				<div id="div1">
 					<div id="divrating">
 						<div id="logorating"><img src="img/star.png" />網站評分</div>

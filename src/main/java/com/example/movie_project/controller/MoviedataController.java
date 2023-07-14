@@ -57,6 +57,7 @@ public class MoviedataController {
                 MoviedataEntity.setMovieDescription(rs.getString("movie_description"));
                 MoviedataEntity.setMovieDirector(rs.getString("movie_director"));
                 MoviedataEntity.setMovieCast(rs.getString("movie_cast"));
+                MoviedataEntity.setMovieTrailer(rs.getString("trailer"));
 
                 movies.add(MoviedataEntity);
 

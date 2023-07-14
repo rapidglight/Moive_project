@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.movie_project.model.MoviedataEntity;
 import com.example.movie_project.model.SearchMoviedataEntity;
 
 import com.example.movie_project.model.SearchMoviedataResponse;
@@ -59,6 +60,7 @@ public class SearchMoviedataController {
                 SearchMoviedataEntity.setMovieDescription(rs.getString("movie_description"));
                 SearchMoviedataEntity.setMovieDirector(rs.getString("movie_director"));
                 SearchMoviedataEntity.setMovieCast(rs.getString("movie_cast"));
+                SearchMoviedataEntity.setMovieTrailer(rs.getString("trailer"));
 
                 searchmovies.add(SearchMoviedataEntity);
 

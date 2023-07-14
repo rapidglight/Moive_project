@@ -31,6 +31,17 @@
 <body id="app">
     <!-- 設定id給vue框架使用 -->
     <div class="all">
+        <!--圖片-->
+        <div v-if="!ifuserwatchlist" @click="removefromlist"><i id="btn" class="fa-solid fa-square-plus">remove</i>
+        </div>
+        <!--<i id="btn1" class="fa-solid fa-square-check"></i>-->
+        <div v-if="ifuserwatchlist" @click="addtolist"><i id="btn2" class="fa-solid fa-square-plus">add</i></div>
+        <!--黃色-->
+        <!--<i id="btn3" class="fa-solid fa-square-check"></i>-->
+
+
+
+
         <header id="header1">
 
 
@@ -72,24 +83,24 @@
             <label for="active" class="close"></label>
             <div class="wrapper">
                 <ul>
-                    <li><a :href="'watching_movie.html?username=' + username + '&islogin=' + islogin">
+                    <li><a href="watching_movie.html">
                             <div v-if="islogin=='true'" class="warning">看過清單</div>
                         </a></li>
-                    <li><a :href="'rating_movie.html?username=' + username + '&islogin=' + islogin">
+                    <li><a href="rating_movie.html">
                             <div v-if="islogin=='true'" class="warning">評分清單</div>
                         </a></li>
                     <li><a href="#">
                             <div v-if="islogin=='true'" class="warning">尋找影片</div>
                         </a></li>
                     <!--vue 傳參數-->
-                    <li><a :href="'index.html?username=' + username + '&islogin=' + islogin">
+                    <li><a href="index.html">
                             <div class="warning">回首頁</div>
                         </a></li>
                     <li><a href="login.html">
-                            <div v-if=" islogin != 'true'" class="warning">登入</div>
+                            <div v-if="!islogin" class="warning">登入</div>
                         </a></li>
                     <li><a href="login.html">
-                            <div v-if="islogin=='true'" class="warning">登出</div>
+                            <div v-if="islogin" class="warning">登出</div>
                         </a></li>
                 </ul>
             </div>
@@ -100,16 +111,61 @@
         <div id="content">
 
             <div id="div3">
-                <img :src="item.imageUrl">
+                <img
+                    :src="item.imageUrl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <iframe width="560" height="315" :src="item.movieTrailer" title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
             </div>
+            <!--評分系統-->
             <div id="div1">
                 <div id="divrating">
                     <div id="logorating"><img src="img/star.png" />網站評分</div>
-                    <div id="rating">評分9/10</div>
+                    <div id="rating">{{ userRatingMovieStar }}/5</div>
                 </div>
                 <div id="div2rating">
                     <div id="logorating"><img src="img/good.png" />你的評分</div>
-                    <div id="rating">評分9/10</div>
+                    <!-- 可在v-if放stars && stars[0] 做顯示切換 -->
+                    <div id="rating" v-if="userRatingMovieStars !='0'">{{ stars && stars[0] ?
+                        stars[0].userRatingMovieStars :'未評分'}}/5</div>
+                    <div class="rating1 rating2">
+                        <!-- <input
+                                type="radio"
+                                name="rating"
+                                value="5"
+                                v-model="selectedRating" @click="onTest"
+                            /> -->
+                        <a href="#1" title="Give 5 stars" @click="selectedRating = 5, onTest()">★</a>
+                        <!-- <input
+                                type="radio"
+                                name="rating"
+                                value="4"
+                                v-model="selectedRating"
+                            /> -->
+                        <a href="#2" title="Give 4 stars" @click="selectedRating = 4, onTest()">★</a>
+                        <!-- <input
+                                type="radio"
+                                name="rating"
+                                value="3"
+                                v-model="selectedRating"
+                            /> -->
+                        <a href="#3" title="Give 3 stars" @click="selectedRating = 3, onTest()">★</a>
+                        <!-- <input
+                                type="radio"
+                                name="rating"
+                                value="2"
+                                v-model="selectedRating"
+                            /> -->
+                        <a href="#4" title="Give 2 stars" @click="selectedRating = 2, onTest()">★</a>
+                        <!-- <input
+                                type="radio"
+                                name="rating"
+                                value="1"
+                                v-model="selectedRating"
+                            /> -->
+                        <a href="#5" title="Give 1 star" @click="selectedRating = 1, onTest()">★</a>
+                    </div>
+                    <el-button text @click="open">新增/修改評論</el-button>
                 </div>
             </div>
         </div>
@@ -134,9 +190,26 @@
     <footer id="footer1" v-for="item in usercomments" :key="item.id">
 
         <div id="user_comment" v-if="islogin=='true'">
-            <div>user :{{item.userAccount}}</div>comments :{{item.userRatingMovieComments}}
+            <div class="flex justify-center relative top-1/3">
+                <!--	 This is an example component -->
+                <div class="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
+                    <div class="relative flex gap-4">
+                        <img src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png"
+                            class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20" alt="" loading="lazy"
+                            id="icon">
+                        user :{{item.userAccount}}
+                        <div class="flex flex-col w-full">
+                            <div class="flex flex-row justify-between">
+                                <p class="relative text-xl whitespace-nowrap truncate overflow-hidden">comments
+                                    :{{item.userRatingMovieComments}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="user_comment" v-else>您必須先登入才能觀看其他使用者評論</div>
+        <div id="user_comment" v-if="false">您必須先登入才能觀看其他使用者評論</div>
     </footer>
     </div>
 
@@ -151,38 +224,45 @@
             return {
                 islogin: true,
                 username: "",
+                id: "",
                 moviedata: [],
-                moviename: "",
-                usercomments: [],
+                selectedRating: null, // 選中的評分值，可根據需要進行修改
+                moviecommentdata: [],
+                movieName: "",
                 //搜尋功能用的
                 options: [],
                 value: '',
                 loading: false,
-                showResult: false
+                showResult: false,
+                userRatingMovieStar: "",
+                stars: [],
+                isuserwatchlist: [],
+                ifuserwatchlist: ''
 
             }
         },
         // 當網頁載入完成後會被Vue框架呼叫
         mounted() {
+
+            this.username = localStorage.getItem('username');
+            this.islogin = localStorage.getItem('islogin');
             const queryString = window.location.search
             console.log(queryString);
             console.log('Hello Javascript');
 
             //建立參數解析物件
             const urlParams = new URLSearchParams(queryString);
-            this.username = urlParams.get('username');
-            this.islogin = urlParams.get('islogin');
-            this.moviename = urlParams.get('moviename');
+
+            this.movieName = urlParams.get('moviename');
             //this.moviename = urlParams.get('moviename');
             console.log(this.username);
-            console.log("islogin = " + this.islogin);
-            console.log("moviename = " + this.moviename);
+            console.log(this.movieName);
             //console.log(this.moviename)
             //取得username，islogin變數
 
 
 
-            axios.get("/searchmoviedata?moviename=" + this.moviename)
+            axios.get("/searchmoviedata?moviename=" + this.movieName)
                 .then((response) => {
                     // get完成後收到的資料可以在這裡處理
                     console.log(response);
@@ -198,15 +278,55 @@
 
                                 if (response.data.code == 0) {
                                     this.usercomments = response.data.data;
+                                    this.usercomments = response.data.data;
+                                    this.movieName = this.moviedata[0].movieName;
+                                    axios.get("/websiteratings?moviename=" + this.movieName)
+                                        .then((response) => {
+                                            console.log(response);
+                                            //把資料庫評分最高的電影丟給前端
+                                            this.websiterating = response.data.data;
+                                            this.userRatingMovieStar = response.data.data[0].userRatingMovieStar;
+                                            console.log(this.userRatingMovieStar);
 
+
+                                        })
+                                        .catch((error) => {
+                                            console.log(error);
+                                        });
                                 }
                             })
                             .catch((error) => {
                                 console.log(error);
                             });
-
-
                     }
+
+                    axios.get("/movies?user_account=" + this.username + "&user_rating_movie_name=" + this.moviedata[0].movieName
+                    )
+                        .then((response) => {
+                            console.log(response);
+                            if (response.data.code == 0) {
+                                this.stars = response.data.data;
+                            }
+                        })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+                    console.log(this.moviedata[0].movieName);
+                    console.log(this.username);
+                    axios.get("/adduserwatchlist?username=" + this.username + "&userWatchMovieName=" + this.moviedata[0].movieName
+                    ).then((response) => {
+                        console.log(response);
+                        if (response.data.code == 0) {
+                            this.isuserwatchlist = response.data.data;
+                            this.ifuserwatchlist = (this.isuserwatchlist.length === 0);
+                            console.log('ifuserwatchlist');
+                            console.log(this.ifuserwatchlist);
+                        }
+                    })
+                        .catch((error) => {
+                            console.log(error);
+                        });
+
                 })
                 .catch((error) => {
                     console.log(error);
@@ -214,9 +334,70 @@
 
 
 
+
+
         },
 
         methods: {
+
+
+
+
+
+            onTest() {
+                // 使用axios發送POST請求
+                axios.post("/movieratings", {
+                    userRatingMovieStars: this.selectedRating, // 使用者評分值
+                    userAccount: this.username, // 使用者帳號
+                    userRatingMovieName: this.moviedata[0].movieName, // 電影名稱
+                })
+                    .then(response => {
+                        console.log('評分已成功送到後端');
+                        console.log('回傳的資料:', response.data);
+                        location.reload();
+                    })
+                    .catch(error => {
+                        console.error('發送評分時發生錯誤:', error);
+                    });
+            },
+            open() {
+                return new Promise((resolve, reject) => {
+                    const initialValue = this.usercomments[0] ? this.usercomments[0].userRatingMovieComments : '';
+                    this.$prompt("請在下方對電影評論", "新增評論", {
+                        confirmButtonText: "OK",
+                        cancelButtonText: "Cancel",
+                        inputValue: initialValue,
+                    })
+                        .then(({ value }) => {
+                            // 在這裡處理輸入值
+                            resolve(value); // 回傳輸入值
+
+                            // 發送評論
+                            axios.post("/movieratingcom", {
+                                userRatingMovieName: this.moviedata[0].movieName,
+                                userAccount: this.username,
+                                userRatingMovieComments: value,
+                            })
+                                .then((response) => {
+                                    console.log("評論已成功送到後端");
+                                    console.log("回傳的資料:", response.data);
+                                    location.reload();
+                                })
+                                .catch((error) => {
+                                    console.error("發送評論時發生錯誤:", error);
+                                });
+                        })
+                        .catch(() => {
+                            reject("取消修改"); // 取消操作時回傳
+                        });
+                });
+            },
+            watch: {
+                selectedRating(newValue) {
+                    console.log("選中的評分值:", newValue);
+                    // 在這裡執行您希望進行的操作，例如傳送到後端或更新資料庫等
+                }
+            },
             onshow(message) {
 
             },
@@ -253,9 +434,57 @@
 
             gomoviedata(value) {
                 //conso.log(value);
+            },
+
+            remotedata() {
+                localStorage.removeItem("username");
+                localStorage.removeItem("islogin");
+            },
+            addtolist() {
+                console.log(this.username);
+                console.log(this.moviedata[0].movieName);
+                console.log("新增清單");
+                axios.post("/newuserwatchlist", {
+                    userAccount: this.username, // 使用者帳號
+                    userWatchMovieName: this.moviedata[0].movieName //電影名稱 
+                }).then(response => {
+                    console.log('電影清單已成功送到後端');
+                    console.log('回傳的資料:', response.data);
+                    window.alert('以新增至清單');
+                })
+                    .catch(error => {
+                        console.error('新增電影清單時發生錯誤:', error);
+                    });
+                this.ifuserwatchlist = false;
+                console.log(this.ifuserwatchlist);
+
+            },
+            removefromlist() {
+                console.log(this.username);
+                console.log(this.moviedata[0].movieName);
+                console.log("刪除清單");
+                axios
+                    .delete("/deleteuserwatchlist", {
+                        data: {
+                            userAccount: this.username,
+                            userWatchMovieName: this.moviedata[0].movieName
+                        },
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => {
+                        console.log("電影清單已成功刪除");
+                        console.log("回傳的資料:", response.data);
+                        window.alert('已從清單刪除');
+                    })
+                    .catch(error => {
+                        console.error("刪除電影清單時發生錯誤:", error);
+                    });
+                this.ifuserwatchlist = true;
+                console.log(this.ifuserwatchlist);
+
             }
-
-
         }
 
 

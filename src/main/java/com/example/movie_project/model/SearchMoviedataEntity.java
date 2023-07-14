@@ -19,4 +19,5 @@ public class SearchMoviedataEntity {
     String movieDescription;
     String movieDirector;
     String movieCast;
+    String movieTrailer;
 }
