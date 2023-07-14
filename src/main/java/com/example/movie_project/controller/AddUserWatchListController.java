@@ -89,38 +89,35 @@ public class AddUserWatchListController {
             return new AddUserWatchListResponse(1, "無法註冊驅動程式", null);
         }
     }
-    // 待修改
+
     // 從資料庫裡刪除userwatchlist資料 delete
-    /*
-     * @RequestMapping(value = "/deleteuserwatchlist", method =
-     * RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE, // 傳入的資料格式
-     * produces = MediaType.APPLICATION_JSON_VALUE)
-     * 
-     * public AddUserWatchListResponse deleteUserWatchList(@RequestBody
-     * AddUserWatchListEntity data) {
-     * Connection conn = null;
-     * PreparedStatement stmt = null;
-     * 
-     * try {
-     * Class.forName("com.mysql.cj.jdbc.Driver");
-     * conn = DriverManager.getConnection(
-     * "jdbc:mysql://localhost/javaconnect?user=root&password=0000");
-     * stmt = conn.prepareStatement(
-     * "delete from user_watch_list
-     * where user_account='clark84322' and user_watch_movie_name='Hard to Kill'");
-     * 
-     * /*stmt.setString(1, data.getUserAccount());
-     * stmt.setString(2, data.getUserWatchMovieName());
-     * 
-     * stmt.executeUpdate();
-     * 
-     * return new AddUserWatchListResponse(0, "更新成功", null);
-     * } catch (SQLException e) {
-     * return new AddUserWatchListResponse(e.getErrorCode(), e.getMessage(), null);
-     * } catch (ClassNotFoundException e) {
-     * return new AddUserWatchListResponse(1, "無法註冊驅動程式", null);
-     * }
-     * }
-     */
+
+    @RequestMapping(value = "/deleteuserwatchlist", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE, // 傳入的資料格式
+            produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public AddUserWatchListResponse deleteUserWatchList(@RequestBody AddUserWatchListEntity data) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost/javaconnect?user=root&password=0000");
+            stmt = conn.prepareStatement(
+                    "delete from user_watch_list"
+                            + "where user_account=? and user_watch_movie_name=?");
+
+            stmt.setString(1, data.getUserAccount());
+            stmt.setString(2, data.getUserWatchMovieName());
+
+            stmt.executeUpdate();
+
+            return new AddUserWatchListResponse(0, "更新成功", null);
+        } catch (SQLException e) {
+            return new AddUserWatchListResponse(e.getErrorCode(), e.getMessage(), null);
+        } catch (ClassNotFoundException e) {
+            return new AddUserWatchListResponse(1, "無法註冊驅動程式", null);
+        }
+    }
 
 }
