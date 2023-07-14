@@ -232,7 +232,7 @@
 							console.log(response);
 							if (response.data.code == 0) {
 								this.usercomments = response.data.data;
-								this.movieName = this.moviedata[0].movieName
+								this.movieName = this.moviedata[0].movieName;
 								axios.get("/websiteratings?moviename=" + this.movieName)
 									.then((response) => {
 										console.log(response);
@@ -254,7 +254,7 @@
 					axios.get("/movies?user_account=" + this.username + "&user_rating_movie_name=" + this.moviedata[0].movieName
 					)
 						.then((response) => {
-							console.log(response)
+							console.log(response);
 							if (response.data.code == 0) {
 								this.stars = response.data.data;
 							}
