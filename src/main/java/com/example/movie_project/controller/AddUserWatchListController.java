@@ -105,7 +105,7 @@ public class AddUserWatchListController {
                     "jdbc:mysql://localhost/javaconnect?user=root&password=0000");
             stmt = conn.prepareStatement(
                     "delete from user_watch_list"
-                            + "where user_account=? and user_watch_movie_name=?");
+                            + " where user_account=? and user_watch_movie_name=?");
 
             stmt.setString(1, data.getUserAccount());
             stmt.setString(2, data.getUserWatchMovieName());
