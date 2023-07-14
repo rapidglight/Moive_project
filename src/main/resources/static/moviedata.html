@@ -30,10 +30,11 @@
 	<!-- 設定id給vue框架使用 -->
 	<div class="all">
 		<!--圖片-->
-		<button @click="removefromlist"><i id="btn" class="fa-solid fa-square-plus">remove</i></button>
+		<button v-if="!ifuserwatchlist" @click="removefromlist"><i id="btn"
+				class="fa-solid fa-square-plus">remove</i></button>
 		<!--<i id="btn1" class="fa-solid fa-square-check"></i>-->
-		<br><br><br>
-		<button @click="addtolist"><i id="btn2" class="fa-solid fa-square-plus">add</i></button><!--黃色-->
+		<button v-if="ifuserwatchlist" @click="addtolist"><i id="btn2"
+				class="fa-solid fa-square-plus">add</i></button><!--黃色-->
 		<!--<i id="btn3" class="fa-solid fa-square-check"></i>-->
 		<header id="header1">
 			<form onsubmit="event.preventDefault();" role="search">
@@ -152,7 +153,7 @@
 								/> -->
 							<a href="#5" title="Give 1 star" @click="selectedRating = 1, onTest()">★</a>
 						</div>
-						<el-button text @click="open" >新增/修改評論</el-button>
+						<el-button text @click="open">新增/修改評論</el-button>
 					</div>
 				</div>
 			</div>
@@ -318,6 +319,7 @@
 					.then(response => {
 						console.log('評分已成功送到後端');
 						console.log('回傳的資料:', response.data);
+						location.reload();
 					})
 					.catch(error => {
 						console.error('發送評分時發生錯誤:', error);
@@ -344,6 +346,7 @@
 								.then((response) => {
 									console.log("評論已成功送到後端");
 									console.log("回傳的資料:", response.data);
+									location.reload();
 								})
 								.catch((error) => {
 									console.error("發送評論時發生錯誤:", error);
@@ -404,12 +407,14 @@
 				}).then(response => {
 					console.log('電影清單已成功送到後端');
 					console.log('回傳的資料:', response.data);
+					window.alert('以新增至清單');
 				})
 					.catch(error => {
 						console.error('新增電影清單時發生錯誤:', error);
 					});
 				this.ifuserwatchlist = false;
 				console.log(this.ifuserwatchlist);
+
 			},
 			removefromlist() {
 				console.log(this.username);
@@ -428,12 +433,14 @@
 					.then(response => {
 						console.log("電影清單已成功刪除");
 						console.log("回傳的資料:", response.data);
+						window.alert('已從清單刪除');
 					})
 					.catch(error => {
 						console.error("刪除電影清單時發生錯誤:", error);
 					});
 				this.ifuserwatchlist = true;
 				console.log(this.ifuserwatchlist);
+
 			}
 		}
 	}).use(ElementPlus).mount('#app')
