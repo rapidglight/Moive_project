@@ -29,10 +29,11 @@
 <body id="app">
 	<!-- 設定id給vue框架使用 -->
 	<div class="all">
-
-		<i id="btn" class="fa-solid fa-square-plus"></i>
+		<!--圖片-->
+		<button @click="removefromlist"><i id="btn" class="fa-solid fa-square-plus">remove</i></button>
 		<!--<i id="btn1" class="fa-solid fa-square-check"></i>-->
-		<i id="btn2" class="fa-solid fa-square-plus"></i>
+		<br><br><br>
+		<button @click="addtolist"><i id="btn2" class="fa-solid fa-square-plus">add</i></button><!--黃色-->
 		<!--<i id="btn3" class="fa-solid fa-square-check"></i>-->
 		<header id="header1">
 			<form onsubmit="event.preventDefault();" role="search">
@@ -181,11 +182,13 @@
 					<div class="relative grid grid-cols-1 gap-4 p-4 mb-8 border rounded-lg bg-white shadow-lg">
 						<div class="relative flex gap-4">
 							<img src="https://icons.iconarchive.com/icons/diversity-avatars/avatars/256/charlie-chaplin-icon.png"
-								class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20" alt="" loading="lazy" id="icon">
-								user :{{item.userAccount}}
-								<div class="flex flex-col w-full">
+								class="relative rounded-lg -top-8 -mb-4 bg-white border h-20 w-20" alt="" loading="lazy"
+								id="icon">
+							user :{{item.userAccount}}
+							<div class="flex flex-col w-full">
 								<div class="flex flex-row justify-between">
-									<p class="relative text-xl whitespace-nowrap truncate overflow-hidden">comments :{{item.userRatingMovieComments}}
+									<p class="relative text-xl whitespace-nowrap truncate overflow-hidden">comments
+										:{{item.userRatingMovieComments}}
 									</p>
 								</div>
 							</div>
@@ -281,11 +284,14 @@
 							console.log(error);
 						});
 					console.log(this.moviedata[0].movieName);
+					console.log(this.username);
 					axios.get("/adduserwatchlist?username=" + this.username + "&userWatchMovieName=" + this.moviedata[0].movieName
 					).then((response) => {
 						console.log(response);
 						if (response.data.code == 0) {
 							this.isuserwatchlist = response.data.data;
+							this.ifuserwatchlist = (this.isuserwatchlist.length === 0);
+							console.log(this.ifuserwatchlist)
 						}
 					})
 						.catch((error) => {
@@ -386,6 +392,39 @@
 			remotedata() {
 				localStorage.removeItem("username");
 				localStorage.removeItem("islogin");
+			},
+			addtolist() {
+				console.log(this.username);
+				console.log(this.moviedata[0].movieName);
+				console.log("新增清單");
+				axios.post("/newuserwatchlist", {
+					userAccount: this.username, // 使用者帳號
+					userWatchMovieName: this.moviedata[0].movieName //電影名稱 
+				}).then(response => {
+					console.log('電影清單已成功送到後端');
+					console.log('回傳的資料:', response.data);
+				})
+					.catch(error => {
+						console.error('新增電影清單時發生錯誤:', error);
+					});
+				this.ifuserwatchlist = false;
+
+			},
+			removefromlist() {
+				console.log(this.username);
+				console.log(this.moviedata[0].movieName);
+				console.log("刪除清單");
+				axios.delete("/deleteuserwatchlist", {
+					userAccount: this.username, // 使用者帳號
+					userWatchMovieName: this.moviedata[0].movieName //電影名稱 
+				}).then(response => {
+					console.log('電影清單已成功刪除');
+					console.log('回傳的資料:', response.data);
+				})
+					.catch(error => {
+						console.error('刪除電影清單時發生錯誤:', error);
+					});
+				this.ifuserwatchlist = true;
 			},
 		}
 	}).use(ElementPlus).mount('#app')
