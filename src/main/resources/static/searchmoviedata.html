@@ -108,11 +108,11 @@
 
             <div id="div3">
                 <img
-                    :src="item.imageUrl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    :src="item.imageUrl"> </div>
                 <iframe width="560" height="315" :src="item.movieTrailer" title="YouTube video player" frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowfullscreen></iframe>
-            </div>
+           
             <!--評分系統-->
             <div id="div1">
                 <div id="divrating">
@@ -161,7 +161,7 @@
                             /> -->
                         <a href="#5" title="Give 1 star" @click="selectedRating = 1, onTest()">★</a>
                     </div>
-                    <el-button text @click="open">新增/修改評論</el-button>
+                    <el-button text @click="open" id="coms">新增/修改評論</el-button>
                 </div>
             </div>
         </div>

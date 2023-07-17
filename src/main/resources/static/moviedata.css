@@ -148,7 +148,7 @@ body {
 }
 
 #div1{
-    margin: 10px; 
+    margin: 15px; 
     padding: 5px; 
     border: 0px solid #ffffff; 
     border-radius: 10px;
@@ -206,18 +206,19 @@ body {
     order: 1;
 }
 #rating{
-    margin: 20px;
-    padding: 20px;
+    margin: 1px;
+    padding: 1px;
     border: 0px solid #fff;
     flex-basis: 50%;
     order: 2;
 }
 #divrating{
     border: 0px solid #fff;
-    
+    text-align: center;
 }
 #div2rating{
     border: 0px solid #fff;
+    text-align: center;
 }
 #description{
     border: 0px solid #fff;
@@ -264,4 +265,9 @@ position: absolute;
 }
 .rating2 a {
     float:none
+}
+#coms{
+    text-align: center;
+    font-size: 20px;
+    color: #000;
 }
