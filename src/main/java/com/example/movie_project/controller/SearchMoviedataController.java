@@ -33,6 +33,7 @@ public class SearchMoviedataController {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
+        moviename = moviename.replace("\'", "\\\'");
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
