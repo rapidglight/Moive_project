@@ -216,11 +216,11 @@
 			return {
 				islogin: true,
 				username: "",
-				id: "",
+				id: "", //電影資料庫的id
 				moviedata: [],
 				selectedRating: null, // 選中的評分值，可根據需要進行修改
 				moviecommentdata: [],
-				movieName: "",
+				movieName: "", //電影的名字
 				//搜尋功能用的
 				options: [],
 				value: '',
@@ -229,7 +229,8 @@
 				userRatingMovieStar: "",
 				stars: [],
 				isuserwatchlist: [],
-				ifuserwatchlist: '' //是否有在清單裡
+				ifuserwatchlist: '', //是否有在清單裡
+				historyrecord: '' //歷史紀錄儲存
 
 			};
 		},
@@ -290,6 +291,19 @@
 						.catch((error) => {
 							console.log(error);
 						});
+					//歷史紀錄 一直增加
+
+					this.historyrecord = localStorage.getItem('historyrecord');
+					/*console.log(this.historyrecord);
+					console.log(this.historyrecord.includes(this.moviedata[0].movieName));*/
+					if (!this.historyrecord.includes(this.moviedata[0].movieName)) {
+						this.historyrecord = this.historyrecord + this.moviedata[0].movieName + ',';
+						localStorage.setItem('historyrecord', this.historyrecord);
+
+					}
+
+
+
 					console.log(this.moviedata[0].movieName);
 					console.log(this.username);
 					axios.get("/adduserwatchlist?username=" + this.username + "&userWatchMovieName=" + this.moviedata[0].movieName
@@ -305,10 +319,15 @@
 						.catch((error) => {
 							console.log(error);
 						});
+
 				})
 				.catch((error) => {
 					console.log(error);
 				});
+			/*
+			localStorage.setItem('username', this.username);
+			localStorage.setItem('islogin', 'true');*/
+
 
 
 
@@ -403,6 +422,7 @@
 			remotedata() {
 				localStorage.removeItem("username");
 				localStorage.removeItem("islogin");
+				localStorage.removeItem("historyrecord");
 			},
 			addtolist() {
 				console.log(this.username);

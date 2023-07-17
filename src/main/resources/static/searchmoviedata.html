@@ -236,7 +236,8 @@
                 userRatingMovieStar: "",
                 stars: [],
                 isuserwatchlist: [],
-                ifuserwatchlist: ''
+                ifuserwatchlist: '',
+                historyrecord: '' //歷史紀錄儲存
 
             }
         },
@@ -311,6 +312,18 @@
                         .catch((error) => {
                             console.log(error);
                         });
+                    //歷史紀錄 一直增加
+
+                    this.historyrecord = localStorage.getItem('historyrecord');
+                    /*console.log(this.historyrecord);
+                    console.log(this.historyrecord.includes(this.moviedata[0].movieName));*/
+                    if (!this.historyrecord.includes(this.moviedata[0].movieName)) {
+                        this.historyrecord = this.historyrecord + this.moviedata[0].movieName + ',';
+                        localStorage.setItem('historyrecord', this.historyrecord);
+
+                    }
+
+
                     console.log(this.moviedata[0].movieName);
                     console.log(this.username);
                     axios.get("/adduserwatchlist?username=" + this.username + "&userWatchMovieName=" + this.moviedata[0].movieName
@@ -331,6 +344,7 @@
                 .catch((error) => {
                     console.log(error);
                 });
+
 
 
 
@@ -439,6 +453,7 @@
             remotedata() {
                 localStorage.removeItem("username");
                 localStorage.removeItem("islogin");
+                localStorage.removeItem("historyrecord");
             },
             addtolist() {
                 console.log(this.username);
