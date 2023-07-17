@@ -158,6 +158,11 @@ body {
 	text-align: center; /* 文字居中對齊 */
 	margin: 20px 0 10px; /* 上、下、左、右邊距分別為20px、0、10px */
 	line-height: 1.1em; /* 行高為1.1倍字體大小 */
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 1;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
 
 .container .card .content .contentBx h3 span {
