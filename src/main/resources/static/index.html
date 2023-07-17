@@ -44,8 +44,8 @@
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
 
-          <el-button type="primary" @click="showResult = true">go</el-button>
-
+          <el-button type="primary" @click="searchresult">go</el-button>
+          <!--showResult = true-->
           <el-dialog v-model="showResult" title="結果" width="30%" :before-close="handleClose">
             <!--跳轉電影頁面-->
             <!--<button @click="gomoviedata">{{value}}</button>-->
@@ -250,9 +250,11 @@
                   this.options.push({
                     value: v,
                     label: v,
+
                   });
                 }
                 console.log(this.options);
+
               }
             })
             .catch((error) => {
@@ -274,6 +276,10 @@
         //把api的資料也清除掉，畫面就可以隨時更新
 
       },
+      searchresult(value) {
+        this.showResult = true;
+        console.log(this.value);
+      }
 
     }
   }).use(ElementPlus).mount('#app')
