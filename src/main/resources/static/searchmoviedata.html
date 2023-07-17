@@ -117,7 +117,7 @@
             <div id="div1">
                 <div id="divrating">
                     <div id="logorating"><img src="img/star.png" />網站評分</div>
-                    <div id="rating">{{ userRatingMovieStar }}/5</div>
+                    <div id="rating">{{ userRatingMovieStar? userRatingMovieStar : '未評分' }}/5</div>
                 </div>
                 <div id="div2rating">
                     <div id="logorating"><img src="img/good.png" />你的評分</div>
