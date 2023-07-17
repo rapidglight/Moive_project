@@ -95,7 +95,12 @@
       </div>
   </div>
   </header>
-  <div id="content">近期瀏覽
+
+  <button @click="cleanhistory">clear all</button>
+  <div id="content">
+
+    <nav>近期瀏覽</nav>
+
     <nav id="nav1" v-for="item in historyrecorddata" :key="item.id">
       <img :src="item.imageUrl" width="210" height="300">
 
@@ -263,6 +268,10 @@
         localStorage.removeItem("username");
         localStorage.removeItem("islogin");
         localStorage.removeItem("historyrecord");
+      },
+      cleanhistory() {
+        localStorage.setItem("historyrecord", '');
+        window.location.reload();
       },
 
     }
