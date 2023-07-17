@@ -81,13 +81,8 @@
           <li><a href="rating_movie.html">
               <div v-if="islogin=='true'" class="warning">評分清單</div>
             </a></li>
-          <li><a href="#">
-              <div v-if="islogin=='true'" class="warning">尋找影片</div>
-            </a></li>
           <!--vue 傳參數-->
-          <li><a href="moviedata.html">
-              <div v-if="islogin=='true'" class="warning">電影頁面</div>
-            </a></li>
+          </a></li>
           <li><a href="login.html">
               <div v-if=" islogin != 'true'" class="warning">登入</div>
             </a></li>
@@ -215,8 +210,8 @@
       //用,分割成陣列
       console.log(this.historyrecords);
       this.historyrecords.pop();//刪除最後一個陣列因為,後面是空的
-
       console.log(this.historyrecords);
+
       //把陣列裡的歷史紀錄丟給後端
       for (let p in this.historyrecords) {
         axios.get("/searchmoviedata?moviename=" + this.historyrecords[p])

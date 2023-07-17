@@ -40,7 +40,7 @@
     z-index: 9999; /* 元素的堆疊順序，數字越大越在上層 */
     right: 10px; /* 元素右側與其包含塊右側的距離為20px */
     /*left: 20px; */ /* 元素左側與其包含塊左側的距離為20px (在這裡註解掉，表示不使用左側定位) */
-    top: 10px; /* 元素頂部與其包含塊頂部的距離為20px */
+    top: 50px; /* 元素頂部與其包含塊頂部的距離為20px */
     height: 60px; /* 元素的高度為50px */
     width: 60px; /* 元素的寬度為50px */
     text-align: center; /* 文字在元素中水平居中對齊 */
@@ -93,7 +93,7 @@
 }
 .wrapper ul {
     position: absolute;
-    top: 40%;
+    top: 70%;
     left: 30%;
     height: 90%;
     transform: translate(-50%, -50%); /* 將元素水平及垂直居中 */

@@ -6,7 +6,7 @@ body{
 	align-items: center;
 	min-height: 100vh;
 	font-family: 'Jost', sans-serif;
-	background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+	background: linear-gradient(to bottom, #101010, #5d5c69, #161621);
 }
 .main{
 	width: 350px;
@@ -59,7 +59,7 @@ button{
 	justify-content: center;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	background: #6c6280;
 	font-size: 1em;
 	font-weight: bold;
 	margin-top: 20px;
