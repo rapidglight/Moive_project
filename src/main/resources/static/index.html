@@ -271,7 +271,8 @@
       },
       cleanhistory() {
         localStorage.setItem("historyrecord", '');
-        window.location.reload();
+        this.historyrecorddata = [];
+        //window.location.reload();
       },
 
     }
