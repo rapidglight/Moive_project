@@ -52,7 +52,7 @@ public class WebsiteRatingController {
                 websiteRatingEntity.setImageUrl(rs.getString("image_url"));
                 websiteRatingEntity.setUserRatingMovieName(rs.getString("user_rating_movie_name"));
                 websiteRatingEntity.setUserRatingMovieStars(rs.getInt("avg(user_rating_movie_stars)"));
-
+                
                 movies.add(websiteRatingEntity);
 
             }
