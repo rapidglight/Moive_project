@@ -62,14 +62,6 @@ img {
 .title_wrapper h1 {
 	width: 70%;
 }
-button {
-	background: #f40612 !important;
-	color: #fff !important;
-	font-size: 18px;
-	padding: 0.5rem 3rem;
-	outline: none;
-	border: 0 !important;
-}
 @media (max-width: 768px) {
 	.title_wrapper {
 		text-align: center;
