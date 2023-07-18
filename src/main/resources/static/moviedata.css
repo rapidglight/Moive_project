@@ -178,6 +178,9 @@ body {
     background: #1b1b1b;
     flex-basis: 20%;
     display: flex;
+    justify-content:baseline; /* 将内容水平居中 */
+    align-items: center; /* 将内容垂直居中 */
+    text-align: center; /* 对齐文本水平居中 */
 }
 #div5{
     margin: 10px;
@@ -275,4 +278,16 @@ position: absolute;
 #yt1{
     top: 150px;
     margin: 17px;
+}
+#link1{
+    height: auto;
+    width: auto;
+    justify-content: center;
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 100px;
 }
