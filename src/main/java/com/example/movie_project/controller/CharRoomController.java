@@ -13,6 +13,6 @@ public class CharRoomController {
     @SendTo("topic/getResponse")
     public ServerResponseModel said(ChatClientModel responseMessage) throws InterruptedException {
         Thread.sleep(3000);
-        return new ServerResponseModel("歡迎來到," + responseMessage.getClientname());
+        return new ServerResponseModel();
     }
 }
