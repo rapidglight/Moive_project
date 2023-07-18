@@ -168,10 +168,15 @@
 			</div>
 			<div id="div4">
 				類型:
-				<div v-if="item.movieCategoryDrama == 1">Drama &#20;</div>
-				<div v-if="item.movieCategoryAction == 1">Action &#20;</div>
-				<div v-if="item.movieCategoryRomance == 1">Romance &#20;</div>
-				<div v-if="item.movieCategoryComedy == 1">Comedy</div>
+				<div v-if="item.movieCategoryDrama == 1"><a :href="'classmovie.html?class='+'Drama'">Drama
+						&#20;&#20;</a>
+				</div>
+				<div v-if="item.movieCategoryAction == 1"><a :href="'classmovie.html?class='+'Action'">Action
+						&#20;&#20;</a>
+				</div>
+				<div v-if="item.movieCategoryRomance == 1"><a :href="'classmovie.html?class='+'Romance'">Romance
+						&#20;&#20;</a></div>
+				<div v-if="item.movieCategoryComedy == 1"><a :href="'classmovie.html?class='+'Comedy'">Comedy</a></div>
 			</div>
 			<div id="div5">
 				<div id="description">{{item.movieDescription}}</div>
