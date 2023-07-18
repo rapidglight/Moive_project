@@ -15,12 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.movie_project.model.LoginResponse;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    public LoginResponse Login(String username, String password) {
+    public LoginResponse Login(String username, String password, HttpSession httpSession) {
+        LoginResponse loginResponse = checkAccount(username, password);
 
-        return checkAccount(username, password);
+        if(loginResponse.getCode() == 0) { // 登入成功
+            httpSession.setAttribute("loginStatus", username + "已登入");
+        } else {
+            httpSession.removeAttribute("loginStatus");
+        }
+
+        return loginResponse;
     }
 
     private LoginResponse checkAccount(String username, String password) {

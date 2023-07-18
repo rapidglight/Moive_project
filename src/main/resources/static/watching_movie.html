@@ -85,29 +85,32 @@
 			axios.get("/userwatchlist?username=" + this.username)
 				.then((response) => {
 					console.log(response);
-
+					console.log(response.data.code);
 					if (response.data.code == 0) {
 						this.watchlistmoviename = response.data.data;
+						for (let p in this.watchlistmoviename) {
+							//印出watchlistmoviename
+							//console.log(this.watchlistmoviename[p]); //物件
+							//console.log(this.watchlistmoviename[p].userWatchMovieName); //字串
+							axios.get("/searchmoviedata?moviename=" + this.watchlistmoviename[p].userWatchMovieName) //要丟字串
+								.then((response) => {
+									console.log(response);
 
+									if (response.data.code == 0) {
+										this.userwatchlist = response.data.data;
+										this.userwatchlists.push(response.data.data[0])
+									}
+
+								})
+								.catch((error) => {
+									console.log(error);
+								});
+						}
+					} else if (response.data.code == 9) {
+						location.href = "/index.html";
+						alert('你必須先登入');
 					}
-					for (let p in this.watchlistmoviename) {
-						//印出watchlistmoviename
-						//console.log(this.watchlistmoviename[p]); //物件
-						//console.log(this.watchlistmoviename[p].userWatchMovieName); //字串
-						axios.get("/searchmoviedata?moviename=" + this.watchlistmoviename[p].userWatchMovieName) //要丟字串
-							.then((response) => {
-								console.log(response);
 
-								if (response.data.code == 0) {
-									this.userwatchlist = response.data.data;
-									this.userwatchlists.push(response.data.data[0])
-								}
-
-							})
-							.catch((error) => {
-								console.log(error);
-							});
-					}
 
 
 				})
