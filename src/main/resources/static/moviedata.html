@@ -168,16 +168,28 @@
 			</div>
 			<div id="div4">
 				類型:
-				<div v-if="item.movieCategoryDrama == 1"><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'Drama'">Drama
+<<<<<<< HEAD
+				<div v-if="item.movieCategoryDrama == 1"><el-link id="link1" :href="'classmovie.html?class='+'Drama'">Drama
 						&#20;&#20;</el-link>
 				</div>
-				<div v-if="item.movieCategoryAction == 1"><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'Action'">Action
+				<div v-if="item.movieCategoryAction == 1"><el-link id="link1" :href="'classmovie.html?class='+'Action'">Action
 						&#20;&#20;</el-link>
 				</div>
-				<div v-if="item.movieCategoryRomance == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'Romance'">Romance
+				<div v-if="item.movieCategoryRomance == 1" ><el-link id="link1" :href="'classmovie.html?class='+'Romance'">Romance
 						&#20;&#20;</el-link></div>
-				<div v-if="item.movieCategoryComedy == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'Comedy'">Comedy
+				<div v-if="item.movieCategoryComedy == 1" ><el-link id="link1" :href="'classmovie.html?class='+'Comedy'">Comedy
 				</el-link></div>
+=======
+				<div v-if="item.movieCategoryDrama == 1"><a :href="'classmovie.html?class='+'drama'">Drama
+						&#20;&#20;</a>
+				</div>
+				<div v-if="item.movieCategoryAction == 1"><a :href="'classmovie.html?class='+'action'">Action
+						&#20;&#20;</a>
+				</div>
+				<div v-if="item.movieCategoryRomance == 1"><a :href="'classmovie.html?class='+'romance'">Romance
+						&#20;&#20;</a></div>
+				<div v-if="item.movieCategoryComedy == 1"><a :href="'classmovie.html?class='+'comedy'">Comedy</a></div>
+>>>>>>> a34125092e1faae91f8481d6f5400fcd3169edbd
 			</div>
 			<div id="div5">
 				<div id="description">{{item.movieDescription}}</div>
