@@ -2,7 +2,6 @@ package com.example.movie_project.model;
 
 public class ChatClientModel {
     private String name;
-    private int id;
     private String message;
 
     public String getName() {
