@@ -1,4 +1,4 @@
-//這個API傳入電影的名稱 ，比對是哪個電影 
+//這個API傳入電影的名稱 ，比對是哪個電影
 
 package com.example.movie_project.controller;
 
