@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.movie_project.model.UserWatchingListEntity;
 import com.example.movie_project.model.UserWatchingListResponse;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class UserWatchingListController {
     @RequestMapping(value = "/userwatchlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserWatchingListResponse movies(String username) {
+    public UserWatchingListResponse movies(String username, HttpSession httpSession) {
         return getuserwatchingList(username);
     }
 
