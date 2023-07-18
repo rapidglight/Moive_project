@@ -1,34 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Spring Boot簡單聊天室</title>
+    <title>Vue.js 簡單聊天室</title>
     <meta charset="utf-8"/>
+    <script src="//unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/main.css" rel="stylesheet">
-    <script src="/webjars/jquery/jquery.min.js"></script>
-    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="/chat.js"></script>
 </head>
 <body>
 
-<div id="main-content" class="container">
+<div id="app" class="container">
     <div class="row">
         <div class="col-md-6">
-            <form class="form-inline">
+            <form class="form-inline" @submit.prevent="connect">
                 <div class="form-group">
                     <label for="connect">WebSocket 連接:</label>
-                    <button id="connect" class="btn btn-default" type="submit">連接</button>
-                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">關閉連接
-                    </button>
+                    <button id="connect" class="btn btn-default" :disabled="connected" type="submit">連接</button>
+                    <button id="disconnect" class="btn btn-default" :disabled="!connected" type="button" @click="disconnect">關閉連接</button>
                 </div>
             </form>
         </div>
         <div class="col-md-6">
-            <form class="form-inline">
+            <form class="form-inline" @submit.prevent="sendName">
                 <div class="form-group">
                     <label for="name">發送訊息</label>
-                    <input type="text" id="name" class="form-control" placeholder="請輸入訊息">
+                    <input v-model="message" type="text" id="name" class="form-control" placeholder="請輸入訊息">
                 </div>
                 <button id="send" class="btn btn-default" type="submit">發送</button>
             </form>
@@ -43,10 +38,55 @@
                 </tr>
                 </thead>
                 <tbody id="chatRoom">
+                    <tr v-for="message in chatMessages" :key="message.id">
+                        <td>{{ message }}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<script>
+    const { createApp } = Vue
+	createApp({
+        el: '#app',
+        data: {
+            connected: false,
+            message: '',
+            chatMessages: []
+        },
+        methods: {
+            connect() {
+                var socket = new SockJS('/endpointChatRoom');
+                this.stompClient = Stomp.over(socket);
+                this.stompClient.connect({}, (frame) => {
+                    this.connected = true;
+                    console.log('Connected: ' + frame);
+                    this.stompClient.subscribe('/topic/getResponse', (response) => {
+                        console.log(response);
+                        this.showConversation(JSON.parse(response.body).responseMessage);
+                    });
+                });
+            },
+            disconnect() {
+                if (this.stompClient !== null) {
+                    this.stompClient.disconnect();
+                }
+                this.connected = false;
+                console.log("Disconnected");
+            },
+            sendName() {
+                var name = this.message;
+                console.log(name);
+                console.log(this.stompClient);
+                this.stompClient.send("/messageControl", {}, JSON.stringify({ 'name': name }));
+            },
+            showConversation(responseMessage) {
+                this.chatMessages.push(responseMessage);
+            }
+        }
+    });
+</script>
 </body>
 </html>
