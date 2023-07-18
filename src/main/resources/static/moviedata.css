@@ -284,10 +284,13 @@ position: absolute;
     width: auto;
     justify-content: center;
     margin: 10px;
-    padding: 5px;
+    padding-left: 13px;
     border-radius: 5px;
     font-size: 18px;
     color: #fff;
     border: 1px solid #fff;
     border-radius: 100px;
+}
+#link1:hover{
+    color: #737e89;
 }
