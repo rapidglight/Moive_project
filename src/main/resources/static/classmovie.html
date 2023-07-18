@@ -34,20 +34,22 @@
 	<!-- #CodePenChallenge: Reflections -->
 	<div class="top">
 		<div>
-			<el-button type="info">信息</el-button>
+			<el-button type="info" @click="addclassaction">action</el-button>
 		</div>
 		&#20&#20
 		<div>
-			<el-button type="info">按钮</el-button>
+			<el-button type="info" @click="addclassdrama">drama</el-button>
 		</div>
 		&#20&#20
 		<div>
-			<el-button type="info">信息按钮</el-button>
+			<el-button type="info" @click="addclassromance">romance</el-button>
 		</div>
 		&#20&#20
 		<div>
-			<el-button type="info">信息按钮</el-button>
+			<el-button type="info" @click="addclasscomedy">comedy</el-button>
 		</div>
+		<div>{{classcategory}}</div>
+		<div>{{length}}項結果</div>
 	</div>
 	<div class="container">
 		<div class="columns is-multiline p-0 pt-6 last">
@@ -65,7 +67,10 @@
 		data() {
 			return {
 				class: '', //網址上的參數
-				classmoviedata: [] //一開始進去classmovie.html API回傳的資料
+				classmovie: '',//給方法用的
+				classmoviedata: [], //一開始進去classmovie.html API回傳的資料
+				classcategory: [], //存放使用者目前選取的類型
+				length: 0
 
 			}
 		},
@@ -73,12 +78,15 @@
 			const queryString = window.location.search;
 			const urlParams = new URLSearchParams(queryString);
 			this.class = urlParams.get('class');
-
+			this.classcategory.push(this.class);
+			console.log(this.classcategory);
 			axios.get("/classmovie?classname=" + this.class)
 				.then((response) => {
 					console.log(response);
 					if (response.data.code == 0) {
 						this.classmoviedata = response.data.data;
+						this.length = (response.data.data).length;
+						console.log(this.length);
 					}
 				})
 				.catch((error) => {
@@ -89,6 +97,152 @@
 
 		},
 		methods: {
+			addclassdrama() {
+				//判斷是否有drama
+				if (this.classcategory.includes('drama')) {
+					var include = 'drama';
+					this.classcategory = this.classcategory.filter(function (item) {
+						return item !== include;
+					});
+					console.log(this.classcategory);
+				}
+				else {
+					this.classcategory.push('drama');
+				}
+
+
+				for (let p in this.classcategory) {
+					this.classmovie = this.classmovie + this.classcategory[p] + ',';
+				}
+				console.log(this.classmovie);
+
+
+				if (this.classmovie === "") {
+					console.log(this.classmovie === "");
+					axios.get("/moviealldata")
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+
+				}
+				else {
+					axios.get("/classmovie?classname=" + this.classmovie)
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+					this.classmovie = '';
+				}
+
+
+
+
+			},
+			addclassaction() {
+				if (this.classcategory.includes('action')) {
+					var include = 'action';
+					this.classcategory = this.classcategory.filter(function (item) {
+						return item !== include;
+					});
+					console.log(this.classcategory);
+				}
+				else {
+					this.classcategory.push('action');
+				}
+
+				for (let p in this.classcategory) {
+					this.classmovie = this.classmovie + this.classcategory[p] + ',';
+				}
+				console.log(this.classmovie);
+
+				axios.get("/classmovie?classname=" + this.classmovie)
+					.then((response) => {
+						console.log(response);
+						if (response.data.code == 0) {
+							this.classmoviedata = response.data.data;
+							this.length = (response.data.data).length;
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+				this.classmovie = '';
+			},
+			addclassromance() {
+				if (this.classcategory.includes('romance')) {
+					var include = 'romance';
+					this.classcategory = this.classcategory.filter(function (item) {
+						return item !== include;
+					});
+					console.log(this.classcategory);
+				}
+				else {
+					this.classcategory.push('romance');
+				}
+
+				for (let p in this.classcategory) {
+					this.classmovie = this.classmovie + this.classcategory[p] + ',';
+				}
+				console.log(this.classmovie);
+
+				axios.get("/classmovie?classname=" + this.classmovie)
+					.then((response) => {
+						console.log(response);
+						if (response.data.code == 0) {
+							this.classmoviedata = response.data.data;
+							this.length = (response.data.data).length;
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+				this.classmovie = '';
+			},
+			addclasscomedy() {
+				if (this.classcategory.includes('comedy')) {
+					var include = 'comedy';
+					this.classcategory = this.classcategory.filter(function (item) {
+						return item !== include;
+					});
+					console.log(this.classcategory);
+				}
+				else {
+					this.classcategory.push('comedy');
+				}
+
+				for (let p in this.classcategory) {
+					this.classmovie = this.classmovie + this.classcategory[p] + ',';
+				}
+				console.log(this.classmovie);
+
+				axios.get("/classmovie?classname=" + this.classmovie)
+					.then((response) => {
+						console.log(response);
+						if (response.data.code == 0) {
+							this.classmoviedata = response.data.data;
+							this.length = (response.data.data).length;
+						}
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+				this.classmovie = '';
+			}
+
+
 
 		}
 	}).use(ElementPlus).mount('#app')
