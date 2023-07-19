@@ -5,6 +5,9 @@
     <meta charset="utf-8"/>
     <script src="//unpkg.com/vue@3/dist/vue.global.prod.js"></script>
     <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sockjs-client@1.4.0/dist/sockjs.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
 </head>
 <body>
 
@@ -25,7 +28,7 @@
                     <label for="name">發送訊息</label>
                     <input v-model="message" type="text" id="name" class="form-control" placeholder="請輸入訊息">
                 </div>
-                <button id="send" class="btn btn-default" type="submit">發送</button>
+                <button id="send" class="btn btn-default" @click="sendName">發送</button>
             </form>
         </div>
     </div>
@@ -38,37 +41,45 @@
                 </tr>
                 </thead>
                 <tbody id="chatRoom">
-                    <tr v-for="message in chatMessages" :key="message.id">
+                    <tr v-for="(message, index) in chatMessages" :key="index">
                         <td>{{ message }}</td>
                     </tr>
+
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-<script>
-    const { createApp } = Vue
-	createApp({
-        el: '#app',
-        data: {
-            connected: false,
-            message: '',
-            chatMessages: []
+</body>
+<script lang="javascript">
+    const { createApp } = Vue;
+    const app = createApp({
+        data() {
+            return {
+                connected: false,
+                message: '',
+                chatMessages: []
+            };
         },
         methods: {
             connect() {
-                var socket = new SockJS('/endpointChatRoom');
+                var socket = new SockJS('/ws');
                 this.stompClient = Stomp.over(socket);
-                this.stompClient.connect({}, (frame) => {
-                    this.connected = true;
-                    console.log('Connected: ' + frame);
-                    this.stompClient.subscribe('/topic/getResponse', (response) => {
-                        console.log(response);
-                        this.showConversation(JSON.parse(response.body).responseMessage);
-                    });
+                var connectHeaders = {
+                  'client-id': '10'
+                };
+                this.stompClient.connect(connectHeaders, (frame) => {
+                  this.connected = true;
+                  console.log(connectHeaders);
+                  console.log('Connected: ' + frame);
+                  console.log('WebSocket Connection ID: ' + frame.headers['connection-id']);
+                  this.stompClient.subscribe('/topic/getResponse', (response) => {
+                    console.log(response);
+                    const responseMessage = JSON.parse(response.body).responseMessage;
+                    this.showConversation(responseMessage);
+                  });
                 });
-            },
+              },
             disconnect() {
                 if (this.stompClient !== null) {
                     this.stompClient.disconnect();
@@ -78,15 +89,17 @@
             },
             sendName() {
                 var name = this.message;
+                this.message = '';  // 清空輸入框的內容
                 console.log(name);
                 console.log(this.stompClient);
-                this.stompClient.send("/messageControl", {}, JSON.stringify({ 'name': name }));
+                this.showConversation(name);  // 將訊息內容傳遞給 showConversation 方法
+                this.stompClient.send("/app/messageControl", {}, JSON.stringify({ 'message': name }));
             },
             showConversation(responseMessage) {
                 this.chatMessages.push(responseMessage);
             }
         }
     });
+    app.mount('#app');
 </script>
-</body>
 </html>

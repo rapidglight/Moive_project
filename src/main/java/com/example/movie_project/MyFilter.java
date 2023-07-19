@@ -1,28 +1,27 @@
 package com.example.movie_project;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.springframework.http.MediaType;
-import org.springframework.web.filter.OncePerRequestFilter;
-
 import com.example.movie_project.model.BaseResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import org.springframework.http.MediaType;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 @WebFilter(urlPatterns = "/*", filterName = "MyFilter")
 public class MyFilter extends OncePerRequestFilter {
     Set<String> ALLOW_LIST = new HashSet<>(
             Arrays.asList("/login", "/movieimg", "/websiterating", "/commentrating", "/moviedata",
-                    "/websiteratings", "/classmovie", "/moviealldata", "/usercomment", "/searchmoviedata", "/"));
+                    "/websiteratings", "/classmovie", "/moviealldata", "/usercomment", "/searchmoviedata",
+                    "/ws", "/app/**", "/topic/**", "/messageControl",
+                    "/topic/getResponse"));
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

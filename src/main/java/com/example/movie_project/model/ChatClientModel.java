@@ -1,14 +1,24 @@
 package com.example.movie_project.model;
 
 public class ChatClientModel {
-    private String Clientname;
+    private String name;
+    private String message;
 
-    public String getClientname() {
-        return Clientname;
+    public String getName() {
+        return name;
     }
 
-    public void setClientname(String clientname) {
-        Clientname = clientname;
+    public void setName(String name) {
+        this.name = name;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
+
+

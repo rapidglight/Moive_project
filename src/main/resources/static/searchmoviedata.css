@@ -178,9 +178,10 @@ body {
     background: #1b1b1b;
     flex-basis: 20%;
     display: flex;
-    justify-content:baseline; /* 将内容水平居中 */
-    align-items: center; /* 将内容垂直居中 */
-    text-align: center; /* 对齐文本水平居中 */
+    flex-direction: column;
+    justify-content:center; /* 将内容水平居中 */
+    align-items: baseline; /* 将内容垂直居中 */
+    text-align: baseline; /* 对齐文本水平居中 */
 }
 #div5{
     margin: 10px;
@@ -188,6 +189,10 @@ body {
     border: 0px solid #ffffff;
     border-radius: 10px;
     background: #1b1b1b;
+}
+#div6{
+    display: flex;
+    align-items: baseline; /* 将内容垂直居中 */
 }
 #titlename{
     margin: 1px;
