@@ -28,7 +28,7 @@
                     <label for="name">發送訊息</label>
                     <input v-model="message" type="text" id="name" class="form-control" placeholder="請輸入訊息">
                 </div>
-                <button id="send" class="btn btn-default" @click="sendName">發送</button>
+                <button id="send" class="btn btn-default">發送</button>
             </form>
         </div>
     </div>
@@ -41,7 +41,7 @@
                 </tr>
                 </thead>
                 <tbody id="chatRoom">
-                    <tr v-for="(message, index) in chatMessages" :key="index">
+                    <tr v-for="(message) in chatMessages" :key="index">
                         <td>{{ message }}</td>
                     </tr>
 
@@ -58,46 +58,43 @@
             return {
                 connected: false,
                 message: '',
-                chatMessages: []
+                chatMessages: [],
+                heartbeatIntervalId: null, // 心跳間隔的計時器 ID
             };
         },
         methods: {
             connect() {
-                var socket = new SockJS('/ws');
-                this.stompClient = Stomp.over(socket);
-                var connectHeaders = {
-                  'client-id': '10'
-                };
-                this.stompClient.connect(connectHeaders, (frame) => {
-                  this.connected = true;
-                  console.log(connectHeaders);
-                  console.log('Connected: ' + frame);
-                  console.log('WebSocket Connection ID: ' + frame.headers['connection-id']);
-                  this.stompClient.subscribe('/topic/getResponse', (response) => {
-                    console.log(response);
-                    const responseMessage = JSON.parse(response.body).responseMessage;
-                    this.showConversation(responseMessage);
-                  });
+              var socket = new SockJS('/ws');
+              this.stompClient = Stomp.over(socket);
+              var connectHeaders = {
+                'client-id': '10'
+              };
+              this.stompClient.connect(connectHeaders, (frame) => {
+                this.connected = true;
+                console.log(connectHeaders);
+                console.log('Connected: ' + frame);
+                console.log('WebSocket Connection ID: ' + frame.headers['connection-id']);
+                this.stompClient.subscribe('/topic/getResponse', (response) => {
+                  console.log(response);
+                  const responseMessage = JSON.parse(response.body).responseMessage;
+                  this.showConversation(responseMessage);
                 });
-              },
-            disconnect() {
-                if (this.stompClient !== null) {
-                    this.stompClient.disconnect();
-                }
-                this.connected = false;
-                console.log("Disconnected");
+              });
             },
+            // 移除 sendName 方法中的 showConversation 呼叫
             sendName() {
-                var name = this.message;
-                this.message = '';  // 清空輸入框的內容
-                console.log(name);
-                console.log(this.stompClient);
-                this.showConversation(name);  // 將訊息內容傳遞給 showConversation 方法
-                this.stompClient.send("/app/messageControl", {}, JSON.stringify({ 'message': name }));
+              var name = this.message;
+              this.message = '';  // 清空輸入框的內容
+              console.log(name);
+              console.log(this.stompClient);
+              this.stompClient.send("/app/messageControl", {}, JSON.stringify({ 'message': name }));
             },
             showConversation(responseMessage) {
-                this.chatMessages.push(responseMessage);
-            }
+                if (responseMessage && !this.chatMessages.includes(responseMessage)) {
+                  this.chatMessages.push(responseMessage);
+                }
+              }
+              
         }
     });
     app.mount('#app');
