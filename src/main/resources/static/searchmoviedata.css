@@ -1,0 +1,301 @@
+body {
+    background: #1b1b1b;
+    color: #fff;
+    font-size: 15pt;
+    margin-top: 20px;
+}
+#all {
+    width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+    padding: 10px;
+	background-color: #1b1b1b;
+	border: 1px solid #6F6F6F;
+	border-radius: 10px;
+	box-shadow: 0px 0px 10px #000000;
+}
+#icon{
+    width: 40px;
+    height: 40px;
+}
+#header1 {
+    display: block;
+    margin: 30px;
+    padding: 5px;
+    /* border: 1px solid #ffffff; */
+    min-height: 100px;
+    /* border-radius: 10px; */
+    background: #1b1b1b;
+    font-size: 60px;
+    justify-content: center; /* 将内容水平居中 */
+    align-items: center; /* 将内容垂直居中 */
+    text-align: center; /* 对齐文本水平居中 */
+}
+#name{
+    font-size: 30px;
+}
+#moviename{
+    font-size: 20px;
+    margin: 30px;
+}
+#moviedata{
+    border: 0px solid #ffffff;
+}
+#content {
+    min-height: 150px;
+    margin-left: 20px;
+    margin-right: 50px;
+    padding: 0px;
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+}
+
+#content nav {
+    margin: 0px;
+    padding: 0px;
+    border: 0px solid #ffffff;
+    border-radius: 0px;
+    background: #1b1b1b;
+    flex-basis: 0%;
+    order: 1;
+}
+
+#content article {
+    margin: 10px;
+    padding: 5px;
+    border: 0px solid #ffffff;
+    border-radius: 10px;
+    background: #1b1b1b;
+    flex-basis: 80%; 
+    order: 2;
+}
+
+#content aside {
+    margin: 10px;
+    padding: 5px;
+    border: 0px solid #ffffff;
+    border-radius: 10px;
+    background: #1b1b1b;
+    flex-basis: 20%;
+    order: 6;
+}
+
+#footer1 {
+    display: block;
+    margin: 10px;
+    padding: 5px;
+    border: 0px solid #ffffff;
+    min-height: 50px;
+    border-radius: 10px;
+    background: #1b1b1b;
+}
+
+#btn{
+    position: absolute;
+    color: #79BBFF;
+    border: none;
+    padding: 20px 1%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#btn1{
+    position: absolute;
+    color: #79BBFF;
+    border: none;
+    padding: 20px 4%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#btn2{
+    position: absolute;
+    color: #fbff00;
+    border: none;
+    padding: 20px 8%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#btn3{
+    position: absolute;
+    color: #fbff00;
+    border: none;
+    padding: 20px 11%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#div1{
+    margin: 15px; 
+    padding: 5px; 
+    border: 0px solid #ffffff; 
+    border-radius: 10px;
+    background: #1b1b1b; 
+    flex-basis: 20%;
+}
+#div2{
+    margin: 10px;
+    padding: 5px;
+    border: 0px solid #ffffff;
+    border-radius: 10px;
+    background: #1b1b1b;
+    display: flex;
+}
+#div3{
+    margin: 10px;
+    padding: 5px;
+    border: 0px solid #ffffff;
+    border-radius: 10px;
+    background: #1b1b1b;
+}
+#div4{
+    margin: 10px;
+    padding: 5px;
+    border: 0px solid #ffffff;
+    border-radius: 10px;
+    background: #1b1b1b;
+    flex-basis: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content:center; /* 将内容水平居中 */
+    align-items: baseline; /* 将内容垂直居中 */
+    text-align: baseline; /* 对齐文本水平居中 */
+}
+#div5{
+    margin: 10px;
+    padding: 5px;
+    border: 0px solid #ffffff;
+    border-radius: 10px;
+    background: #1b1b1b;
+}
+#div6{
+    display: flex;
+    align-items: baseline; /* 将内容垂直居中 */
+}
+#titlename{
+    margin: 1px;
+    padding: 1px;
+    border: 0px solid #fff;
+    font-size: 35px;
+}
+#year{
+    padding-left: 5px;
+    padding-top: 20px;
+    font-size: 16px ;
+    border: 0px solid #fff;
+}
+#logorating{
+    margin: 30px;
+    padding: 30px;
+    border: 0px solid #fff;
+    flex-basis: 50%;
+    order: 1;
+}
+#rating{
+    margin: 1px;
+    padding: 1px;
+    border: 0px solid #fff;
+    flex-basis: 50%;
+    order: 2;
+}
+#divrating{
+    border: 0px solid #fff;
+    text-align: center;
+}
+#div2rating{
+    border: 0px solid #fff;
+    text-align: center;
+}
+#description{
+    border: 0px solid #fff;
+}
+#director{
+    border: 0px solid #fff;
+}
+#cast{
+    border: 0px solid #fff;
+}
+.rating1 {
+    width: 226px;
+    margin: 0 auto 1em;
+    font-size: 45px;
+    overflow:hidden;
+}
+.rating1 input {
+float: right;
+opacity: 0;
+position: absolute;
+}
+.rating1 a,
+.rating1 label {
+    float:right;
+    color: #aaa;
+    text-decoration: none;
+    -webkit-transition: color .4s;
+    -moz-transition: color .4s;
+    -o-transition: color .4s;
+    transition: color .4s;
+}
+.rating1 label:hover ~ label,
+.rating1 input:focus ~ label,
+.rating1 label:hover,
+.rating1 a:hover,
+.rating1 a:hover ~ a,
+.rating1 a:focus,
+.rating1 a:focus ~ a		{
+    color: orange;
+    cursor: pointer;
+}
+.rating2 {
+    direction: rtl;
+}
+.rating2 a {
+    float:none
+}
+#coms{
+    text-align: center;
+    font-size: 20px;
+    color: #000;
+    background-color: #91a9c2;
+}
+#yt1{
+    top: 150px;
+    margin: 17px;
+}
+#link1{
+    height: auto;
+    width: auto;
+    justify-content: center;
+    margin: 10px;
+    padding-left: 5px;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 100px;
+}
+#link1:hover{
+    color: #737e89;
+}
