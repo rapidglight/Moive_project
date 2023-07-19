@@ -178,6 +178,14 @@
 						&#20;&#20;</el-link></div>
 				<div v-if="item.movieCategoryComedy == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'comedy'">Comedy
 				</el-link></div>
+				<div v-if="item.movieCategoryAdventure == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'adventure'">Adventure
+				</el-link></div>
+				<div v-if="item.movieCategoryCrime == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'crime'">Crime
+				</el-link></div>
+				<div v-if="item.movieCategoryFantasy == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'fantasy'">Fantasy
+				</el-link></div>
+				<div v-if="item.movieCategorySciFi == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'scifi'">Sci-Fi
+				</el-link></div>
 			</div>
 			<div id="div5">
 				<div id="description">{{item.movieDescription}}</div>
