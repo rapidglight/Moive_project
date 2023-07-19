@@ -195,7 +195,7 @@
                         <div class="col-md-6">
                             <form class="form-inline" @submit.prevent="connect">
                                 <div class="form-group">
-                                    <label for="connect">連到聊天室</label>
+                                    <label for="connect">WebSocket 連接:</label>
                                     <button id="connect" class="btn btn-default" :disabled="connected" type="submit">連接</button>
                                     <button id="disconnect" class="btn btn-default" :disabled="!connected" type="button" @click="disconnect">關閉連接</button>
                                 </div>
@@ -411,7 +411,7 @@
                 },
                 disconnect() {
                     if (this.stompClient !== null) {
-                    this.stompClient.disconnect();
+                      this.stompClient.disconnect();
                     }
                     this.connected = false;
                     console.log("Disconnected");
