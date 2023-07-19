@@ -8,14 +8,13 @@ import org.springframework.stereotype.Controller;
 
 
 
-
 @Controller
 public class CharRoomController {
     @MessageMapping("/messageControl")
 @SendTo("/topic/getResponse")
 public ServerResponseModel said(ChatClientModel request) throws InterruptedException {
     Thread.sleep(3000);
-    String responseMessage = "：" + request.getMessage();
+    String responseMessage = "接收到訊息：" + request.getMessage();
     return new ServerResponseModel(responseMessage);
 }
 

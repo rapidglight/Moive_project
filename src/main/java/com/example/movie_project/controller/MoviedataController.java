@@ -58,10 +58,6 @@ public class MoviedataController {
                 MoviedataEntity.setMovieDirector(rs.getString("movie_director"));
                 MoviedataEntity.setMovieCast(rs.getString("movie_cast"));
                 MoviedataEntity.setMovieTrailer(rs.getString("trailer"));
-                MoviedataEntity.setMovieCategoryAdventure(rs.getInt("movie_category_Adventure"));
-                MoviedataEntity.setMovieCategoryCrime(rs.getInt("movie_category_Crime"));
-                MoviedataEntity.setMovieCategoryFantasy(rs.getInt("movie_category_Fantasy"));
-                MoviedataEntity.setMovieCategorySciFi(rs.getInt("movie_category_Scifi"));
 
                 movies.add(MoviedataEntity);
 

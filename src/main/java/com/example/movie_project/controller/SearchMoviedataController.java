@@ -54,6 +54,7 @@ public class SearchMoviedataController {
                 SearchMoviedataEntity.setAge(rs.getString("age"));
                 SearchMoviedataEntity.setMovieLong(rs.getInt("movie_long"));
                 SearchMoviedataEntity.setMovieCategoryRomance(rs.getInt("movie_category_Romance"));
+
                 SearchMoviedataEntity.setMovieCategoryComedy(rs.getInt("movie_category_Comedy"));
                 SearchMoviedataEntity.setMovieCategoryDrama(rs.getInt("movie_category_Drama"));
                 SearchMoviedataEntity.setMovieCategoryAction(rs.getInt("movie_category_Action"));
@@ -61,10 +62,6 @@ public class SearchMoviedataController {
                 SearchMoviedataEntity.setMovieDirector(rs.getString("movie_director"));
                 SearchMoviedataEntity.setMovieCast(rs.getString("movie_cast"));
                 SearchMoviedataEntity.setMovieTrailer(rs.getString("trailer"));
-                SearchMoviedataEntity.setMovieCategoryAdventure(rs.getInt("movie_category_Adventure"));
-                SearchMoviedataEntity.setMovieCategoryCrime(rs.getInt("movie_category_Crime"));
-                SearchMoviedataEntity.setMovieCategoryFantasy(rs.getInt("movie_category_Fantasy"));
-                SearchMoviedataEntity.setMovieCategorySciFi(rs.getInt("movie_category_SciFi"));
 
                 searchmovies.add(SearchMoviedataEntity);
 

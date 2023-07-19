@@ -294,12 +294,6 @@ position: absolute;
 #link1:hover{
     color: #737e89;
 }
-#popupbtn{
-    position: fixed;
-    top: 90%;
-    left: 90%;
-
-}
 .popup {
     position: fixed;
     top: 50%;

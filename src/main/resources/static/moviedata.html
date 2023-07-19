@@ -178,14 +178,6 @@
 						&#20;&#20;</el-link></div>
 				<div v-if="item.movieCategoryComedy == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'comedy'">Comedy
 				</el-link></div>
-				<div v-if="item.movieCategoryAdventure == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'adventure'">Adventure
-				</el-link></div>
-				<div v-if="item.movieCategoryCrime == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'crime'">Crime
-				</el-link></div>
-				<div v-if="item.movieCategoryFantasy == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'fantasy'">Fantasy
-				</el-link></div>
-				<div v-if="item.movieCategorySciFi == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'scifi'">Sci-Fi
-				</el-link></div>
 			</div>
 			<div id="div5">
 				<div id="description">{{item.movieDescription}}</div>
@@ -194,7 +186,8 @@
 			</div>
 		</div>
 		<div id="chatroom">
-			<button @click="openPopup" id ="popupbtn">我要聊天</button>
+            
+			<button @click="openPopup">Open Popup</button>
                 <div v-if="showPopup" class="popup">
                 <!-- 彈出視窗內容 -->
                 <div  class="container">
@@ -223,12 +216,12 @@
                             <table id="conversation" class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>{{username}}的聊天室</th>
+                                    <th>我的聊天室</th>
                                 </tr>
                                 </thead>
                                 <tbody id="chatRoom">
                                     <tr v-for="(message) in chatMessages" :key="index">
-                                        <td>{{username}}{{ message }}</td>
+                                        <td>{{ message }}</td>
                                     </tr>
                 
                                 </tbody>
@@ -236,7 +229,7 @@
                         </div>
                     </div>
                 </div>
-                <button @click="closePopup">關閉聊天室</button>
+                <button @click="closePopup">Close Popup</button>
             </div>
 		</div>
 		<footer id="footer1" v-for="item in usercomments" :key="item.id">
