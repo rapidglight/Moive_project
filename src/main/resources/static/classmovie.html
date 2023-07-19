@@ -48,6 +48,18 @@
 		<div>
 			<el-button type="info" @click="addclasscomedy">comedy</el-button>
 		</div>
+		<div>
+			<el-button type="info" @click="addclassadventure">adventure</el-button>
+		</div>
+		<div>
+			<el-button type="info" @click="addclasscrime">crime</el-button>
+		</div>
+		<div>
+			<el-button type="info" @click="addclassfantasy">fantasy</el-button>
+		</div>
+		<div>
+			<el-button type="info" @click="addclassscifi">Sci-Fi</el-button>
+		</div>
 		<div>{{classcategory}}</div>
 		<div>{{length}}項結果</div>
 	</div>
@@ -59,6 +71,50 @@
 		</div>
 	</div>
 	<!-- partial -->
+	<div id="chatroom">
+		<button @click="openPopup" id ="popupbtn">我要聊天</button>
+			<div v-if="showPopup" class="popup">
+			<!-- 彈出視窗內容 -->
+			<div  class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<form class="form-inline" @submit.prevent="connect">
+							<div class="form-group">
+								<label for="connect">連到聊天室</label>
+								<button id="connect" class="btn btn-default" :disabled="connected" type="submit">連接</button>
+								<button id="disconnect" class="btn btn-default" :disabled="!connected" type="button" @click="disconnect">關閉連接</button>
+							</div>
+						</form>
+					</div>
+					<div class="col-md-6">
+						<form class="form-inline" @submit.prevent="sendName">
+							<div class="form-group">
+								<label for="name">發送訊息</label>
+								<input v-model="message" type="text" id="name" class="form-control" placeholder="請輸入訊息">
+							</div>
+							<button id="send" class="btn btn-default">發送</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<table id="conversation" class="table table-striped">
+							<thead>
+							<tr>
+								<th>我的聊天室</th>
+							</tr>
+							</thead>
+							<tbody id="chatRoom">
+								<tr v-for="(message) in chatMessages" :key="index">
+									<td>{{username}} {{ message }}</td>
+								</tr>
+			
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<button @click="closePopup">Close Popup</button>
 </body>
 <script lang="javascript">
 	//初始化 vue
@@ -70,7 +126,13 @@
 				classmovie: '',//給方法用的
 				classmoviedata: [], //一開始進去classmovie.html API回傳的資料
 				classcategory: [], //存放使用者目前選取的類型
-				length: 0
+				length: 0,
+				showPopup: false,
+                connected: false,
+                message: '',
+                chatMessages: [],
+                heartbeatIntervalId: null, // 心跳間隔的計時器 ID
+                popupPosition: { x: 0, y: 0 },
 
 			}
 		},
@@ -97,6 +159,51 @@
 
 		},
 		methods: {
+			connect() {
+                var socket = new SockJS('/ws');
+                this.stompClient = Stomp.over(socket);
+                var connectHeaders = {
+                    'client-id': '10'
+                };
+                this.stompClient.connect(connectHeaders, (frame) => {
+                    this.connected = true;
+                    console.log(connectHeaders);
+                    console.log('Connected: ' + frame);
+                    console.log('WebSocket Connection ID: ' + frame.headers['connection-id']);
+                    this.stompClient.subscribe('/topic/getResponse', (response) => {
+                    console.log(response);
+                    const responseMessage = JSON.parse(response.body).responseMessage;
+                    this.showConversation(responseMessage);
+                    });
+                });
+                },
+                disconnect() {
+                    if (this.stompClient !== null) {
+                    this.stompClient.disconnect();
+                    }
+                    this.connected = false;
+                    console.log("Disconnected");
+                },
+                // 移除 sendName 方法中的 showConversation 呼叫
+                sendName() {
+                var name = this.message;
+                this.message = '';  // 清空輸入框的內容
+                console.log(name);
+                console.log(this.stompClient);
+                this.stompClient.send("/app/messageControl", {}, JSON.stringify({ 'message': name }));
+                },
+                showConversation(responseMessage) {
+                    if (responseMessage && !this.chatMessages.includes(responseMessage)) {
+                    this.chatMessages.push(responseMessage);
+                    }
+                },
+                openPopup() {
+                    this.showPopup = true;
+                },
+                closePopup() {
+                    this.showPopup = false;
+                },
+
 			addclassdrama() {
 				//判斷是否有drama
 				if (this.classcategory.includes('drama')) {
@@ -302,9 +409,231 @@
 						});
 					this.classmovie = '';
 				}
-			}
+			},
+
+			addclassadventure() {
+				if (this.classcategory.includes('adventure')) {
+					var include = 'adventure';
+					this.classcategory = this.classcategory.filter(function (item) {
+						return item !== include;
+					});
+					console.log(this.classcategory);
+				}
+				else {
+					this.classcategory.push('adventure');
+				}
+
+				for (let p in this.classcategory) {
+					this.classmovie = this.classmovie + this.classcategory[p] + ',';
+				}
+				console.log(this.classmovie);
 
 
+
+
+				if (this.classmovie === "") {
+					console.log(this.classmovie === "");
+					axios.get("/moviealldata")
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+
+				}
+				else {
+					axios.get("/classmovie?classname=" + this.classmovie)
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+					this.classmovie = '';
+				}
+
+
+
+
+
+			},
+
+			addclasscrime() {
+				if (this.classcategory.includes('crime')) {
+					var include = 'crime';
+					this.classcategory = this.classcategory.filter(function (item) {
+						return item !== include;
+					});
+					console.log(this.classcategory);
+				}
+				else {
+					this.classcategory.push('crime');
+				}
+
+				for (let p in this.classcategory) {
+					this.classmovie = this.classmovie + this.classcategory[p] + ',';
+				}
+				console.log(this.classmovie);
+
+
+
+
+				if (this.classmovie === "") {
+					console.log(this.classmovie === "");
+					axios.get("/moviealldata")
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+
+				}
+				else {
+					axios.get("/classmovie?classname=" + this.classmovie)
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+					this.classmovie = '';
+				}
+
+
+
+
+
+			},
+
+			addclassfantasy() {
+				if (this.classcategory.includes('fantasy')) {
+					var include = 'fantasy';
+					this.classcategory = this.classcategory.filter(function (item) {
+						return item !== include;
+					});
+					console.log(this.classcategory);
+				}
+				else {
+					this.classcategory.push('fantasy');
+				}
+
+				for (let p in this.classcategory) {
+					this.classmovie = this.classmovie + this.classcategory[p] + ',';
+				}
+				console.log(this.classmovie);
+
+
+
+
+				if (this.classmovie === "") {
+					console.log(this.classmovie === "");
+					axios.get("/moviealldata")
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+
+				}
+				else {
+					axios.get("/classmovie?classname=" + this.classmovie)
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+					this.classmovie = '';
+				}
+
+
+
+
+
+			},
+
+			addclassscifi() {
+				if (this.classcategory.includes('scifi')) {
+					var include = 'scifi';
+					this.classcategory = this.classcategory.filter(function (item) {
+						return item !== include;
+					});
+					console.log(this.classcategory);
+				}
+				else {
+					this.classcategory.push('scifi');
+				}
+
+				for (let p in this.classcategory) {
+					this.classmovie = this.classmovie + this.classcategory[p] + ',';
+				}
+				console.log(this.classmovie);
+
+
+
+
+				if (this.classmovie === "") {
+					console.log(this.classmovie === "");
+					axios.get("/moviealldata")
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+
+				}
+				else {
+					axios.get("/classmovie?classname=" + this.classmovie)
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+					this.classmovie = '';
+				}
+
+
+
+
+
+			},
 
 		}
 	}).use(ElementPlus).mount('#app')

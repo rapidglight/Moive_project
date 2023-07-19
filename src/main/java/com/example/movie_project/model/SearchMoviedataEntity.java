@@ -20,4 +20,8 @@ public class SearchMoviedataEntity {
     String movieDirector;
     String movieCast;
     String movieTrailer;
+    int movieCategoryAdventure;
+    int movieCategoryCrime;
+    int movieCategoryFantasy;
+    int movieCategorySciFi;
 }
