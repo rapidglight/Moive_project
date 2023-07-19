@@ -168,20 +168,16 @@
 			</div>
 			<div id="div4">
 				類型:
-				<div v-if="item.movieCategoryDrama == 1"><el-link id="link1"
-						:href="'classmovie.html?class='+'drama'">drama
+				<div v-if="item.movieCategoryDrama == 1"><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'drama'">Drama
 						&#20;&#20;</el-link>
 				</div>
-				<div v-if="item.movieCategoryAction == 1"><el-link id="link1"
-						:href="'classmovie.html?class='+'action'">action
+				<div v-if="item.movieCategoryAction == 1"><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'action'">Action
 						&#20;&#20;</el-link>
 				</div>
-				<div v-if="item.movieCategoryRomance == 1"><el-link id="link1"
-						:href="'classmovie.html?class='+'romance'">romance
+				<div v-if="item.movieCategoryRomance == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'romance'">Romance
 						&#20;&#20;</el-link></div>
-				<div v-if="item.movieCategoryComedy == 1"><el-link id="link1"
-						:href="'classmovie.html?class='+'comedy'">comedy
-					</el-link></div>
+				<div v-if="item.movieCategoryComedy == 1" ><el-link :underline="false" id="link1" :href="'classmovie.html?class='+'comedy'">Comedy
+				</el-link></div>
 			</div>
 			<div id="div5">
 				<div id="description">{{item.movieDescription}}</div>
@@ -440,7 +436,7 @@
 				console.log("新增清單");
 				axios.post("/newuserwatchlist", {
 					userAccount: this.username, // 使用者帳號
-					userWatchMovieName: this.moviedata[0].movieName //電影名稱 
+					userWatchMovieName: this.moviedata[0].movieName //電影名稱
 				}).then(response => {
 					console.log('電影清單已成功送到後端');
 					console.log('回傳的資料:', response.data);
