@@ -48,9 +48,22 @@
 		<div>
 			<el-button type="info" @click="addclasscomedy">comedy</el-button>
 		</div>
+		<div>
+			<el-button type="info" @click="addclassadventure">adventure</el-button>
+		</div>
+		<div>
+			<el-button type="info" @click="addclasscrime">crime</el-button>
+		</div>
+		<div>
+			<el-button type="info" @click="addclassfantasy">fantasy</el-button>
+		</div>
+		<div>
+			<el-button type="info" @click="addclassscifi">Sci-Fi</el-button>
+		</div>
 		<div>{{classcategory}}</div>
 		<div>{{length}}項結果</div>
 	</div>
+		
 	<div class="container">
 		<div class="columns is-multiline p-0 pt-6 last">
 			<div class="column is-one-quarter" v-for="item in classmoviedata" :key="item.id">
@@ -302,8 +315,184 @@
 						});
 					this.classmovie = '';
 				}
-			}
+			},
 
+			addclassadventure() {
+				if (this.classcategory.includes('adventure')) {
+					var include = 'adventure';
+					this.classcategory = this.classcategory.filter(function (item) {
+						return item !== include;
+					});
+					console.log(this.classcategory);
+				}
+				else {
+					this.classcategory.push('adventure');
+				}
+				for (let p in this.classcategory) {
+					this.classmovie = this.classmovie + this.classcategory[p] + ',';
+				}
+				console.log(this.classmovie);
+				if (this.classmovie === "") {
+					console.log(this.classmovie === "");
+					axios.get("/moviealldata")
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+				}
+				else {
+					axios.get("/classmovie?classname=" + this.classmovie)
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+					this.classmovie = '';
+				}
+			},
+			addclasscrime() {
+				if (this.classcategory.includes('crime')) {
+					var include = 'crime';
+					this.classcategory = this.classcategory.filter(function (item) {
+						return item !== include;
+					});
+					console.log(this.classcategory);
+				}
+				else {
+					this.classcategory.push('crime');
+				}
+				for (let p in this.classcategory) {
+					this.classmovie = this.classmovie + this.classcategory[p] + ',';
+				}
+				console.log(this.classmovie);
+				if (this.classmovie === "") {
+					console.log(this.classmovie === "");
+					axios.get("/moviealldata")
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+				}
+				else {
+					axios.get("/classmovie?classname=" + this.classmovie)
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+					this.classmovie = '';
+				}
+			},
+			addclassfantasy() {
+				if (this.classcategory.includes('fantasy')) {
+					var include = 'fantasy';
+					this.classcategory = this.classcategory.filter(function (item) {
+						return item !== include;
+					});
+					console.log(this.classcategory);
+				}
+				else {
+					this.classcategory.push('fantasy');
+				}
+				for (let p in this.classcategory) {
+					this.classmovie = this.classmovie + this.classcategory[p] + ',';
+				}
+				console.log(this.classmovie);
+				if (this.classmovie === "") {
+					console.log(this.classmovie === "");
+					axios.get("/moviealldata")
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+				}
+				else {
+					axios.get("/classmovie?classname=" + this.classmovie)
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+					this.classmovie = '';
+				}
+			},
+			addclassscifi() {
+				if (this.classcategory.includes('scifi')) {
+					var include = 'scifi';
+					this.classcategory = this.classcategory.filter(function (item) {
+						return item !== include;
+					});
+					console.log(this.classcategory);
+				}
+				else {
+					this.classcategory.push('scifi');
+				}
+				for (let p in this.classcategory) {
+					this.classmovie = this.classmovie + this.classcategory[p] + ',';
+				}
+				console.log(this.classmovie);
+				if (this.classmovie === "") {
+					console.log(this.classmovie === "");
+					axios.get("/moviealldata")
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+				}
+				else {
+					axios.get("/classmovie?classname=" + this.classmovie)
+						.then((response) => {
+							console.log(response);
+							if (response.data.code == 0) {
+								this.classmoviedata = response.data.data;
+								this.length = (response.data.data).length;
+							}
+						})
+						.catch((error) => {
+							console.log(error);
+						});
+					this.classmovie = '';
+				}
+			},
 
 
 		}
