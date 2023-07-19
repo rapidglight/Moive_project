@@ -12,6 +12,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 	<!-- 引入Vue.js -->
 	<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sockjs-client@1.4.0/dist/sockjs.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
 
 </head>
 
@@ -45,6 +47,53 @@
 
 	</div>
 	<!-- partial -->
+	<div id="chatroom">
+            
+		<button @click="openPopup" id="popupbtn">一起聊天吧</button>
+			<div v-if="showPopup" class="popup">
+			<!-- 彈出視窗內容 -->
+			<div  class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<form class="form-inline" @submit.prevent="connect">
+							<div class="form-group">
+								<label for="connect">連接聊天室:</label>
+								<button id="connect" class="btn btn-default" :disabled="connected" type="submit">連接</button>
+								<button id="disconnect" class="btn btn-default" :disabled="!connected" type="button" @click="disconnect">關閉連接</button>
+							</div>
+						</form>
+					</div>
+					<div class="col-md-6">
+						<form class="form-inline" @submit.prevent="sendName">
+							<div class="form-group">
+								<label for="name">發送訊息</label>
+								<input v-model="message" type="text" id="name" class="form-control" placeholder="請輸入訊息">
+							</div>
+							<button id="send" class="btn btn-default">發送</button>
+						</form>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<table id="conversation" class="table table-striped">
+							<thead>
+							<tr>
+								<th>{{username}}的聊天室</th>
+							</tr>
+							</thead>
+							<tbody id="chatRoom">
+								<tr v-for="(message) in chatMessages" :key="index">
+									<td>{{username}}{{ message }}</td>
+								</tr>
+			
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<button @click="closePopup">關閉聊天室</button>
+		</div>
+	</div>
 
 </body>
 
