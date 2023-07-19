@@ -217,6 +217,50 @@
         </div>
         <div id="user_comment" v-if="false">您必須先登入才能觀看其他使用者評論</div>
     </footer>
+    <div id="chatroom">
+        <button @click="openPopup" id ="popupbtn">我要聊天</button>
+            <div v-if="showPopup" class="popup">
+            <!-- 彈出視窗內容 -->
+            <div  class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form class="form-inline" @submit.prevent="connect">
+                            <div class="form-group">
+                                <label for="connect">連到聊天室</label>
+                                <button id="connect" class="btn btn-default" :disabled="connected" type="submit">連接</button>
+                                <button id="disconnect" class="btn btn-default" :disabled="!connected" type="button" @click="disconnect">關閉連接</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <form class="form-inline" @submit.prevent="sendName">
+                            <div class="form-group">
+                                <label for="name">發送訊息</label>
+                                <input v-model="message" type="text" id="name" class="form-control" placeholder="請輸入訊息">
+                            </div>
+                            <button id="send" class="btn btn-default">發送</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="conversation" class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>我的聊天室</th>
+                            </tr>
+                            </thead>
+                            <tbody id="chatRoom">
+                                <tr v-for="(message) in chatMessages" :key="index">
+                                    <td>{{username}} {{ message }}</td>
+                                </tr>
+            
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <button @click="closePopup">Close Popup</button>
     </div>
 
     <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
@@ -244,7 +288,13 @@
                 stars: [],
                 isuserwatchlist: [],
                 ifuserwatchlist: '',
-                historyrecord: '' //歷史紀錄儲存
+                historyrecord: '', //歷史紀錄儲存
+                showPopup: false,
+                connected: false,
+                message: '',
+                chatMessages: [],
+                heartbeatIntervalId: null, // 心跳間隔的計時器 ID
+                popupPosition: { x: 0, y: 0 },
 
             }
         },
@@ -360,7 +410,50 @@
         },
 
         methods: {
-
+            connect() {
+                var socket = new SockJS('/ws');
+                this.stompClient = Stomp.over(socket);
+                var connectHeaders = {
+                    'client-id': '10'
+                };
+                this.stompClient.connect(connectHeaders, (frame) => {
+                    this.connected = true;
+                    console.log(connectHeaders);
+                    console.log('Connected: ' + frame);
+                    console.log('WebSocket Connection ID: ' + frame.headers['connection-id']);
+                    this.stompClient.subscribe('/topic/getResponse', (response) => {
+                    console.log(response);
+                    const responseMessage = JSON.parse(response.body).responseMessage;
+                    this.showConversation(responseMessage);
+                    });
+                });
+                },
+                disconnect() {
+                    if (this.stompClient !== null) {
+                    this.stompClient.disconnect();
+                    }
+                    this.connected = false;
+                    console.log("Disconnected");
+                },
+                // 移除 sendName 方法中的 showConversation 呼叫
+                sendName() {
+                var name = this.message;
+                this.message = '';  // 清空輸入框的內容
+                console.log(name);
+                console.log(this.stompClient);
+                this.stompClient.send("/app/messageControl", {}, JSON.stringify({ 'message': name }));
+                },
+                showConversation(responseMessage) {
+                    if (responseMessage && !this.chatMessages.includes(responseMessage)) {
+                    this.chatMessages.push(responseMessage);
+                    }
+                },
+                openPopup() {
+                    this.showPopup = true;
+                },
+                closePopup() {
+                    this.showPopup = false;
+                },
 
 
 

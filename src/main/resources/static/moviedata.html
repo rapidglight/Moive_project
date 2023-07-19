@@ -186,8 +186,7 @@
 			</div>
 		</div>
 		<div id="chatroom">
-            
-			<button @click="openPopup">Open Popup</button>
+			<button @click="openPopup" id ="popupbtn">我要聊天</button>
                 <div v-if="showPopup" class="popup">
                 <!-- 彈出視窗內容 -->
                 <div  class="container">
@@ -216,12 +215,12 @@
                             <table id="conversation" class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th>我的聊天室</th>
+                                    <th>{{username}}的聊天室</th>
                                 </tr>
                                 </thead>
                                 <tbody id="chatRoom">
                                     <tr v-for="(message) in chatMessages" :key="index">
-                                        <td>{{ message }}</td>
+                                        <td>{{username}}{{ message }}</td>
                                     </tr>
                 
                                 </tbody>
@@ -229,7 +228,7 @@
                         </div>
                     </div>
                 </div>
-                <button @click="closePopup">Close Popup</button>
+                <button @click="closePopup">關閉聊天室</button>
             </div>
 		</div>
 		<footer id="footer1" v-for="item in usercomments" :key="item.id">
