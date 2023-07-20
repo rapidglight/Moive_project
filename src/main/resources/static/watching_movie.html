@@ -108,7 +108,13 @@
 				username: "",
 				watchlistmoviename: [],
 				userwatchlist: [],
-				userwatchlists: []
+				userwatchlists: [],
+				showPopup: false,
+                connected: false,
+                message: '',
+                chatMessages: [],
+                heartbeatIntervalId: null, // 心跳間隔的計時器 ID
+                popupPosition: { x: 0, y: 0 },
 			}
 		},
 		mounted() {
@@ -173,6 +179,50 @@
 
 		},
 		methods: {
+			connect() {
+                var socket = new SockJS('/ws');
+                this.stompClient = Stomp.over(socket);
+                var connectHeaders = {
+                    'client-id': '10'
+                };
+                this.stompClient.connect(connectHeaders, (frame) => {
+                    this.connected = true;
+                    console.log(connectHeaders);
+                    console.log('Connected: ' + frame);
+                    console.log('WebSocket Connection ID: ' + frame.headers['connection-id']);
+                    this.stompClient.subscribe('/topic/getResponse', (response) => {
+                    console.log(response);
+                    const responseMessage = JSON.parse(response.body).responseMessage;
+                    this.showConversation(responseMessage);
+                    });
+                });
+                },
+                disconnect() {
+                    if (this.stompClient !== null) {
+                      this.stompClient.disconnect();
+                    }
+                    this.connected = false;
+                    console.log("Disconnected");
+                },
+                // 移除 sendName 方法中的 showConversation 呼叫
+                sendName() {
+                var name = this.message;
+                this.message = '';  // 清空輸入框的內容
+                console.log(name);
+                console.log(this.stompClient);
+                this.stompClient.send("/app/messageControl", {}, JSON.stringify({ 'message': name }));
+                },
+                showConversation(responseMessage) {
+                    if (responseMessage && !this.chatMessages.includes(responseMessage)) {
+                    this.chatMessages.push(responseMessage);
+                    }
+                },
+                openPopup() {
+                    this.showPopup = true;
+                },
+                closePopup() {
+                    this.showPopup = false;
+                },
 			remotedata() {
 				localStorage.removeItem("username");
 				localStorage.removeItem("islogin");

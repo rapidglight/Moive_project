@@ -82,6 +82,12 @@ body {
     background: #1b1b1b; /* 背景顏色為黑色 */
 }
 
+#serarch1{
+	border: 0px solid #fff;
+	display: flex;
+	justify-content: center; /* 水平居中對齊子元素 */
+	align-items: center; /* 垂直居中對齊子元素 */
+}
 #btn1{
     background-color: #f44336; /* 按鈕背景顏色為#f44336 */
     color: #ffffff; /* 按鈕文字顏色為白色 */
@@ -195,4 +201,35 @@ body {
 .container .card .sci li a {
 	color: #fff; /* 鏈接文字顏色為白色 */
 	font-size: 30px; /* 字體大小為20px */
+}
+#popupbtn{
+    position: fixed;
+    top: 90%;
+    left: 90%;
+}
+.popup {
+	z-index:999;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: gray;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    justify-content: center; /* 水平居中對齊內容 */
+    align-items: center; /* 垂直居中對齊內容 */
+    text-align: left;/*  文本居中對齊 */ 
+}
+#chatroom{
+    color: #000;
+    padding: 15px;
+	display: flex;
+}
+#chatroom button{
+    border-radius: 50px;
+    margin: 10px;
+    padding: 7px;
+    width: auto;
+    height: auto;
 }

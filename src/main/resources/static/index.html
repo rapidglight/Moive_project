@@ -34,13 +34,13 @@
   <div class="all">
     <header id="header1">
 
-
+      <div id="serarch1">
       <form onsubmit="event.preventDefault();" role="search">
         <label for="search">
           <img src="img/2logo.png" />
           <!--<input id="search" type="search" placeholder="Search..." autofocus required />-->
           <!--Element ui-->
-
+          
           <el-select v-model="value" filterable remote reserve-value placeholder="Please enter a value"
             remote-show-suffix :remote-method="remoteMethod" :loading="loading">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value" />
@@ -62,7 +62,7 @@
               </span>
             </template>
           </el-dialog>
-
+        </div>
           <!--Element ui-->
 
         </label>
@@ -165,7 +165,6 @@
 
     <footer id="footer1">
       <div id="chatroom">
-            
         <button @click="openPopup" id="popupbtn">一起聊天吧</button>
           <div v-if="showPopup" class="popup">
           <!-- 彈出視窗內容 -->
@@ -198,11 +197,10 @@
                     <th>{{username}}的聊天室</th>
                   </tr>
                   </thead>
-                  <tbody id="chatRoom">
+                  <tbody id="chatRoom1">
                     <tr v-for="(message) in chatMessages" :key="index">
                       <td>{{username}}{{ message }}</td>
                     </tr>
-          
                   </tbody>
                 </table>
               </div>
@@ -235,11 +233,18 @@
         historyrecord: '', //歷史紀錄儲存
         historyrecords: [], //歷史紀錄儲存轉成陣列
         historyrecorddata: [], //API回傳的電影詳細資料
-        commentrating: []//最多評論電影資料
+        commentrating: [],//最多評論電影資料
+        showPopup: false,
+                connected: false,
+                message: '',
+                chatMessages: [],
+                heartbeatIntervalId: null, // 心跳間隔的計時器 ID
+                popupPosition: { x: 0, y: 0 },
       }
     },
     // 當網頁載入完成後會被Vue框架呼叫
     mounted() {
+      
       //從local storage 拿出資料
       this.username = localStorage.getItem('username');
       this.islogin = localStorage.getItem('islogin');
@@ -310,6 +315,50 @@
     },
     //網頁要用的方法寫在這裡
     methods: {
+      connect() {
+        var socket = new SockJS('/ws');
+        this.stompClient = Stomp.over(socket);
+        var connectHeaders = {
+            'client-id': '10'
+        };
+        this.stompClient.connect(connectHeaders, (frame) => {
+            this.connected = true;
+            console.log(connectHeaders);
+            console.log('Connected: ' + frame);
+            console.log('WebSocket Connection ID: ' + frame.headers['connection-id']);
+            this.stompClient.subscribe('/topic/getResponse', (response) => {
+            console.log(response);
+            const responseMessage = JSON.parse(response.body).responseMessage;
+            this.showConversation(responseMessage);
+            });
+        });
+        },
+        disconnect() {
+            if (this.stompClient !== null) {
+              this.stompClient.disconnect();
+            }
+            this.connected = false;
+            console.log("Disconnected");
+        },
+        // 移除 sendName 方法中的 showConversation 呼叫
+        sendName() {
+        var name = this.message;
+        this.message = '';  // 清空輸入框的內容
+        console.log(name);
+        console.log(this.stompClient);
+        this.stompClient.send("/app/messageControl", {}, JSON.stringify({ 'message': name }));
+        },
+        showConversation(responseMessage) {
+            if (responseMessage && !this.chatMessages.includes(responseMessage)) {
+            this.chatMessages.push(responseMessage);
+            }
+        },
+        openPopup() {
+            this.showPopup = true;
+        },
+        closePopup() {
+            this.showPopup = false;
+        },
       //搜尋
       remoteMethod(query) {
         console.log('call remoteMoethod:' + query);
