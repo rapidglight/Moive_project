@@ -21,7 +21,7 @@ public class MyFilter extends OncePerRequestFilter {
             Arrays.asList("/login", "/movieimg", "/websiterating", "/commentrating", "/moviedata",
                     "/websiteratings", "/classmovie", "/moviealldata", "/usercomment", "/searchmoviedata",
                     "/ws", "/app/**", "/topic/**", "/messageControl",
-                    "/topic/getResponse", "/"));
+                    "/topic/getResponse", "/", "/searchmoviedata", "/moviealldata/searchmovie", "/movies"));
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
