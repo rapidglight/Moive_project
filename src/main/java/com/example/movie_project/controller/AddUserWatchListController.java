@@ -1,7 +1,5 @@
 package com.example.movie_project.controller;
 
-import com.example.movie_project.model.AddUserWatchListEntity;
-import com.example.movie_project.model.AddUserWatchListResponse;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,16 +7,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
-
+import com.example.movie_project.model.AddUserWatchListEntity;
+import com.example.movie_project.model.AddUserWatchListResponse;
 
 @RestController
 // AddUserWatchListEntity
@@ -27,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AddUserWatchListController {
     // 從資料庫拿資料看看有沒有這筆
     @RequestMapping(value = "/adduserwatchlist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(value ="*")
     public AddUserWatchListResponse movies(String username, String userWatchMovieName) {
         return getUserWatchList(username, userWatchMovieName);
 
@@ -40,7 +36,7 @@ public class AddUserWatchListController {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?allowPublicKeyRetrieval=true&useSSL=false&user=root&password=0000");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?user=root&password=0000");
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM user_watch_list WHERE user_account = '" + username
                     + "' AND user_watch_movie_name = '" + userWatchMovieName + "'");// 這裡後續要修改資料庫路徑以及要修改的項目

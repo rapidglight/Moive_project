@@ -2,27 +2,25 @@
 
 package com.example.movie_project.controller;
 
-import com.example.movie_project.model.MovieStringArrayResponse;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.example.movie_project.model.MovieStringArrayResponse;
 
 @RestController
 @RequestMapping("/moviealldata")
 // 設定前面的路徑(moviealldata/searchmovie)
 public class SearchMovieController {
     @RequestMapping(value = "/searchmovie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(value = "*")
     public MovieStringArrayResponse getMovieName(String keyword) {
 
         Connection conn = null;
@@ -32,7 +30,7 @@ public class SearchMovieController {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            conn = conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?allowPublicKeyRetrieval=true&useSSL=false&user=root&password=0000");
+            conn = conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?user=root&password=0000");
 
             stmt = conn.createStatement();
 

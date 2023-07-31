@@ -1,26 +1,24 @@
 package com.example.movie_project.controller;
 
-import com.example.movie_project.model.WebsiteRatingEntity;
-import com.example.movie_project.model.WebsiteRatingResponse;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.example.movie_project.model.WebsiteRatingEntity;
+import com.example.movie_project.model.WebsiteRatingResponse;
 
 @RestController
 
 public class WebsiteRatingController {
     @RequestMapping(value = "/websiterating", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(value = "*")
     public WebsiteRatingResponse movies() {
         return getWebsiteRating();
 
@@ -33,7 +31,7 @@ public class WebsiteRatingController {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?allowPublicKeyRetrieval=true&useSSL=false&user=root&password=0000");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?user=root&password=0000");
 
             stmt = conn.createStatement();
 

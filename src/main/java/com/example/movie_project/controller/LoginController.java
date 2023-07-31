@@ -2,29 +2,24 @@
 
 package com.example.movie_project.controller;
 
-import com.example.movie_project.model.LoginResponse;
-import jakarta.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.movie_project.model.LoginResponse;
 
-
-
-
-
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin(value = "*")
     public LoginResponse Login(String username, String password, HttpSession httpSession) {
         LoginResponse loginResponse = checkAccount(username, password);
 
@@ -46,7 +41,7 @@ public class LoginController {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             // 連線資料庫
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?allowPublicKeyRetrieval=true&useSSL=false&" +
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?" +
                     "user=root&password=0000");
 
             // 取得Statement 物件
