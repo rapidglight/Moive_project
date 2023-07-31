@@ -1,29 +1,28 @@
 package com.example.movie_project.controller;
 
+import com.example.movie_project.model.BaseResponse;
+import com.example.movie_project.model.SingupEntity;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Types;
-import java.util.ArrayList;
-
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.movie_project.model.BaseResponse;
-import com.example.movie_project.model.SingupEntity;
-import com.example.movie_project.model.SingupResponse;
+
+
+
 
 @RestController
 public class SignupController {
 
     @RequestMapping(value = "/singup", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, // 傳入的資料格式
             produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin(value = "*")
     public BaseResponse SingupAccount(@RequestBody SingupEntity data) {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -31,7 +30,7 @@ public class SignupController {
         // 註冊mysql資料庫驅動程式
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?" +
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?allowPublicKeyRetrieval=true&useSSL=false&" +
                     "user=root&password=0000");
             stmt = conn.prepareStatement(
                     "INSERT INTO userdata  (user_account, user_password, user_mail) VALUES (?, ?, ?)");
