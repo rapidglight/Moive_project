@@ -1,26 +1,29 @@
 package com.example.movie_project.controller;
 
+import com.example.movie_project.model.ClassMovieDataEntity;
+import com.example.movie_project.model.ClassMovieDataResponse;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.movie_project.model.ClassMovieDataEntity;
-import com.example.movie_project.model.ClassMovieDataResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+
+
 
 @RestController
 public class ClassMovieDataController {
 
     @RequestMapping(value = "/classmovie", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin(value = "*")
     public ClassMovieDataResponse movies(String classname) throws JsonProcessingException {
         return getClassMoviedataList(classname);
     }
@@ -32,7 +35,7 @@ public class ClassMovieDataController {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?user=root&password=0000");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/javaconnect?allowPublicKeyRetrieval=true&useSSL=false&user=root&password=0000");
 
             stmt = conn.createStatement();
             // 給他一串字串 ex: action,drama 用,號分解
